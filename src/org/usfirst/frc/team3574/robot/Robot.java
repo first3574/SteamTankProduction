@@ -8,8 +8,16 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team3574.robot.commands.DriveWithJoy;
+import org.usfirst.frc.team3574.robot.commands.auto.AutonomousSelector;
+import org.usfirst.frc.team3574.robot.commands.auto.NoDrive;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithJoy;
 import org.usfirst.frc.team3574.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team3574.robot.subsystems.Intake;
+import org.usfirst.frc.team3574.robot.subsystems.Shooter;
+import org.usfirst.frc.team3574.robot.util.rumbleReminder;
+import org.usfirst.frc.team3574.robot.subsystems.Hopper;
+import org.usfirst.frc.team3574.robot.subsystems.Climber;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -20,12 +28,18 @@ import org.usfirst.frc.team3574.robot.subsystems.DriveTrain;
  */
 public class Robot extends IterativeRobot {
 
+	public static final Hopper Hopper = new Hopper();
+	public static final Climber Climber = new Climber();
 	public static final DriveTrain DriveTrain = new DriveTrain();
+	public static final Intake Intake = new Intake();
+	public static final Shooter Shooter = new Shooter();
 	public static OI oi;
 
 	Command autonomousCommand;
-	SendableChooser<Command> chooser = new SendableChooser<>();
-
+	Command rumbleRemindee;
+	//SendableChooser<Command> chooser = new SendableChooser<>();
+	SendableChooser<Object> chooser = new SendableChooser<>();
+	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -33,7 +47,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
-		chooser.addDefault("Default Auto", new DriveWithJoy());
+		chooser.addDefault("Do Nothing", 0);
+		
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
 	}
@@ -45,12 +60,14 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void disabledInit() {
-
+		this.log();
 	}
 
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		
+		this.log();
 	}
 
 	/**
@@ -66,7 +83,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = chooser.getSelected();
+		autonomousCommand = new AutonomousSelector(chooser.getSelected());
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -86,6 +103,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		
+		this.log();
 	}
 
 	@Override
@@ -96,6 +115,10 @@ public class Robot extends IterativeRobot {
 		// this line or comment it out.
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
+	
+		rumbleRemindee = (new rumbleReminder());
+		if (rumbleRemindee != null)
+			rumbleRemindee.start();
 	}
 
 	/**
@@ -104,6 +127,19 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		
+		this.log();
+	}
+	
+	/**
+	 * This function is to make sure the log methods in each of the subsystems run.
+	 */
+	public void log() {
+		DriveTrain.log();
+		Climber.log();
+		Hopper.log();
+		Shooter.log();
+		Intake.log();
 	}
 
 	/**

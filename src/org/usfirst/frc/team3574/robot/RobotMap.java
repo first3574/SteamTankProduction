@@ -11,15 +11,54 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
  * floating around.
  */
 public class RobotMap {
+	/**
+	 * Drive System
+	 */
 	//Left
-	public static CANTalon motorLeftDrive1 = new CANTalon(1);
-	public static CANTalon motorleftDrive2 = new CANTalon(2);
+	public static CANTalon motorDriveLeft1 = new CANTalon(1);
+	public static CANTalon motorDriveleft2 = new CANTalon(2);
 	//right
-	public static CANTalon motorRightDrive1 = new CANTalon(3);
-	public static CANTalon motorRightDrive2 = new CANTalon(4);
+	public static CANTalon motorDriveRight1 = new CANTalon(3);
+	public static CANTalon motorDriveRight2 = new CANTalon(4);
+	
+	public static DoubleSolenoid driveShifter = new DoubleSolenoid(0, 1);
 	
 	
-	public static DoubleSolenoid shifterDrive = new DoubleSolenoid(0, 1);
+	
+	/**
+	 * Intake System
+	 */
+	public static CANTalon motorIntake = new CANTalon(5);
+	
+	
+	
+	/**
+	 * Hopper
+	 */
+	public static CANTalon motorHopBelt = new CANTalon(6);
+	public static CANTalon motorHopIndexer = new CANTalon(7);
+	
+	
+	
+	/**
+	 * Shooting System
+	 */
+	//Left
+	public static CANTalon motorFlyLeft1 = new CANTalon(8);
+	public static CANTalon motorFlyLeft2 = new CANTalon(9);
+
+	//Right
+	public static CANTalon motorFlyRight1 = new CANTalon(10);
+	public static CANTalon motorFlyRight2 = new CANTalon(11);
+	
+	
+	
+	/**
+	 * Climber
+	 */
+	public static CANTalon motorClimbLeft = new CANTalon(12);
+	public static CANTalon motorClimbRight = new CANTalon(13);
+	
 	
 	
 	// For example to map the left and right motors, you could define the

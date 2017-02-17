@@ -1,4 +1,4 @@
-package org.usfirst.frc.team3574.robot.commands.drivetrain;
+package org.usfirst.frc.team3574.robot.commands.auto;
 
 import org.usfirst.frc.team3574.robot.Robot;
 
@@ -7,29 +7,28 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class DriveWithJoy extends Command {
-	double throttle = 0;
-	double turnValue = 0;
+public class DriveForDistanceManual extends Command {
+	int targetTicks;
+	double speed;
+	double rotation;
 	
-    public DriveWithJoy() {
-    	requires(Robot.DriveTrain);
-        // Use requires() here to declare subsystem dependencies
+    public DriveForDistanceManual(int ticks, double speed, double rotation) {
+        requires(Robot.DriveTrain);
+        this.targetTicks = ticks;
+        this.speed = speed;
+        this.rotation = rotation;
+    	// Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    
-    
+    	Robot.DriveTrain.resetEncoders();
+    	Robot.DriveTrain.driveCheesy(speed, rotation);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	throttle = Robot.oi.stickYAxis();
-    	turnValue = Robot.oi.stickXAxis();
-    	
-    	
-    	Robot.DriveTrain.driveCheesy(throttle,	turnValue);
     }
 
     // Make this return true when this Command no longer needs to run execute()

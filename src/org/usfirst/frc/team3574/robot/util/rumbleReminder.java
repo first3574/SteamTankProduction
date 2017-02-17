@@ -1,35 +1,32 @@
-package org.usfirst.frc.team3574.robot.commands.drivetrain;
+package org.usfirst.frc.team3574.robot.util;
 
 import org.usfirst.frc.team3574.robot.Robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class DriveWithJoy extends Command {
-	double throttle = 0;
-	double turnValue = 0;
-	
-    public DriveWithJoy() {
-    	requires(Robot.DriveTrain);
-        // Use requires() here to declare subsystem dependencies
+public class rumbleReminder extends Command {
+
+    public rumbleReminder() {
+        
+    	
+    	// Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    
-    
+//    	Robot.oi.isLast20 = false;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	throttle = Robot.oi.stickYAxis();
-    	turnValue = Robot.oi.stickXAxis();
-    	
-    	
-    	Robot.DriveTrain.driveCheesy(throttle,	turnValue);
+    	if(DriverStation.getInstance().getMatchTime() > 1) {
+    		Robot.oi.isLast20 = true;
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
