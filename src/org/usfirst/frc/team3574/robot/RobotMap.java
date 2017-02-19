@@ -23,8 +23,12 @@ public class RobotMap {
 	
 	public static DoubleSolenoid driveShifter = new DoubleSolenoid(0, 1);
 	
-	
-	
+	/**
+	 * Gear System
+	 */
+	public static DoubleSolenoid gearFlap1 = new DoubleSolenoid(2, 3);
+	public static DoubleSolenoid gearFlap2 = new DoubleSolenoid(4, 5);
+	public static DoubleSolenoid gearHook = new DoubleSolenoid(6, 7);
 	/**
 	 * Intake System
 	 */

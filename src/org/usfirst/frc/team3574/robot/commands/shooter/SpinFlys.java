@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3574.robot.commands.shooter;
 
 import org.usfirst.frc.team3574.robot.Robot;
+import org.usfirst.frc.team3574.robot.util.L;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -16,7 +17,8 @@ public class SpinFlys extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.Shooter.spinUp(90);
+    	L.ogCmdInit(this);
+    	Robot.Shooter.spinUp(480);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -35,5 +37,6 @@ public class SpinFlys extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	Robot.Shooter.stop();
     }
 }

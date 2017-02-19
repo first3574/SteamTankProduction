@@ -1,6 +1,8 @@
 package org.usfirst.frc.team3574.robot.subsystems;
 
+import org.usfirst.frc.team3574.robot.Robot;
 import org.usfirst.frc.team3574.robot.RobotMap;
+import org.usfirst.frc.team3574.robot.commands.intake.SpinIntakes;
 
 import com.ctre.CANTalon;
 
@@ -21,6 +23,7 @@ public class Intake extends Subsystem {
 	}
 	
     public void initDefaultCommand() {
+    	setDefaultCommand(new SpinIntakes());
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }

@@ -1,7 +1,9 @@
 package org.usfirst.frc.team3574.robot.subsystems;
 
+import org.usfirst.frc.team3574.robot.Robot;
 import org.usfirst.frc.team3574.robot.RobotMap;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithJoy;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithPoof;
 import org.usfirst.frc.team3574.robot.util.L;
 
 import com.ctre.CANTalon;
@@ -21,7 +23,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  */
 public class DriveTrain extends Subsystem {
 	// Put methods for controlling this subsystem
-	// here. Call these from Commands.
+	// here. Call these from Commands
 	CANTalon left1 = RobotMap.motorDriveLeft1;
 	CANTalon left2 = RobotMap.motorDriveleft2;
 	CANTalon right1 = RobotMap.motorDriveRight1;
@@ -33,6 +35,8 @@ public class DriveTrain extends Subsystem {
 	 * A command/system can multiply this number by -1 and reverse the output of the drive motors.
 	 */
 	public int driveOtherWay = 1;
+	public boolean isQuickTurn = false;
+
 	
 	public DriveTrain () {
 		
@@ -41,16 +45,20 @@ public class DriveTrain extends Subsystem {
 //		left1.setPID(5, 0, 0);
 		left1.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
 		left1.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
-		left2.changeControlMode(CANTalon.TalonControlMode.Follower);
-		left2.set(0);
+
+		left2.changeControlMode(CANTalon.TalonControlMode.PercentVbus);		
+//		left2.changeControlMode(CANTalon.TalonControlMode.Follower);
+//		left2.set(0);
 		
 //		right1.changeControlMode(CANTalon.TalonControlMode.Speed);
 //		right1.configEncoderCodesPerRev(codesPerRev);
 //		right1.setPID(5, 0, 0);
 		right1.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
 		right1.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
-		right2.changeControlMode(CANTalon.TalonControlMode.Follower);
-		right2.set(2);
+
+		right2.changeControlMode(CANTalon.TalonControlMode.PercentVbus);		
+//		right2.changeControlMode(CANTalon.TalonControlMode.Follower);
+//		right2.set(2);
 		
 		
 		ahrs = new AHRS(I2C.Port.kOnboard);
@@ -62,12 +70,12 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public void initDefaultCommand() {
-		setDefaultCommand(new DriveWithJoy());
+		setDefaultCommand(new DriveWithPoof());
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
 	}
 	
-	//NAVX FUNCTIONS  HI!
+	//NAVX FUNCTIONS
 	public void resetYaw() {
 		ahrs.zeroYaw();
 	}
@@ -93,9 +101,17 @@ public class DriveTrain extends Subsystem {
 	
 	
 	//DRIVE SYSTEMS
-	public void driveCheesy(double throttle, double turnValue) {
-		left1.set((throttle + turnValue) * driveOtherWay);
-		right1.set((throttle - turnValue) * driveOtherWay);
+	public void driveCheesy(double rightWheelValue, double leftWheelValue) {
+		left1.set(leftWheelValue);
+		left2.set(leftWheelValue);
+		right1.set(rightWheelValue);
+		right2.set(rightWheelValue);
+	}
+	
+	public void driveArcade(double throttle, double turnValue) {
+		left1.set(throttle + turnValue);
+		right1.set(throttle - turnValue);
+	
 	}
 	
 	public void driveTank(double left, double right) {
@@ -103,10 +119,10 @@ public class DriveTrain extends Subsystem {
 		right1.set(right * driveOtherWay);
 	}
 	
-	public void drivePID(double speed) {
-		left1.set(speed);
-		right1.set(speed);
-	}
+//	public void drivePID(double speed) {
+//		left1.set(speed);
+//		right1.set(speed);
+//	}
 	
 	//ENCODERS
 	public void resetEncoders() {
@@ -127,6 +143,8 @@ public class DriveTrain extends Subsystem {
 		//L.og("Yaw" + getYaw());
 		//L.og(ahrs.isMoving());
 		//L.og("FWV " + ahrs.getFirmwareVersion());
-	}
+		L.ogSD("leftC", left1.getOutputCurrent());
+		L.ogSD("leftV", left1.getOutputVoltage());
+		}
 	
 }

@@ -24,6 +24,7 @@ public class rumbleReminder extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	L.ogSD("Match Time =", DriverStation.getInstance().getMatchTime());
     	if(DriverStation.getInstance().getMatchTime() > 1) {
     		Robot.oi.isLast20 = true;
     	}

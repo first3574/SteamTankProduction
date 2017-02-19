@@ -24,16 +24,22 @@ public class DriveForDistanceManual extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.DriveTrain.resetEncoders();
-    	Robot.DriveTrain.driveCheesy(speed, rotation);
+    	Robot.DriveTrain.driveArcade(speed, rotation);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+    	if(targetTicks < Robot.DriveTrain.getLeftEnc() || targetTicks < Robot.DriveTrain.getRightEnc()) {
+    		Robot.DriveTrain.driveArcade(0.0, 0.0);
+    		return true;
+    	} else {
+    		return false;
+    	}
     }
 
     // Called once after isFinished returns true

@@ -27,16 +27,16 @@ import org.usfirst.frc.team3574.robot.subsystems.Climber;
  * directory.
  */
 public class Robot extends IterativeRobot {
-
+//	Declaring systems
 	public static final Hopper Hopper = new Hopper();
 	public static final Climber Climber = new Climber();
 	public static final DriveTrain DriveTrain = new DriveTrain();
 	public static final Intake Intake = new Intake();
 	public static final Shooter Shooter = new Shooter();
 	public static OI oi;
-
+//	Declaring some Commands
 	Command autonomousCommand;
-	Command rumbleRemindee;
+	Command rumbleReminder;
 	//SendableChooser<Command> chooser = new SendableChooser<>();
 	SendableChooser<Object> chooser = new SendableChooser<>();
 	
@@ -51,6 +51,7 @@ public class Robot extends IterativeRobot {
 		
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
+		SmartDashboard.putData(Scheduler.getInstance());
 	}
 
 	/**
@@ -116,9 +117,9 @@ public class Robot extends IterativeRobot {
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
 	
-		rumbleRemindee = (new rumbleReminder());
-		if (rumbleRemindee != null)
-			rumbleRemindee.start();
+//		rumbleRemindee = (new rumbleReminder());
+//		if (rumbleRemindee != null)
+//			rumbleRemindee.start();
 	}
 
 	/**

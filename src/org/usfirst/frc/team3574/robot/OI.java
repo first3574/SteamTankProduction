@@ -6,7 +6,9 @@ import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveOtherWay;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.ShiftHighGear;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.ShiftLowGear;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.ShiftOff;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.makeQuickTurnTrue;
 import org.usfirst.frc.team3574.robot.commands.hopper.spinHopperBelts;
+import org.usfirst.frc.team3574.robot.commands.intake.SpIntakesManual;
 import org.usfirst.frc.team3574.robot.commands.intake.SpinIntakes;
 import org.usfirst.frc.team3574.robot.commands.shooter.SpinFlys;
 import org.usfirst.frc.team3574.robot.subsystems.Hopper;
@@ -21,9 +23,10 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
+//	Declaring the Joysticks we use
 	Joystick stick = new Joystick(0);
 	Joystick joy = new Joystick(1);
-	
+//	Boolean to show if the match is 20 seconds to end
 	public boolean isLast20 = false;
 	
 	//// CREATING BUTTONS
@@ -56,60 +59,68 @@ public class OI {
 
 	public OI() { /* please make sure to place each button under it's respective function.
 		/**
-		 * DRIVETRAIN FUNCTIONS
+		 * DRIVETRAIN FUNTIONS
 		 */
 
+		
+//		to shift to high gear [A BUTTON]
 		JoystickButton highGear = new JoystickButton(stick, 1);
 		highGear.whenPressed(new ShiftHighGear());
 		
+//		To shift to low gear [B BUTTON]
 		JoystickButton lowGear = new JoystickButton(stick, 2);
 		lowGear.whenPressed(new ShiftLowGear());
 		
+//		To shift to off gear [X BUTTON]
 		JoystickButton offGear = new JoystickButton(stick, 3);
 		offGear.whenPressed(new ShiftOff());
 		
-		
+//		To reset yaw [START BUTTON]
 		JoystickButton resetYaw = new JoystickButton(stick, 8);
 		resetYaw.whenPressed(new ResetYaw());
 		
-		JoystickButton runDriveNavx  = new JoystickButton(stick, 5);
-		runDriveNavx.whenPressed(new DriveForDistanceWithNavx(42, .42));
-		
-
+//		Inverts drive controls [BACK BUTTON]
 		JoystickButton invertDrive = new JoystickButton(stick, 7);
 		invertDrive.whenPressed(new DriveOtherWay());
 		
 		
 		/**
-		 * SHOOTING FUNCTIONS
+		 * SHOOTING FUNTIONS
 		 */
-
-		JoystickButton spinFlywheels = new JoystickButton(stick, 6);
-		spinFlywheels.whenPressed(new SpinFlys());
+//		
+		JoystickButton spinFlywheels = new JoystickButton(joy, 6);
+		spinFlywheels.whileHeld(new SpinFlys());
+		
 		
 		
 		/**
-		 * CLIMBING FUNCTIONS
+		 * CLIMBING FUNTIONS
 		 */
-		JoystickButton climbUp = new JoystickButton(stick, 10);
+		JoystickButton climbUp = new JoystickButton(joy, 10);
 		climbUp.whileHeld(new Climber());
 		
 		
 		/**
-		 * INTAKE FUNCTIONS
+		 * INTAKE FUNTIONS
 		 */
-		JoystickButton spintakeWheels = new JoystickButton(stick, 9);
-		spintakeWheels.whileHeld(new SpinIntakes());
+		JoystickButton spintakeWheels = new JoystickButton(joy, 9);
+		spintakeWheels.whileHeld(new SpIntakesManual());
 		
 		
 		/**
-		 * HOPPER FUNCTIONS
+		 * HOPPER FUNTIONS
 		 */
-		JoystickButton spinHopperBelts  = new JoystickButton(stick, 4);
-		spinHopperBelts.whileHeld(new spinHopperBelts());		
+		JoystickButton spinHopperBelts  = new JoystickButton(joy, 7);
+		spinHopperBelts.whileHeld(new spinHopperBelts());
 		
 		/**
-		 * MISC FUNCTIONS
+		 * GEAR MANIPULATOR FUNTIONS
+		 */
+		
+		
+		
+		/**
+		 * MISC FUNTIONS
 		 */
 		
 		
@@ -123,9 +134,16 @@ public class OI {
 		return stick.getRawAxis(1);
 	}
 	
+	public boolean getQuickTurnButton(){
+//		Checks the boolean value of button 6 (Right Bumper)
+		return stick.getRawButton(6);
+	}
+	
 	public void rumble() {
+//		If the match is 20 seconds from the end, set the remote to rumble
 		if(isLast20) {
 			stick.setRumble(RumbleType.kRightRumble, 0.5);
+			joy.setRumble(RumbleType.kRightRumble, 0.5);
 		}
 	}
 }

@@ -28,26 +28,28 @@ public class Shooter extends Subsystem {
 		left1.reverseOutput(false);
 		left1.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 //		left1.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
-		left1.changeControlMode(CANTalon.TalonControlMode.Speed);
-		left1.configEncoderCodesPerRev(100); //Needs to change
+		left1.configEncoderCodesPerRev(4096); //Needs to change
 		left1.configNominalOutputVoltage(0, 0);
 		left1.configPeakOutputVoltage(12, -12);
-		
-		left1.setPID(0, 0, 0);
-		left1.setF(20);
-		
+		left1.setP(0);
+		left1.setI(0);
+		left1.setD(0);
+		left1.setF(0);
+
+		left1.changeControlMode(CANTalon.TalonControlMode.Speed);
+
 //		left2.changeControlMode(CANTalon.TalonControlMode.Follower);
 //		left2.set(8);
 
 
-		right1.reverseOutput(true);
-		right1.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+//		right1.reverseOutput(true);
+//		right1.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 //		right1.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
-		right1.changeControlMode(CANTalon.TalonControlMode.Speed);
-		right1.setPID(0, 0, 0);
-		right1.setF(0);
+//		right1.changeControlMode(CANTalon.TalonControlMode.Speed);
+//		right1.setPID(0, 0, 0);
+//		right1.setF(1);
 //		right1.configEncoderCodesPerRev(3); //Needs to change
-
+//
 //		right2.changeControlMode(CANTalon.TalonControlMode.Follower);
 //		right2.set(10);
 	}
@@ -58,9 +60,9 @@ public class Shooter extends Subsystem {
 		//setDefaultCommand(new MySpecialCommand());
 	}
 
-	public void spinUp(double revsPerSecond) {
-		left1.set(revsPerSecond);
-		right1.set(revsPerSecond);
+	public void spinUp(double revsPerMinute) {
+		left1.set(revsPerMinute);
+//		right1.set(revsPerMinute);
 	}
 
 	public void stop() {
@@ -88,8 +90,14 @@ public class Shooter extends Subsystem {
 		L.ogSD("Shooter Left Enc", getLeftEnc());
 		L.ogSD("Shooter Right Enc", getRightEnc());
 
-		L.ogSD("Shooter Left Velocity", getLeftVelocity());
-		L.ogSD("Shooter Right Velocity", getRightVelocity());
+//		L.ogSD("Shooter Left Velocity", getLeftVelocity());
+//		L.ogSD("Shooter Right Velocity", getRightVelocity());
+		
+		L.ogSD("left speed", left1.getSpeed());
+		L.ogSD("output voltage", left1.getOutputVoltage());
+		L.ogSD("left bus", left1.getBusVoltage());
+		
+		L.ogSD("left closed error", left1.getClosedLoopError());
 	}
 }
 
