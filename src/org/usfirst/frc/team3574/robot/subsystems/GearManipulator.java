@@ -22,21 +22,21 @@ public class GearManipulator extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
     
-    public void flapUp(){
+    public void flapGearStore() {
     	gearFlap1.set(DoubleSolenoid.Value.kReverse);
     	gearFlap2.set(DoubleSolenoid.Value.kReverse);
     }
     
-    public void flapDown(){   	
+    public void flapGearReady() {   	
     	gearFlap1.set(DoubleSolenoid.Value.kForward);
     	gearFlap2.set(DoubleSolenoid.Value.kForward);
     }
     
-    public void hookOut(){    	
+    public void hookOut() {    	
     	gearHook.set(DoubleSolenoid.Value.kForward);
     }
 
-    public void hookIn(){    	
+    public void hookIn() {    	
     	gearHook.set(DoubleSolenoid.Value.kReverse);
     }
 }

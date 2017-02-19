@@ -1,24 +1,22 @@
-package org.usfirst.frc.team3574.robot.commands.shooter;
+package org.usfirst.frc.team3574.robot.commands.drivetrain;
 
 import org.usfirst.frc.team3574.robot.Robot;
-import org.usfirst.frc.team3574.robot.util.L;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class SpinFlys extends Command {
+public class AlternateShifter extends Command {
 
-    public SpinFlys() {
+    public AlternateShifter() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	L.ogCmdInit(this);
-    	Robot.Shooter.spinUp(60);
+    	Robot.DriveTrain.toggleShift();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -27,7 +25,7 @@ public class SpinFlys extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true
@@ -37,6 +35,5 @@ public class SpinFlys extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	Robot.Shooter.stop();
     }
 }

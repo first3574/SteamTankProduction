@@ -9,8 +9,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team3574.robot.commands.auto.AutonomousSelector;
-import org.usfirst.frc.team3574.robot.commands.auto.NoDrive;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithJoy;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.NoDrive;
 import org.usfirst.frc.team3574.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team3574.robot.subsystems.Intake;
 import org.usfirst.frc.team3574.robot.subsystems.Shooter;
@@ -36,7 +36,7 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 //	Declaring some Commands
 	Command autonomousCommand;
-	Command rumbleReminder;
+	Command rumbleRemindee;
 	//SendableChooser<Command> chooser = new SendableChooser<>();
 	SendableChooser<Object> chooser = new SendableChooser<>();
 	
@@ -48,6 +48,7 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		oi = new OI();
 		chooser.addDefault("Do Nothing", 0);
+		chooser.addObject("Cross Baseline", 1);
 		
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
@@ -117,9 +118,9 @@ public class Robot extends IterativeRobot {
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
 	
-//		rumbleRemindee = (new rumbleReminder());
-//		if (rumbleRemindee != null)
-//			rumbleRemindee.start();
+		rumbleRemindee = (new rumbleReminder());
+		if (rumbleRemindee != null)
+			rumbleRemindee.start();
 	}
 
 	/**

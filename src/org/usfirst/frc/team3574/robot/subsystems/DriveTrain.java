@@ -36,6 +36,7 @@ public class DriveTrain extends Subsystem {
 	 */
 	public int driveOtherWay = 1;
 	public boolean isQuickTurn = false;
+	public boolean isHighGear = true;
 
 	
 	public DriveTrain () {
@@ -98,6 +99,20 @@ public class DriveTrain extends Subsystem {
 	public void resetShifter() {
 		shifter.set(DoubleSolenoid.Value.kReverse);
 	}
+	public void toggleShift() {
+		if(isHighGear) {
+			lowGear();
+			isHighGear = false;
+		} else if(!isHighGear) {
+			highGear();
+			isHighGear = true;
+		} else {
+			/**
+			 * If the code has gotten here, the robot has already blown up.
+			 */
+			resetShifter();
+		}
+	}
 	
 	
 	//DRIVE SYSTEMS
@@ -140,11 +155,11 @@ public class DriveTrain extends Subsystem {
 		L.ogSD("Left Encoder", getLeftEnc());
 		L.ogSD("Right Encoder", getRightEnc());
 		//L.ogSD("Yaw", getYaw());
-		//L.og("Yaw" + getYaw());
+		L.og("Yaw " + getYaw());
 		//L.og(ahrs.isMoving());
 		//L.og("FWV " + ahrs.getFirmwareVersion());
-		L.ogSD("leftC", left1.getOutputCurrent());
-		L.ogSD("leftV", left1.getOutputVoltage());
+//		L.ogSD("leftC", left1.getOutputCurrent());
+//		L.ogSD("leftV", left1.getOutputVoltage());
 		}
 	
 }

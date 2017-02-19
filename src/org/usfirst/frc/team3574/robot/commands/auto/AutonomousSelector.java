@@ -1,5 +1,8 @@
 package org.usfirst.frc.team3574.robot.commands.auto;
 
+import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveForDistanceManual;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.NoDrive;
+
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -34,6 +37,8 @@ public class AutonomousSelector extends Command {
 			case 0:
 				if (autoStart.equals(0/*Integer.valueOf(0)*/)) {
 					command = (new NoDrive());
+				} else if (autoStart.equals(1)) {
+					command = (new AutoCrossBaseline());
 				}
 				
 				command.start();

@@ -1,7 +1,8 @@
 package org.usfirst.frc.team3574.robot;
 
-import org.usfirst.frc.team3574.robot.commands.auto.DriveForDistanceWithNavx;
 import org.usfirst.frc.team3574.robot.commands.climber.Climber;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.AlternateShifter;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveForDistanceWithNavx;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveOtherWay;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.ShiftHighGear;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.ShiftLowGear;
@@ -64,16 +65,8 @@ public class OI {
 
 		
 //		to shift to high gear [A BUTTON]
-		JoystickButton highGear = new JoystickButton(stick, 1);
-		highGear.whenPressed(new ShiftHighGear());
-		
-//		To shift to low gear [B BUTTON]
-		JoystickButton lowGear = new JoystickButton(stick, 2);
-		lowGear.whenPressed(new ShiftLowGear());
-		
-//		To shift to off gear [X BUTTON]
-		JoystickButton offGear = new JoystickButton(stick, 3);
-		offGear.whenPressed(new ShiftOff());
+		JoystickButton alternateGear = new JoystickButton(stick, 1);
+		alternateGear.whenPressed(new AlternateShifter());
 		
 //		To reset yaw [START BUTTON]
 		JoystickButton resetYaw = new JoystickButton(stick, 8);
