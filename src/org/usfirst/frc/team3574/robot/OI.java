@@ -8,11 +8,14 @@ import org.usfirst.frc.team3574.robot.commands.drivetrain.ShiftHighGear;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.ShiftLowGear;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.ShiftOff;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.makeQuickTurnTrue;
-import org.usfirst.frc.team3574.robot.commands.hopper.spinHopperBelts;
-import org.usfirst.frc.team3574.robot.commands.intake.SpIntakesManual;
-import org.usfirst.frc.team3574.robot.commands.intake.SpinIntakes;
+import org.usfirst.frc.team3574.robot.commands.hopper.BeltStop;
+import org.usfirst.frc.team3574.robot.commands.hopper.IndexStop;
+import org.usfirst.frc.team3574.robot.commands.hopper.SpinHopperBelt;
+import org.usfirst.frc.team3574.robot.commands.hopper.SpinHopperIndex;
+import org.usfirst.frc.team3574.robot.commands.intake.SpinIntakesManual;
+import org.usfirst.frc.team3574.robot.commands.intake.SpIntakesWhenMoving;
 import org.usfirst.frc.team3574.robot.commands.shooter.SpinFlys;
-import org.usfirst.frc.team3574.robot.subsystems.Hopper;
+import org.usfirst.frc.team3574.robot.subsystems.HopperIndex;
 import org.usfirst.frc.team3574.robot.util.ResetYaw;
 
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
@@ -25,8 +28,8 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI {
 //	Declaring the Joysticks we use
-	Joystick stick = new Joystick(0);
-	Joystick joy = new Joystick(1);
+	Joystick stick0 = new Joystick(0);
+	Joystick stick1 = new Joystick(1);
 //	Boolean to show if the match is 20 seconds to end
 	public boolean isLast20 = false;
 	
@@ -65,15 +68,15 @@ public class OI {
 
 		
 //		to shift to high gear [A BUTTON]
-		JoystickButton alternateGear = new JoystickButton(stick, 1);
+		JoystickButton alternateGear = new JoystickButton(stick0, 1);
 		alternateGear.whenPressed(new AlternateShifter());
 		
 //		To reset yaw [START BUTTON]
-		JoystickButton resetYaw = new JoystickButton(stick, 8);
+		JoystickButton resetYaw = new JoystickButton(stick0, 8);
 		resetYaw.whenPressed(new ResetYaw());
 		
 //		Inverts drive controls [BACK BUTTON]
-		JoystickButton invertDrive = new JoystickButton(stick, 7);
+		JoystickButton invertDrive = new JoystickButton(stick0, 7);
 		invertDrive.whenPressed(new DriveOtherWay());
 		
 		
@@ -81,30 +84,31 @@ public class OI {
 		 * SHOOTING FUNTIONS
 		 */
 //		
-		JoystickButton spinFlywheels = new JoystickButton(joy, 6);
+		JoystickButton spinFlywheels = new JoystickButton(stick1, 6);
 		spinFlywheels.whileHeld(new SpinFlys());
-		
-		
-		
+
 		/**
-		 * CLIMBING FUNTIONS
+		 * HOPPER FUNTIONS
 		 */
-		JoystickButton climbUp = new JoystickButton(joy, 10);
-		climbUp.whileHeld(new Climber());
+		JoystickButton spinHopperIndex  = new JoystickButton(stick1, 7);
+		spinHopperIndex.whileHeld(new SpinHopperIndex());
 		
+		JoystickButton spinHopperBelt  = new JoystickButton(stick1, 8);
+		spinHopperBelt.whileHeld(new SpinHopperBelt());
 		
 		/**
 		 * INTAKE FUNTIONS
 		 */
-		JoystickButton spintakeWheels = new JoystickButton(joy, 9);
-		spintakeWheels.whileHeld(new SpIntakesManual());
-		
-		
+		JoystickButton spintakeWheels = new JoystickButton(stick1, 9);
+		spintakeWheels.whileHeld(new SpinIntakesManual());
+
+
 		/**
-		 * HOPPER FUNTIONS
+		 * CLIMBING FUNTIONS
 		 */
-		JoystickButton spinHopperBelts  = new JoystickButton(joy, 7);
-		spinHopperBelts.whileHeld(new spinHopperBelts());
+		JoystickButton climbUp = new JoystickButton(stick1, 10);
+		climbUp.whileHeld(new Climber());
+		
 		
 		/**
 		 * GEAR MANIPULATOR FUNTIONS
@@ -119,24 +123,24 @@ public class OI {
 		
 	}
 	
-	public double stickYAxis() {
-		return stick.getRawAxis(4);
+	public double driveStickYAxis() {
+		return stick0.getRawAxis(4);
 	}
 
-	public double stickXAxis() {
-		return stick.getRawAxis(1);
+	public double driveStickXAxis() {
+		return stick0.getRawAxis(1);
 	}
 	
 	public boolean getQuickTurnButton(){
 //		Checks the boolean value of button 6 (Right Bumper)
-		return stick.getRawButton(6);
+		return stick0.getRawButton(6);
 	}
 	
 	public void rumble() {
 //		If the match is 20 seconds from the end, set the remote to rumble
 		if(isLast20) {
-			stick.setRumble(RumbleType.kRightRumble, 0.5);
-			joy.setRumble(RumbleType.kRightRumble, 0.5);
+			stick0.setRumble(RumbleType.kRightRumble, 0.5);
+			stick1.setRumble(RumbleType.kRightRumble, 0.5);
 		}
 	}
 }

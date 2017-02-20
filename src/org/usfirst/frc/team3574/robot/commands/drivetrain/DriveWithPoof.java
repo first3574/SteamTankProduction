@@ -26,8 +26,8 @@ public class DriveWithPoof extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-            double wheel = handleDeadband(Robot.oi.stickXAxis(), kWheelDeadband);
-            double throttle = handleDeadband(Robot.oi.stickYAxis(), kThrottleDeadband);
+            double wheel = handleDeadband(Robot.oi.driveStickXAxis(), kWheelDeadband);
+            double throttle = handleDeadband(Robot.oi.driveStickYAxis(), kThrottleDeadband);
             boolean isQuickTurn = !Robot.oi.getQuickTurnButton();
             double overPower;
 

@@ -21,17 +21,17 @@ public class Climber extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
     public Climber(){
-    	climberLeft.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
-    	climberRight.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
+    	climberLeft.changeControlMode(CANTalon.TalonControlMode.Voltage);
+    	climberRight.changeControlMode(CANTalon.TalonControlMode.Follower);
+    	climberRight.set(climberLeft.getDeviceID());
+    	climberRight.reverseOutput(true);
     }
     public void climbStart(){
-    	climberLeft.set(.50);
-    	climberRight.set(.50);
+    	climberLeft.set(6);
     }
     
     public void climbStop(){
     	climberLeft.set(0);
-    	climberRight.set(0);
     }
     public void log(){
     	

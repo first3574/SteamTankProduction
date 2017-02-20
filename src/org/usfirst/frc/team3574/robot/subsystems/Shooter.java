@@ -24,8 +24,9 @@ public class Shooter extends Subsystem {
 	 */
 	static final int nativeUnitsPerRotation = 48;
 	static final int nativeUnitsPerMeasurementRate = 1700/600 * nativeUnitsPerRotation; // = 136 
-	static final double feedForwardGain = nativeUnitsPerRotation/nativeUnitsPerMeasurementRate; // 0.35294117647
-	static final double proportionalGain = (.1 * nativeUnitsPerRotation) / 1832;
+	static final double FEED_FORWARD_GAIN = nativeUnitsPerRotation/nativeUnitsPerMeasurementRate; // 0.35294117647
+	static final double PROPORTIONAL_GAIN = (.1 * nativeUnitsPerRotation) / 1832;
+	static final double INTEGRAL_GAIN = .003;
 
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
@@ -35,32 +36,36 @@ public class Shooter extends Subsystem {
 		
 		left1.reverseOutput(false);
 		left1.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+		left1.reverseSensor(false);
 		left1.configEncoderCodesPerRev(12); //Needs to change
 		
 		left1.changeControlMode(CANTalon.TalonControlMode.Speed);
 		left1.configNominalOutputVoltage(0, -0);
 		left1.configPeakOutputVoltage(12, -12);
-        left1.setF(feedForwardGain);
-        left1.setP(proportionalGain);
-        left1.setI(0.003); 
+        left1.setF(FEED_FORWARD_GAIN);
+        left1.setP(PROPORTIONAL_GAIN);
+        left1.setI(INTEGRAL_GAIN); 
         left1.setD(0);
 
-//		left1.changeControlMode(CANTalon.TalonControlMode.Speed);
-
-//		left2.changeControlMode(CANTalon.TalonControlMode.Follower);
-//		left2.set(8);
+		left2.changeControlMode(CANTalon.TalonControlMode.Follower);
+		left2.set(left1.getDeviceID());
 
 
-//		right1.reverseOutput(true);
-//		right1.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
-//		right1.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
-//		right1.changeControlMode(CANTalon.TalonControlMode.Speed);
-//		right1.setPID(0, 0, 0);
-//		right1.setF(1);
-//		right1.configEncoderCodesPerRev(3); //Needs to change
-//
-//		right2.changeControlMode(CANTalon.TalonControlMode.Follower);
-//		right2.set(10);
+		right1.reverseOutput(true);
+		right1.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+		right1.reverseSensor(true);
+		right1.configEncoderCodesPerRev(12); //Needs to change
+		
+		right1.changeControlMode(CANTalon.TalonControlMode.Speed);
+		right1.configNominalOutputVoltage(0, -0);
+		right1.configPeakOutputVoltage(12, -12);
+		right1.setF(FEED_FORWARD_GAIN);
+		right1.setP(PROPORTIONAL_GAIN);
+		right1.setI(INTEGRAL_GAIN); 
+		right1.setD(0);
+
+		right2.changeControlMode(CANTalon.TalonControlMode.Follower);
+		right2.set(right1.getDeviceID());
 	}
 
 
@@ -71,7 +76,7 @@ public class Shooter extends Subsystem {
 
 	public void spinUp(double revsPerMinute) {
 		left1.set(revsPerMinute);
-//		right1.set(revsPerMinute);
+		right1.set(revsPerMinute);
 	}
 
 	public void stop() {
@@ -104,13 +109,13 @@ public class Shooter extends Subsystem {
 		
 //		L.og("Enc: " + left1.getEncPosition());
 //		L.og("Speed: " + left1.getSpeed());
-//		L.ogSD("output voltage", left1.getOutputVoltage());
+		L.ogSD("output voltage", left1.getOutputVoltage());
 //		L.ogSD("left bus", left1.getBusVoltage());
 		
 //		L.ogSD("left closed error", left1.getClosedLoopError());
 	
 
-        System.out.printf("Encoder Speed: %f ,:: Output Voltage: %f \n", left1.getSpeed(), left1.getOutputVoltage());
+//        System.out.printf("Encoder Speed: %f ,:: Output Voltage: %f \n", left1.getSpeed(), left1.getOutputVoltage());
         
 	}
 }

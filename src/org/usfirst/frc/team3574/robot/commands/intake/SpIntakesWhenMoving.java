@@ -8,14 +8,14 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class SpinIntakes extends Command {
-	double xAxisValue;
-	double yAxisValue;
-	double deadZoneHalf = 0.15;
+public class SpIntakesWhenMoving extends Command {
+	double getLeftValue;
+	double getRightValue;
+	double deadZoneHalf = 2;
 	Timer time = new Timer();
 	boolean runOnce;
 	
-    public SpinIntakes() {
+    public SpIntakesWhenMoving() {
     	requires(Robot.Intake);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -28,17 +28,17 @@ public class SpinIntakes extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	xAxisValue = Robot.oi.stickXAxis();
-    	yAxisValue = Robot.oi.stickYAxis();
-    	if (xAxisValue < deadZoneHalf && xAxisValue > -deadZoneHalf){
-    		xAxisValue = 0;
+    	getLeftValue = Robot.DriveTrain.getLeftVolt();
+    	getRightValue = Robot.DriveTrain.getRightVolt();
+    	if (getLeftValue < deadZoneHalf && getLeftValue > -deadZoneHalf){
+    		getLeftValue = 0;
     	}
     	
-    	if (yAxisValue < deadZoneHalf && yAxisValue > -deadZoneHalf){
-    		yAxisValue = 0;
+    	if (getRightValue < deadZoneHalf && getRightValue > -deadZoneHalf){
+    		getRightValue = 0;
     	}
     	
-    	if (xAxisValue != 0 || yAxisValue != 0){
+    	if (getLeftValue != 0 || getRightValue != 0){
     		Robot.Intake.intakeRun();
     	}
     	else if(runOnce){
@@ -46,6 +46,7 @@ public class SpinIntakes extends Command {
     		time.start();
     		runOnce = false;
     	}
+    //the intake keeps running for about 3 seconds after stopping	
     	else if(time.get() > 2){
     		Robot.Intake.intakeStop();
     	}

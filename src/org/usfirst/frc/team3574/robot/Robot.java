@@ -12,10 +12,11 @@ import org.usfirst.frc.team3574.robot.commands.auto.AutonomousSelector;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithJoy;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.NoDrive;
 import org.usfirst.frc.team3574.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team3574.robot.subsystems.HopperBelt;
 import org.usfirst.frc.team3574.robot.subsystems.Intake;
 import org.usfirst.frc.team3574.robot.subsystems.Shooter;
 import org.usfirst.frc.team3574.robot.util.rumbleReminder;
-import org.usfirst.frc.team3574.robot.subsystems.Hopper;
+import org.usfirst.frc.team3574.robot.subsystems.HopperIndex;
 import org.usfirst.frc.team3574.robot.subsystems.Climber;
 
 
@@ -28,7 +29,8 @@ import org.usfirst.frc.team3574.robot.subsystems.Climber;
  */
 public class Robot extends IterativeRobot {
 //	Declaring systems
-	public static final Hopper Hopper = new Hopper();
+	public static final HopperIndex Index = new HopperIndex();
+	public static final HopperBelt Belt = new HopperBelt();
 	public static final Climber Climber = new Climber();
 	public static final DriveTrain DriveTrain = new DriveTrain();
 	public static final Intake Intake = new Intake();
@@ -139,7 +141,7 @@ public class Robot extends IterativeRobot {
 	public void log() {
 		DriveTrain.log();
 		Climber.log();
-		Hopper.log();
+		Index.log();
 		Shooter.log();
 		Intake.log();
 	}

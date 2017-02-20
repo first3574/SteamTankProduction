@@ -2,7 +2,7 @@ package org.usfirst.frc.team3574.robot.subsystems;
 
 import org.usfirst.frc.team3574.robot.Robot;
 import org.usfirst.frc.team3574.robot.RobotMap;
-import org.usfirst.frc.team3574.robot.commands.intake.SpinIntakes;
+import org.usfirst.frc.team3574.robot.commands.intake.SpIntakesWhenMoving;
 
 import com.ctre.CANTalon;
 
@@ -18,22 +18,22 @@ public class Intake extends Subsystem {
     // here. Call these from Commands.
 
 	public Intake() {
-		intake.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
+		intake.changeControlMode(CANTalon.TalonControlMode.Voltage);
 		
 	}
 	
     public void initDefaultCommand() {
-    	setDefaultCommand(new SpinIntakes());
+    	setDefaultCommand(new SpIntakesWhenMoving());
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
     
     public void intakeRun() {
-    	intake.set(0.5);
+    	intake.set(6);
     }
     
     public void agitateHopper() {
-    	intake.set(-0.25);
+    	intake.set(-3);
     }
 
     public void intakeStop() {

@@ -7,6 +7,7 @@ import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithPoof;
 import org.usfirst.frc.team3574.robot.util.L;
 
 import com.ctre.CANTalon;
+import com.ctre.CANTalon.FeedbackDevice;
 import com.kauailabs.navx.frc.AHRS;
 import com.kauailabs.navx.frc.AHRS.SerialDataType;
 
@@ -45,21 +46,21 @@ public class DriveTrain extends Subsystem {
 //		left1.configEncoderCodesPerRev(codesPerRev);
 //		left1.setPID(5, 0, 0);
 		left1.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
-		left1.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+//		left1.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 
-		left2.changeControlMode(CANTalon.TalonControlMode.PercentVbus);		
-//		left2.changeControlMode(CANTalon.TalonControlMode.Follower);
-//		left2.set(0);
+//		left2.changeControlMode(CANTalon.TalonControlMode.PercentVbus);		
+		left2.changeControlMode(CANTalon.TalonControlMode.Follower);
+		left2.set(left1.getDeviceID());
 		
 //		right1.changeControlMode(CANTalon.TalonControlMode.Speed);
 //		right1.configEncoderCodesPerRev(codesPerRev);
 //		right1.setPID(5, 0, 0);
 		right1.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
-		right1.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+//		right1.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 
-		right2.changeControlMode(CANTalon.TalonControlMode.PercentVbus);		
-//		right2.changeControlMode(CANTalon.TalonControlMode.Follower);
-//		right2.set(2);
+//		right2.changeControlMode(CANTalon.TalonControlMode.PercentVbus);		
+    	right2.changeControlMode(CANTalon.TalonControlMode.Follower);
+		right2.set(right1.getDeviceID());
 		
 		
 		ahrs = new AHRS(I2C.Port.kOnboard);
@@ -118,9 +119,9 @@ public class DriveTrain extends Subsystem {
 	//DRIVE SYSTEMS
 	public void driveCheesy(double rightWheelValue, double leftWheelValue) {
 		left1.set(leftWheelValue);
-		left2.set(leftWheelValue);
+//		left2.set(leftWheelValue);
 		right1.set(rightWheelValue);
-		right2.set(rightWheelValue);
+//		right2.set(rightWheelValue);
 	}
 	
 	public void driveArcade(double throttle, double turnValue) {
@@ -151,14 +152,24 @@ public class DriveTrain extends Subsystem {
 		return right1.getEncPosition();
 	}
 	
+	public double getLeftVolt(){
+		return left1.getOutputVoltage();
+	}
+	public double getRightVolt(){
+		return right1.getOutputVoltage();
+	}
+	
 	public void log() {
 		L.ogSD("Left Encoder", getLeftEnc());
 		L.ogSD("Right Encoder", getRightEnc());
-		//L.ogSD("Yaw", getYaw());
-		L.og("Yaw " + getYaw());
+		L.ogSD("Yaw", getYaw());
+//		L.og("Yaw " + getYaw());
 		//L.og(ahrs.isMoving());
 		//L.og("FWV " + ahrs.getFirmwareVersion());
-//		L.ogSD("leftC", left1.getOutputCurrent());
+		L.ogSD("leftCurrent1", left1.getOutputCurrent());
+		L.ogSD("leftCurrent2", left2.getOutputCurrent());
+		L.ogSD("rightCurrent1", right1.getOutputCurrent());
+		L.ogSD("rightCurrent2", right2.getOutputCurrent());
 //		L.ogSD("leftV", left1.getOutputVoltage());
 		}
 	

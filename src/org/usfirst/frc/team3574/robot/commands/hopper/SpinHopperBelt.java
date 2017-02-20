@@ -1,4 +1,4 @@
-package org.usfirst.frc.team3574.robot.commands.drivetrain;
+package org.usfirst.frc.team3574.robot.commands.hopper;
 
 import org.usfirst.frc.team3574.robot.Robot;
 
@@ -7,29 +7,21 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class DriveWithJoy extends Command {
-	double throttle = 0;
-	double turnValue = 0;
-	
-    public DriveWithJoy() {
-    	requires(Robot.DriveTrain);
+public class SpinHopperBelt extends Command {
+
+    public SpinHopperBelt() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	requires(Robot.Belt);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    
-    
+    	Robot.Belt.beltRun();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	throttle = Robot.oi.driveStickYAxis();
-    	turnValue = Robot.oi.driveStickXAxis();
-    	
-    	
-    	Robot.DriveTrain.driveArcade(throttle,	turnValue);
     }
 
     // Make this return true when this Command no longer needs to run execute()

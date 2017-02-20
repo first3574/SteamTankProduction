@@ -1,4 +1,4 @@
-package org.usfirst.frc.team3574.robot.commands.intake;
+package org.usfirst.frc.team3574.robot.commands.hopper;
 
 import org.usfirst.frc.team3574.robot.Robot;
 
@@ -7,17 +7,17 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class SpIntakesManual extends Command {
+public class BeltStop extends Command {
 
-    public SpIntakesManual() {
-    	requires(Robot.Intake);
+    public BeltStop() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	requires(Robot.Belt);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.Intake.intakeRun();
+    	Robot.Belt.beltStop();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -36,6 +36,5 @@ public class SpIntakesManual extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	Robot.Intake.intakeStop();
     }
 }
