@@ -23,7 +23,7 @@ public class Shooter extends Subsystem {
 	 * 1700 rpm, 600 minute to ms conversion, 48 4*cpr
 	 */
 	static final int nativeUnitsPerRotation = 48;
-	static final int nativeUnitsPerMeasurementRate = 1700/600 * nativeUnitsPerRotation; // = 136 
+	static final int nativeUnitsPerMeasurementRate = 18730/6000 * nativeUnitsPerRotation; // = 136 
 	static final double FEED_FORWARD_GAIN = nativeUnitsPerRotation/nativeUnitsPerMeasurementRate; // 0.35294117647
 	static final double PROPORTIONAL_GAIN = (.1 * nativeUnitsPerRotation) / 1832;
 	static final double INTEGRAL_GAIN = .003;
@@ -42,7 +42,8 @@ public class Shooter extends Subsystem {
 		left1.changeControlMode(CANTalon.TalonControlMode.Speed);
 		left1.configNominalOutputVoltage(0, -0);
 		left1.configPeakOutputVoltage(12, -12);
-        left1.setF(FEED_FORWARD_GAIN);
+//        left1.setF(FEED_FORWARD_GAIN);
+		left1.setF(1023/245);
         left1.setP(PROPORTIONAL_GAIN);
         left1.setI(INTEGRAL_GAIN); 
         left1.setD(0);
@@ -59,7 +60,8 @@ public class Shooter extends Subsystem {
 		right1.changeControlMode(CANTalon.TalonControlMode.Speed);
 		right1.configNominalOutputVoltage(0, -0);
 		right1.configPeakOutputVoltage(12, -12);
-		right1.setF(FEED_FORWARD_GAIN);
+//		right1.setF(FEED_FORWARD_GAIN);
+		right1.setF(1023/245);
 		right1.setP(PROPORTIONAL_GAIN);
 		right1.setI(INTEGRAL_GAIN); 
 		right1.setD(0);
@@ -104,15 +106,16 @@ public class Shooter extends Subsystem {
 		L.ogSD("Shooter Left Enc", getLeftEnc());
 		L.ogSD("Shooter Right Enc", getRightEnc());
 
-//		L.ogSD("Shooter Left Velocity", getLeftVelocity());
-//		L.ogSD("Shooter Right Velocity", getRightVelocity());
+		L.ogSD("Shooter Left Velocity", getLeftVelocity());
+		L.ogSD("Shooter Right Velocity", getRightVelocity());
 		
-//		L.og("Enc: " + left1.getEncPosition());
-//		L.og("Speed: " + left1.getSpeed());
-		L.ogSD("output voltage", left1.getOutputVoltage());
-//		L.ogSD("left bus", left1.getBusVoltage());
-		
-//		L.ogSD("left closed error", left1.getClosedLoopError());
+		L.ogSD("Shooter Left Speed", left1.getSpeed());
+		L.ogSD("Shooter Right Speed", right1.getSpeed());
+
+		L.ogSD("Shooter left output voltage", left1.getOutputVoltage());
+		L.ogSD("Shooter left closed error", left1.getClosedLoopError());
+		L.ogSD("Shooter right output voltage", right1.getOutputVoltage());
+		L.ogSD("Shooter right closed error", right1.getClosedLoopError());
 	
 
 //        System.out.printf("Encoder Speed: %f ,:: Output Voltage: %f \n", left1.getSpeed(), left1.getOutputVoltage());

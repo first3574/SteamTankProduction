@@ -3,6 +3,7 @@ package org.usfirst.frc.team3574.robot;
 import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Solenoid;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -18,29 +19,28 @@ public class RobotMap {
 	public static CANTalon motorDriveLeft1 = new CANTalon(1);
 	public static CANTalon motorDriveleft2 = new CANTalon(2);
 	//right
-	public static CANTalon motorDriveRight1 = new CANTalon(3);
-	public static CANTalon motorDriveRight2 = new CANTalon(4);
+	public static CANTalon motorDriveRight1 = new CANTalon(13);
+	public static CANTalon motorDriveRight2 = new CANTalon(12);
 	
 	public static DoubleSolenoid driveShifter = new DoubleSolenoid(0, 1);
 	
 	/**
 	 * Gear System
 	 */
-	public static DoubleSolenoid gearFlap1 = new DoubleSolenoid(2, 3);
-	public static DoubleSolenoid gearFlap2 = new DoubleSolenoid(4, 5);
-	public static DoubleSolenoid gearHook = new DoubleSolenoid(6, 7);
+	public static Solenoid gearFlap1 = new Solenoid(2);
+	public static Solenoid gearHook = new Solenoid(3);
 	/**
 	 * Intake System
 	 */
-	public static CANTalon motorIntake = new CANTalon(5);
+	public static CANTalon motorIntake = new CANTalon(11);
 	
 	
 	
 	/**
 	 * Hopper
 	 */
-	public static CANTalon motorHopBelt = new CANTalon(6);
-	public static CANTalon motorHopIndexer = new CANTalon(7);
+	public static CANTalon motorHopBelt = new CANTalon(4);
+	public static CANTalon motorHopIndexer = new CANTalon(3);
 	
 	
 	
@@ -48,20 +48,20 @@ public class RobotMap {
 	 * Shooting System
 	 */
 	//Left
-	public static CANTalon motorFlyLeft1 = new CANTalon(8);
-	public static CANTalon motorFlyLeft2 = new CANTalon(9);
+	public static CANTalon motorFlyLeft1 = new CANTalon(6);
+	public static CANTalon motorFlyLeft2 = new CANTalon(7);
 
 	//Right
-	public static CANTalon motorFlyRight1 = new CANTalon(10);
-	public static CANTalon motorFlyRight2 = new CANTalon(11);
+	public static CANTalon motorFlyRight1 = new CANTalon(9);
+	public static CANTalon motorFlyRight2 = new CANTalon(8);
 	
 	
 	
 	/**
 	 * Climber
 	 */
-	public static CANTalon motorClimbLeft = new CANTalon(12);
-	public static CANTalon motorClimbRight = new CANTalon(13);
+	public static CANTalon motorClimbLeft = new CANTalon(5);
+	public static CANTalon motorClimbRight = new CANTalon(10);
 	
 	
 	

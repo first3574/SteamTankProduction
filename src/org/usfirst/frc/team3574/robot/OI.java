@@ -1,5 +1,7 @@
 package org.usfirst.frc.team3574.robot;
 
+import org.usfirst.frc.team3574.robot.GearManipulator.GearFlapIn;
+import org.usfirst.frc.team3574.robot.GearManipulator.GearFlapOut;
 import org.usfirst.frc.team3574.robot.commands.climber.Climber;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.AlternateShifter;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveForDistanceWithNavx;
@@ -84,41 +86,44 @@ public class OI {
 		 * SHOOTING FUNTIONS
 		 */
 //		
-		JoystickButton spinFlywheels = new JoystickButton(stick1, 6);
-		spinFlywheels.whileHeld(new SpinFlys());
+//		JoystickButton spinFlywheels = new JoystickButton(stick1, 6);
+//		spinFlywheels.whenPressed(new SpinFlys());
 
 		/**
 		 * HOPPER FUNTIONS
 		 */
-		JoystickButton spinHopperIndex  = new JoystickButton(stick1, 7);
-		spinHopperIndex.whileHeld(new SpinHopperIndex());
-		
-		JoystickButton spinHopperBelt  = new JoystickButton(stick1, 8);
-		spinHopperBelt.whileHeld(new SpinHopperBelt());
+//		JoystickButton spinHopperIndex  = new JoystickButton(stick1, 7);
+//		spinHopperIndex.whileHeld(new SpinHopperIndex());
+//		
+//		JoystickButton spinHopperBelt  = new JoystickButton(stick1, 8);
+//		spinHopperBelt.whileHeld(new SpinHopperBelt());
 		
 		/**
 		 * INTAKE FUNTIONS
 		 */
-		JoystickButton spintakeWheels = new JoystickButton(stick1, 9);
-		spintakeWheels.whileHeld(new SpinIntakesManual());
+//		JoystickButton spintakeWheels = new JoystickButton(stick1, 9);
+//		spintakeWheels.whileHeld(new SpinIntakesManual());
 
 
 		/**
 		 * CLIMBING FUNTIONS
 		 */
-		JoystickButton climbUp = new JoystickButton(stick1, 10);
-		climbUp.whileHeld(new Climber());
+//		JoystickButton climbUp = new JoystickButton(stick1, 10);
+//		climbUp.whileHeld(new Climber());
 		
 		
 		/**
 		 * GEAR MANIPULATOR FUNTIONS
 		 */
 		
-		
-		
+		JoystickButton gearReady = new JoystickButton(stick1, 1);
+		gearReady.whenPressed(new GearFlapOut());
+		JoystickButton gearStore = new JoystickButton(stick1, 2);
+		gearStore.whenPressed(new GearFlapIn());
 		/**
 		 * MISC FUNTIONS
 		 */
+		
 		
 		
 	}

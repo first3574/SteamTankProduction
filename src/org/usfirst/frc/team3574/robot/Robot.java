@@ -12,6 +12,7 @@ import org.usfirst.frc.team3574.robot.commands.auto.AutonomousSelector;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithJoy;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.NoDrive;
 import org.usfirst.frc.team3574.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team3574.robot.subsystems.GearManipulator;
 import org.usfirst.frc.team3574.robot.subsystems.HopperBelt;
 import org.usfirst.frc.team3574.robot.subsystems.Intake;
 import org.usfirst.frc.team3574.robot.subsystems.Shooter;
@@ -34,6 +35,7 @@ public class Robot extends IterativeRobot {
 	public static final Climber Climber = new Climber();
 	public static final DriveTrain DriveTrain = new DriveTrain();
 	public static final Intake Intake = new Intake();
+	public static final GearManipulator GearManipulator = new GearManipulator();
 	public static final Shooter Shooter = new Shooter();
 	public static OI oi;
 //	Declaring some Commands

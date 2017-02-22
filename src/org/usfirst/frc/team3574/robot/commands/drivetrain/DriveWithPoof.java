@@ -67,8 +67,9 @@ public class DriveWithPoof extends Command {
                 leftPwm += overPower * (-1.0 - rightPwm);
                 rightPwm = -1.0;
             }
-            L.ogSD("RightPWM", rightPwm);
-            L.ogSD("LeftPWM", leftPwm);
+
+            L.ogSD("Poof Right Output", rightPwm);
+            L.ogSD("Poof Left Output", leftPwm);
             Robot.DriveTrain.driveCheesy(rightPwm, leftPwm);
     }
 
