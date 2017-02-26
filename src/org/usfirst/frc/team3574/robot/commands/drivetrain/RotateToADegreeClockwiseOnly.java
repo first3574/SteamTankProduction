@@ -1,35 +1,46 @@
-package org.usfirst.frc.team3574.robot.util;
+package org.usfirst.frc.team3574.robot.commands.drivetrain;
+
+import org.usfirst.frc.team3574.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class Log extends Command {
-	String name;
-	double length;
-
-	public Log(String name, double timeout) {
-		this.name = name;
-		this.length = length;
+public class RotateToADegreeClockwiseOnly extends Command {
+	double yaw;
+	int reverse;
+	int targetYaw;
+	
+	
+	public RotateToADegreeClockwiseOnly(int positiveIsClockwise) {
+		requires(Robot.DriveTrain);
+		this.targetYaw = positiveIsClockwise;
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		System.out.println(name + " init");
+		reverse = 1;
+	
+		if(targetYaw < 0) {
+			reverse *= -1;
+		}
+		Robot.DriveTrain.driveArcade(0.0, -0.5 * reverse);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		System.out.println(name + " exec");
+		yaw = Robot.DriveTrain.getYaw();
+//		System.out.println(targetYaw);
+//		System.out.println(yaw);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		if(timeSinceInitialized() > length) {
-			System.out.println(name + " isFinished");
+		if(yaw >= targetYaw) {
+			Robot.DriveTrain.driveArcade(0.0, 0.0);
 			return true;
 		} else {
 			return false;
@@ -38,12 +49,10 @@ public class Log extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
-		System.out.println(name + " end");
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
-		System.out.println(name + " interrupted");
 	}
 }

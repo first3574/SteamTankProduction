@@ -7,12 +7,13 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class Climber extends Command {
+public class ClimberGo extends Command {
 	
 	
-    public Climber() {
+    public ClimberGo() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	requires(Robot.Climber);
     }
 
     // Called just before this Command runs the first time
@@ -31,6 +32,7 @@ public class Climber extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.Climber.climbStop();
     }
 
     // Called when another command which requires one or more of the same

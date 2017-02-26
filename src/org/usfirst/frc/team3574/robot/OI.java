@@ -1,15 +1,14 @@
 package org.usfirst.frc.team3574.robot;
 
-import org.usfirst.frc.team3574.robot.GearManipulator.GearFlapIn;
-import org.usfirst.frc.team3574.robot.GearManipulator.GearFlapOut;
-import org.usfirst.frc.team3574.robot.commands.climber.Climber;
+import org.usfirst.frc.team3574.robot.commands.climber.ClimberGo;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.AlternateShifter;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveForDistanceWithNavx;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveOtherWay;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.ShiftHighGear;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.ShiftLowGear;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.ShiftOff;
-import org.usfirst.frc.team3574.robot.commands.drivetrain.makeQuickTurnTrue;
+import org.usfirst.frc.team3574.robot.commands.gearmanipulator.GearFlapIn;
+import org.usfirst.frc.team3574.robot.commands.gearmanipulator.GearFlapOut;
 import org.usfirst.frc.team3574.robot.commands.hopper.BeltStop;
 import org.usfirst.frc.team3574.robot.commands.hopper.IndexStop;
 import org.usfirst.frc.team3574.robot.commands.hopper.SpinHopperBelt;
@@ -22,6 +21,7 @@ import org.usfirst.frc.team3574.robot.util.ResetYaw;
 
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 /**
@@ -68,7 +68,6 @@ public class OI {
 		 * DRIVETRAIN FUNTIONS
 		 */
 
-		
 //		to shift to high gear [A BUTTON]
 		JoystickButton alternateGear = new JoystickButton(stick0, 1);
 		alternateGear.whenPressed(new AlternateShifter());
@@ -141,11 +140,12 @@ public class OI {
 		return stick0.getRawButton(6);
 	}
 	
+	public double getCoTriggers() {
+		return stick1.getRawAxis(3) - stick1.getRawAxis(2);
+	}
+	
 	public void rumble() {
-//		If the match is 20 seconds from the end, set the remote to rumble
-		if(isLast20) {
-			stick0.setRumble(RumbleType.kRightRumble, 0.5);
-			stick1.setRumble(RumbleType.kRightRumble, 0.5);
-		}
+		stick0.setRumble(RumbleType.kRightRumble, 0.5);
+		stick1.setRumble(RumbleType.kRightRumble, 0.5);
 	}
 }

@@ -16,7 +16,7 @@ public class DriveOtherWay extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.DriveTrain.driveOtherWay *= -1;
+    	Robot.DriveTrain.driveOtherWay *= -1.0;
     }
 
     // Called repeatedly when this Command is scheduled to run

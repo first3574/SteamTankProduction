@@ -1,4 +1,4 @@
-package org.usfirst.frc.team3574.robot.commands.drivetrain;
+package org.usfirst.frc.team3574.robot.commands.gearmanipulator;
 
 import org.usfirst.frc.team3574.robot.Robot;
 
@@ -7,16 +7,16 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ShiftLowGear extends Command {
+public class GearHookUp extends Command {
 
-    public ShiftLowGear() {
+    public GearHookUp() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.DriveTrain.setGearLow();
+    	Robot.GearManipulator.hookUp();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -25,7 +25,7 @@ public class ShiftLowGear extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true

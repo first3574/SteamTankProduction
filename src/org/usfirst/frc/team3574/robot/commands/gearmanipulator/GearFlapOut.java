@@ -1,4 +1,4 @@
-package org.usfirst.frc.team3574.robot.commands.drivetrain;
+package org.usfirst.frc.team3574.robot.commands.gearmanipulator;
 
 import org.usfirst.frc.team3574.robot.Robot;
 
@@ -7,16 +7,16 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ShiftLowGear extends Command {
+public class GearFlapOut extends Command {
 
-    public ShiftLowGear() {
+    public GearFlapOut() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.DriveTrain.setGearLow();
+    	Robot.GearManipulator.flapGearReadyForIntake();
     }
 
     // Called repeatedly when this Command is scheduled to run

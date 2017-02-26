@@ -7,16 +7,16 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ShiftLowGear extends Command {
+public class ResetYaw extends Command {
 
-    public ShiftLowGear() {
+    public ResetYaw() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.DriveTrain.setGearLow();
+    	Robot.DriveTrain.resetYaw();
     }
 
     // Called repeatedly when this Command is scheduled to run

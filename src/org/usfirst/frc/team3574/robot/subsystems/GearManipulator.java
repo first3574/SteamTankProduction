@@ -26,16 +26,16 @@ public class GearManipulator extends Subsystem {
     	gearFlap1.set(false);
     	}
     
-    public void flapGearReady() {   	
+    public void flapGearReadyForIntake() {   	
     	gearFlap1.set(true);
 //    	gearFlap2.set(DoubleSolenoid.Value.kForward);
     }
     
-    public void hookOut() {    	
+    public void hookUp() {    	
     	gearHook.set(true);
     }
 
-    public void hookIn() {    	
+    public void hookDown() {    	
     	gearHook.set(false);
     }
 }

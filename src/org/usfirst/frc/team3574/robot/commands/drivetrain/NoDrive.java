@@ -18,13 +18,13 @@ public class NoDrive extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	L.ogCmdInit(this);
-    	Robot.DriveTrain.driveCheesy(0, 0);
+//    	L.ogCmdInit(this);
+    	Robot.DriveTrain.driveTank(0, 0);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	L.ogCmdExec(this);
+//    	L.ogCmdExec(this);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -34,12 +34,12 @@ public class NoDrive extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	L.ogCmdEnd(this);
+//    	L.ogCmdEnd(this);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	L.ogCmdInterrupted(this);
+//    	L.ogCmdInterrupted(this);
     }
 }

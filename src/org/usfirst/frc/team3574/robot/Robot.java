@@ -9,16 +9,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team3574.robot.commands.auto.AutonomousSelector;
-import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithJoy;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithJoyArcade;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.NoDrive;
+import org.usfirst.frc.team3574.robot.subsystems.Climber;
 import org.usfirst.frc.team3574.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team3574.robot.subsystems.GearManipulator;
 import org.usfirst.frc.team3574.robot.subsystems.HopperBelt;
+import org.usfirst.frc.team3574.robot.subsystems.HopperIndex;
 import org.usfirst.frc.team3574.robot.subsystems.Intake;
 import org.usfirst.frc.team3574.robot.subsystems.Shooter;
-import org.usfirst.frc.team3574.robot.util.rumbleReminder;
-import org.usfirst.frc.team3574.robot.subsystems.HopperIndex;
-import org.usfirst.frc.team3574.robot.subsystems.Climber;
+import org.usfirst.frc.team3574.robot.util.RumbleReminder;
 
 
 /**
@@ -122,7 +122,7 @@ public class Robot extends IterativeRobot {
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
 	
-		rumbleRemindee = (new rumbleReminder());
+		rumbleRemindee = (new RumbleReminder());
 		if (rumbleRemindee != null)
 			rumbleRemindee.start();
 	}

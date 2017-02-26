@@ -18,6 +18,11 @@ public class DriveForDistanceWithNavx extends Command {
 	double inc = 0.001;
 	boolean runOnce = true;
 	
+	/**
+	 * this is supposed to do interesting things, but we're not sure what, yet.
+	 * @param ticks
+	 * @param speed
+	 */
 	public DriveForDistanceWithNavx(int ticks, double speed) {
 		requires(Robot.DriveTrain);
 		this.targetTicks = ticks;
@@ -46,7 +51,7 @@ public class DriveForDistanceWithNavx extends Command {
 					runOnce = false;
 				}
 				inc += inc;
-				Robot.DriveTrain.driveCheesy(speed, inc);    		
+				Robot.DriveTrain.driveArcade(speed, inc);    		
 			}
 			while(yaw > 0) {
 				if(runOnce) {
@@ -54,10 +59,10 @@ public class DriveForDistanceWithNavx extends Command {
 					runOnce = false;
 				}
 				inc -= inc;
-				Robot.DriveTrain.driveCheesy(speed, inc);    		
+				Robot.DriveTrain.driveArcade(speed, inc);    		
 			}
 		} else {
-			Robot.DriveTrain.driveCheesy(speed, 0);
+			Robot.DriveTrain.driveArcade(speed, 0);
 			runOnce = true;
 		}
 

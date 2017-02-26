@@ -1,4 +1,4 @@
-package org.usfirst.frc.team3574.robot.commands.drivetrain;
+package org.usfirst.frc.team3574.robot.commands.gearmanipulator;
 
 import org.usfirst.frc.team3574.robot.Robot;
 
@@ -7,34 +7,25 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class DriveWithJoy extends Command {
-	double throttle = 0;
-	double turnValue = 0;
-	
-    public DriveWithJoy() {
-    	requires(Robot.DriveTrain);
+public class GearFlapIn extends Command {
+
+    public GearFlapIn() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    
-    
+    	Robot.GearManipulator.flapGearStore();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	throttle = Robot.oi.driveStickYAxis();
-    	turnValue = Robot.oi.driveStickXAxis();
-    	
-    	
-    	Robot.DriveTrain.driveArcade(throttle,	turnValue);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true

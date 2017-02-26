@@ -1,5 +1,7 @@
 package org.usfirst.frc.team3574.robot.util;
 
+import com.ctre.CANTalon;
+
 import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -88,6 +90,22 @@ public class L {
 	 */
 	public static void ogSD(String key, Sendable data) {
 		SmartDashboard.putData(key, data);
+	}
+	
+	public static void ogSDTalonBasics(String baseKey, CANTalon talon) {
+		SmartDashboard.putNumber(baseKey + " Current", talon.getOutputCurrent());
+		SmartDashboard.putNumber(baseKey + " Voltage", talon.getOutputVoltage());
+		SmartDashboard.putNumber(baseKey + " Enc Pos", talon.getEncPosition());
+	}
+	
+	public static void ogSDTalonPID(String baseKey, CANTalon talon) {
+		SmartDashboard.putNumber(baseKey + " Enc Vel", talon.getEncVelocity());
+		SmartDashboard.putNumber(baseKey + " Error", talon.getError());
+		SmartDashboard.putNumber(baseKey + " Setpoint", talon.getSetpoint());
+		SmartDashboard.putNumber(baseKey + " Speed", talon.getSpeed());
+		SmartDashboard.putNumber(baseKey + " Position", talon.getPosition());
+		SmartDashboard.putNumber(baseKey + " Closed Loop Error", talon.getClosedLoopError());
+		SmartDashboard.putNumber(baseKey + " I Accum", talon.GetIaccum());
 	}
 
 }

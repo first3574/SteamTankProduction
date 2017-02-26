@@ -1,5 +1,4 @@
 package org.usfirst.frc.team3574.robot.commands.drivetrain;
-import org.usfirst.frc.team3574.robot.commands.drivetrain.UtilQueso;
 import org.usfirst.frc.team3574.robot.util.L;
 import org.usfirst.frc.team3574.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -27,6 +26,11 @@ public class DriveWithPoof extends Command {
     protected void execute() {
             double wheel = handleDeadband(Robot.oi.driveStickXAxis(), kWheelDeadband);
             double throttle = handleDeadband(Robot.oi.driveStickYAxis(), kThrottleDeadband);
+            
+            //scaling!
+            wheel = Math.pow(wheel, 5.0);
+            throttle = Math.pow(throttle, 5.0);
+
             boolean isQuickTurn = !Robot.oi.getQuickTurnButton();
             double overPower;
 
@@ -35,7 +39,7 @@ public class DriveWithPoof extends Command {
             if (isQuickTurn) {
                 if (Math.abs(throttle) < 0.2) {
                     double alpha = 0.1;
-                    mQuickStopAccumulator = (1 - alpha) * mQuickStopAccumulator + alpha * UtilQueso.limit(wheel, 1.0) * 2;
+                    mQuickStopAccumulator = (1 - alpha) * mQuickStopAccumulator + alpha * Math.min(wheel, 1.0) * 2;
                 }
                 overPower = 1.0;
                 angularPower = wheel;
@@ -51,25 +55,25 @@ public class DriveWithPoof extends Command {
                 }
             }
 
-            double rightPwm = throttle - angularPower;
-            double leftPwm = throttle + angularPower;
-            if (leftPwm > 1.0) {
-                rightPwm -= overPower * (leftPwm - 1.0);
-                leftPwm = 1.0;
-            } else if (rightPwm > 1.0) {
-                leftPwm -= overPower * (rightPwm - 1.0);
-                rightPwm = 1.0;
-            } else if (leftPwm < -1.0) {
-                rightPwm += overPower * (-1.0 - leftPwm);
-                leftPwm = -1.0;
-            } else if (rightPwm < -1.0) {
-                leftPwm += overPower * (-1.0 - rightPwm);
-                rightPwm = -1.0;
+            double right = throttle - angularPower;
+            double left = throttle + angularPower;
+            if (left > 1.0) {
+                right -= overPower * (left - 1.0);
+                left = 1.0;
+            } else if (right > 1.0) {
+                left -= overPower * (right - 1.0);
+                right = 1.0;
+            } else if (left < -1.0) {
+                right += overPower * (-1.0 - left);
+                left = -1.0;
+            } else if (right < -1.0) {
+                left += overPower * (-1.0 - right);
+                right = -1.0;
             }
 
-            L.ogSD("Poof Right Output", rightPwm);
-            L.ogSD("Poof Left Output", leftPwm);
-            Robot.DriveTrain.driveCheesy(rightPwm, leftPwm);
+            L.ogSD("Drive Poof Right Output", right);
+            L.ogSD("Drive Poof Left Output", left);
+            Robot.DriveTrain.driveTank(left, right);
     }
 
     // Make this return true when this Command no longer needs to run execute()

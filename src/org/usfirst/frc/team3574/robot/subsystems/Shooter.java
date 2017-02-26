@@ -5,6 +5,7 @@ import org.usfirst.frc.team3574.robot.util.L;
 
 import com.ctre.CANTalon;
 
+import edu.wpi.first.wpilibj.TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -103,23 +104,9 @@ public class Shooter extends Subsystem {
 	}
 	
 	public void log() {
-		L.ogSD("Shooter Left Enc", getLeftEnc());
-		L.ogSD("Shooter Right Enc", getRightEnc());
-
-		L.ogSD("Shooter Left Velocity", getLeftVelocity());
-		L.ogSD("Shooter Right Velocity", getRightVelocity());
-		
-		L.ogSD("Shooter Left Speed", left1.getSpeed());
-		L.ogSD("Shooter Right Speed", right1.getSpeed());
-
-		L.ogSD("Shooter left output voltage", left1.getOutputVoltage());
-		L.ogSD("Shooter left closed error", left1.getClosedLoopError());
-		L.ogSD("Shooter right output voltage", right1.getOutputVoltage());
-		L.ogSD("Shooter right closed error", right1.getClosedLoopError());
-	
-
-//        System.out.printf("Encoder Speed: %f ,:: Output Voltage: %f \n", left1.getSpeed(), left1.getOutputVoltage());
-        
+		L.ogSDTalonBasics("Shooter Left", left1);
+		L.ogSDTalonBasics("Shooter Right", right1);
+		L.ogSDTalonPID("Shooter Left", left1);
+		L.ogSDTalonPID("Shooter Right", right1);
 	}
 }
-
