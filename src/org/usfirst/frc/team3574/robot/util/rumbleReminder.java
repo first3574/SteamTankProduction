@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class rumbleReminder extends Command {
+public class RumbleReminder extends Command {
 
-    public rumbleReminder() {
+    public RumbleReminder() {
         
     	
     	// Use requires() here to declare subsystem dependencies
