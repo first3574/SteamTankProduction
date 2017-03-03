@@ -9,6 +9,9 @@ import org.usfirst.frc.team3574.robot.commands.drivetrain.ShiftLowGear;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.ShiftOff;
 import org.usfirst.frc.team3574.robot.commands.gearmanipulator.GearFlapIn;
 import org.usfirst.frc.team3574.robot.commands.gearmanipulator.GearFlapOut;
+import org.usfirst.frc.team3574.robot.commands.gearmanipulator.GearHookDown;
+import org.usfirst.frc.team3574.robot.commands.gearmanipulator.GearHookUp;
+import org.usfirst.frc.team3574.robot.commands.gearmanipulator.GearHookUpFlapOut;
 import org.usfirst.frc.team3574.robot.commands.hopper.BeltStop;
 import org.usfirst.frc.team3574.robot.commands.hopper.IndexStop;
 import org.usfirst.frc.team3574.robot.commands.hopper.SpinHopperBelt;
@@ -69,7 +72,7 @@ public class OI {
 		 */
 
 //		to shift to high gear [A BUTTON]
-		JoystickButton alternateGear = new JoystickButton(stick0, 1);
+		JoystickButton alternateGear = new JoystickButton(stick0, 2);
 		alternateGear.whenPressed(new AlternateShifter());
 		
 //		To reset yaw [START BUTTON]
@@ -85,23 +88,23 @@ public class OI {
 		 * SHOOTING FUNTIONS
 		 */
 //		
-//		JoystickButton spinFlywheels = new JoystickButton(stick1, 6);
-//		spinFlywheels.whenPressed(new SpinFlys());
+		JoystickButton spinFlywheels = new JoystickButton(stick1, 6);
+		spinFlywheels.whenPressed(new SpinFlys());
 
 		/**
 		 * HOPPER FUNTIONS
 		 */
-//		JoystickButton spinHopperIndex  = new JoystickButton(stick1, 7);
-//		spinHopperIndex.whileHeld(new SpinHopperIndex());
-//		
-//		JoystickButton spinHopperBelt  = new JoystickButton(stick1, 8);
-//		spinHopperBelt.whileHeld(new SpinHopperBelt());
+		JoystickButton spinHopperIndex  = new JoystickButton(stick1, 7);
+		spinHopperIndex.whileHeld(new SpinHopperIndex());
+		
+		JoystickButton spinHopperBelt  = new JoystickButton(stick1, 8);
+		spinHopperBelt.whileHeld(new SpinHopperBelt());
 		
 		/**
 		 * INTAKE FUNTIONS
 		 */
-//		JoystickButton spintakeWheels = new JoystickButton(stick1, 9);
-//		spintakeWheels.whileHeld(new SpinIntakesManual());
+		JoystickButton spintakeWheels = new JoystickButton(stick1, 9);
+		spintakeWheels.whileHeld(new SpinIntakesManual());
 
 
 		/**
@@ -117,8 +120,18 @@ public class OI {
 		
 		JoystickButton gearReady = new JoystickButton(stick1, 1);
 		gearReady.whenPressed(new GearFlapOut());
-		JoystickButton gearStore = new JoystickButton(stick1, 2);
+		JoystickButton gearStore = new JoystickButton(stick0, 4);
 		gearStore.whenPressed(new GearFlapIn());
+		
+		JoystickButton hookDown = new JoystickButton(stick0, 3);
+		hookDown.whenPressed(new GearHookDown());
+		JoystickButton hookUp = new JoystickButton(stick1, 4);
+		hookUp.whenPressed(new GearHookUp());
+		
+
+		JoystickButton gearDone = new JoystickButton(stick0, 1);
+		gearDone.whenPressed(new GearHookUpFlapOut());
+		
 		/**
 		 * MISC FUNTIONS
 		 */

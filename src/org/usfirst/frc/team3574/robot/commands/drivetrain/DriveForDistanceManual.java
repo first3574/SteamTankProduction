@@ -34,17 +34,25 @@ public class DriveForDistanceManual extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	
+		if(Robot.DriveTrain.getLeftEnc() < 200 && Robot.DriveTrain.getRightEnc() < 200) {
+			Robot.DriveTrain.driveArcade( 0.5, rotation * 0.5);
+		} else if(Robot.DriveTrain.getLeftEnc() > (targetTicks - 500) || Robot.DriveTrain.getRightEnc() > (targetTicks - 500)) {
+			Robot.DriveTrain.driveArcade(speed * 0.5, rotation * 0.5);	
+		} else {
+			Robot.DriveTrain.driveArcade(speed, rotation);
+		}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if(targetTicks < Robot.DriveTrain.getLeftEnc() || targetTicks < Robot.DriveTrain.getRightEnc()) {
+    	if(targetTicks < Robot.DriveTrain.getLeftEnc() || targetTicks < Robot.DriveTrain.getRightEnc() && this.timeSinceInitialized() > 1) {
+    		
     		Robot.DriveTrain.driveArcade(0.0, 0.0);
     		return true;
     	} else {
     		return false;
     	}
+    	
     }
 
     // Called once after isFinished returns true

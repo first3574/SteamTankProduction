@@ -32,11 +32,11 @@ public class GearManipulator extends Subsystem {
     }
     
     public void hookUp() {    	
-    	gearHook.set(true);
+    	gearHook.set(false);
     }
 
     public void hookDown() {    	
-    	gearHook.set(false);
+    	gearHook.set(true);
     }
 }
 

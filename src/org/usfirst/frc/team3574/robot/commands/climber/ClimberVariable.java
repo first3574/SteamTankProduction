@@ -24,7 +24,7 @@ public class ClimberVariable extends Command {
     protected void execute() {
     	if (Math.abs(Robot.oi.getCoTriggers()) > 0.2) {
     		// to the power of 5 for reactivity, could be clearer code!
-    		Robot.Climber.set(Math.pow(Robot.oi.getCoTriggers(), 5.0));
+    		Robot.Climber.set(Math.pow(Robot.oi.getCoTriggers(), 3.0));
     	} else {
     		Robot.Climber.set(0);
     	}

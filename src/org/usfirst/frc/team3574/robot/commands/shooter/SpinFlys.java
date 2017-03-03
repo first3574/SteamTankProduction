@@ -18,7 +18,7 @@ public class SpinFlys extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	L.ogCmdInit(this);
-    	Robot.Shooter.spinUp(600);
+    	Robot.Shooter.spinUp(2300); //1547
     }
 
     // Called repeatedly when this Command is scheduled to run

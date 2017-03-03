@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 
@@ -125,16 +126,16 @@ public class DriveTrain extends Subsystem {
 		shifter.set(DoubleSolenoid.Value.kForward);
 	}
 
+	public boolean getGearIsLow() {
+		return (shifter.get() == DoubleSolenoid.Value.kReverse);
+	}
+	
 	public void setGearLow() {
 		shifter.set(DoubleSolenoid.Value.kReverse);
 	}
 	
 	public void resetShifter() {
 		this.setGearLow();
-	}
-	
-	public boolean getGearIsLow() {
-		return (shifter.get() == DoubleSolenoid.Value.kReverse);
 	}
 	
 	private void automaticShifter() {
@@ -159,7 +160,6 @@ public class DriveTrain extends Subsystem {
 	public void driveArcade(double throttle, double turnValue) {
 		left1.set((throttle + turnValue) * driveOtherWay);
 		right1.set((throttle - turnValue) * driveOtherWay);
-	
 	}
 	
 	public void driveTank(double left, double right) {
@@ -193,7 +193,7 @@ public class DriveTrain extends Subsystem {
 		L.ogSD("Drive Yaw", getYaw());
 		
 		L.ogSD("Compresser Switch" ,Boolean.toString(( new Compressor()).getPressureSwitchValue()));
-		
+		SmartDashboard.putBoolean("YO. DAWG.", ahrs.isConnected());
 		L.ogSDTalonBasics("Drive Left", left1);
 		L.ogSDTalonBasics("Drive Right", right1);
 		L.ogSDTalonPID("Drive Left", left1);

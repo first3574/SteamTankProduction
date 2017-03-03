@@ -35,9 +35,9 @@ public class Shooter extends Subsystem {
 	public Shooter() {
 //		LiveWindow.;
 		
-		left1.reverseOutput(false);
+		left1.reverseOutput(true);
 		left1.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
-		left1.reverseSensor(false);
+		left1.reverseSensor(true);
 		left1.configEncoderCodesPerRev(12); //Needs to change
 		
 		left1.changeControlMode(CANTalon.TalonControlMode.Speed);
@@ -53,9 +53,9 @@ public class Shooter extends Subsystem {
 		left2.set(left1.getDeviceID());
 
 
-		right1.reverseOutput(true);
+		right1.reverseOutput(false);
 		right1.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
-		right1.reverseSensor(true);
+		right1.reverseSensor(false);
 		right1.configEncoderCodesPerRev(12); //Needs to change
 		
 		right1.changeControlMode(CANTalon.TalonControlMode.Speed);

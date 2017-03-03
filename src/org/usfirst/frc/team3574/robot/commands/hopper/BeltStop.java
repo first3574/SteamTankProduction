@@ -12,12 +12,12 @@ public class BeltStop extends Command {
     public BeltStop() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.Belt);
+    	requires(Robot.HopperBelt);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.Belt.beltStop();
+    	Robot.HopperBelt.beltStop();
     }
 
     // Called repeatedly when this Command is scheduled to run

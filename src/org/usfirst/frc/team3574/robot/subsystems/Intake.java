@@ -29,11 +29,11 @@ public class Intake extends Subsystem {
     }
     
     public void intakeRun() {
-    	intake.set(6);
+    	intake.set(-6);
     }
     
     public void agitateHopper() {
-    	intake.set(-3);
+    	intake.set(3);
     }
 
     public void intakeStop() {

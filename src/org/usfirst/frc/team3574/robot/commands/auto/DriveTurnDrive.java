@@ -16,6 +16,7 @@ public class DriveTurnDrive extends CommandGroup {
     	addSequential(new ResetYaw());
     	addSequential(new DriveForDistanceManual(1.0, 1.0, 0.0));
     	addSequential(new RotateToADegreeClockwiseOnly(59));
+    	addSequential(new DriveForDistanceManual(1.0, 1.0, 0.0));
 
     }
 }

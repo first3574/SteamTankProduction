@@ -12,12 +12,12 @@ public class SpinHopperIndex extends Command {
     public SpinHopperIndex() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.Index);
+    	requires(Robot.HopperIndex);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.Index.indexerRun();
+    	Robot.HopperIndex.indexerRun();
     }
 
     // Called repeatedly when this Command is scheduled to run
