@@ -83,8 +83,8 @@ public class Shooter extends Subsystem {
 	}
 
 	public void stop() {
-		left1.set(0);
-		right1.set(0);
+		left1.set(1.0);
+		right1.set(1.0);
 	}
 	
 	public int getLeftEnc() {

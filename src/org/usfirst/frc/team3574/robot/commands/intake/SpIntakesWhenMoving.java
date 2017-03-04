@@ -39,7 +39,7 @@ public class SpIntakesWhenMoving extends Command {
     	}
     	
     	if (getLeftValue != 0 || getRightValue != 0){
-    		Robot.Intake.intakeRun();
+    		Robot.Intake.intakeRun(200);
     	}
     	else if(runOnce){
     		time.reset();

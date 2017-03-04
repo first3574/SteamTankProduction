@@ -12,6 +12,7 @@ import org.usfirst.frc.team3574.robot.commands.auto.AutonomousSelector;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveForDistanceManual;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithJoyArcade;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.NoDrive;
+import org.usfirst.frc.team3574.robot.commands.shooter.StopFlys;
 import org.usfirst.frc.team3574.robot.subsystems.Climber;
 import org.usfirst.frc.team3574.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team3574.robot.subsystems.GearManipulator;
@@ -19,7 +20,6 @@ import org.usfirst.frc.team3574.robot.subsystems.HopperBelt;
 import org.usfirst.frc.team3574.robot.subsystems.HopperIndex;
 import org.usfirst.frc.team3574.robot.subsystems.Intake;
 import org.usfirst.frc.team3574.robot.subsystems.Shooter;
-import org.usfirst.frc.team3574.robot.util.RumbleReminder;
 
 
 /**
@@ -70,6 +70,11 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledInit() {
 		this.log();
+		
+		Command stopFlywheels = new StopFlys();
+		Scheduler.getInstance().add(stopFlywheels);
+//		stopFlywheels.start();
+
 	}
 
 	@Override
@@ -125,10 +130,7 @@ public class Robot extends IterativeRobot {
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
 	
-		rumbleRemindee = (new RumbleReminder());
-		if (rumbleRemindee != null)
-			rumbleRemindee.start();
-	}
+			}
 
 	/**
 	 * This function is called periodically during operator control

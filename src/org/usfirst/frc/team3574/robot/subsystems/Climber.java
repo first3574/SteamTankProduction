@@ -22,22 +22,28 @@ public class Climber extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     	setDefaultCommand(new ClimberVariable());
     }
+    /**
+     * Reversing the output of these motors will not work.  If they spin the wrong direction consistantly, correct the code..
+     */
     public Climber(){
     	climberLeft.changeControlMode(CANTalon.TalonControlMode.Voltage);
-    	climberRight.changeControlMode(CANTalon.TalonControlMode.Follower);
-    	climberRight.set(climberLeft.getDeviceID());
-    	climberRight.reverseOutput(true);
+    	climberRight.changeControlMode(CANTalon.TalonControlMode.Voltage);
+    	climberRight.reverseOutput(false);
+    	climberLeft.reverseOutput(false);
     }
     public void climbStart(){
-    	climberLeft.set(6);
+    	climberLeft.set(8);
+    	climberRight.set(-8);
     }
     
     public void climbStop(){
     	climberLeft.set(0);
+    	climberRight.set(0);
     }
     
     public void set(double speed) {
-    	climberLeft.set(13.0 * speed);
+    	climberLeft.set(-13.0 * speed);
+    	climberRight.set(13.0 * speed);
     }
     
     public void log(){

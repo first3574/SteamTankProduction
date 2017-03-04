@@ -1,33 +1,27 @@
-package org.usfirst.frc.team3574.robot.util;
+package org.usfirst.frc.team3574.robot.commands.shooter;
 
 import org.usfirst.frc.team3574.robot.Robot;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class RumbleReminder extends Command {
+public class SpinBelts extends Command {
 
-    public RumbleReminder() {
-        
-    	
-    	// Use requires() here to declare subsystem dependencies
+    public SpinBelts() {
+        // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	requires(Robot.HopperBelt);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-//    	Robot.oi.isLast20 = false;
+    	Robot.HopperBelt.beltRun();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	L.ogSD("Match Time =", DriverStation.getInstance().getMatchTime());
-    	if(DriverStation.getInstance().getMatchTime() > 1) {
-    		Robot.oi.isLast20 = true;
-    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -42,5 +36,6 @@ public class RumbleReminder extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	Robot.HopperBelt.beltStop();
     }
 }

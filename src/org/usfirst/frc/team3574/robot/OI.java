@@ -1,21 +1,34 @@
 package org.usfirst.frc.team3574.robot;
 
+import java.nio.file.attribute.PosixFileAttributeView;
+
+import org.usfirst.frc.team3574.robot.commands.shoot;
+import org.usfirst.frc.team3574.robot.commands.climber.ClimberGo;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.AlternateShifter;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveOtherWay;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.ShiftHighGear;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.ShiftLowGear;
 import org.usfirst.frc.team3574.robot.commands.gearmanipulator.GearFlapIn;
 import org.usfirst.frc.team3574.robot.commands.gearmanipulator.GearFlapOut;
 import org.usfirst.frc.team3574.robot.commands.gearmanipulator.GearHookDown;
 import org.usfirst.frc.team3574.robot.commands.gearmanipulator.GearHookUp;
 import org.usfirst.frc.team3574.robot.commands.gearmanipulator.GearHookUpFlapOut;
-import org.usfirst.frc.team3574.robot.commands.hopper.SpinHopperBelt;
 import org.usfirst.frc.team3574.robot.commands.hopper.SpinHopperIndex;
 import org.usfirst.frc.team3574.robot.commands.intake.SpinIntakesManual;
+import org.usfirst.frc.team3574.robot.commands.shooter.SpinBelts;
 import org.usfirst.frc.team3574.robot.commands.shooter.SpinFlys;
+import org.usfirst.frc.team3574.robot.commands.shooter.SpinShooterSystem;
+import org.usfirst.frc.team3574.robot.commands.shooter.StopShooterSystem;
+import org.usfirst.frc.team3574.robot.triggers.TriggerButton;
 import org.usfirst.frc.team3574.robot.util.ResetYaw;
-
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import org.usfirst.frc.team3574.robot.triggers.POVButton;
+import org.usfirst.frc.team3574.robot.triggers.POVButtonForTop;
+import org.usfirst.frc.team3574.robot.triggers.POVButtonForBottom;
+
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -60,11 +73,13 @@ public class OI {
 		 * DRIVETRAIN FUNTIONS
 		 */
 
-//		to shift to high gear [A BUTTON]
-		JoystickButton alternateGear = new JoystickButton(stick0, 2);
-		alternateGear.whenPressed(new AlternateShifter());
+		Button highShiftWithPOV = new POVButtonForTop(stick0, 0);
+		highShiftWithPOV.whenPressed(new ShiftHighGear());
 		
-//		To reset yaw [START BUTTON]
+		Button lowShiftWithPOV = new POVButtonForBottom(stick0, 0);
+		lowShiftWithPOV.whenPressed(new ShiftLowGear());
+
+		//		To reset yaw [START BUTTON]
 		JoystickButton resetYaw = new JoystickButton(stick0, 8);
 		resetYaw.whenPressed(new ResetYaw());
 		
@@ -76,74 +91,78 @@ public class OI {
 		/**
 		 * SHOOTING FUNTIONS
 		 */
-//		
-		JoystickButton spinFlywheels = new JoystickButton(stick1, 6);
-		spinFlywheels.whenPressed(new SpinFlys());
-
+		JoystickButton spinShooterSystem = new JoystickButton(stick1, 1);
+		spinShooterSystem.whenPressed(new SpinShooterSystem());
+		
+		
+		JoystickButton stopShooterSystem = new JoystickButton(stick1, 2);
+		stopShooterSystem.whenPressed(new StopShooterSystem());
+		
+		TriggerButton launchFuel = new TriggerButton(stick0, 3);
+		launchFuel.whileHeld(new shoot());
+//		launchFuel.whenPressed(new SpinHopperIndex());
 		/**
 		 * HOPPER FUNTIONS
 		 */
-		JoystickButton spinHopperIndex  = new JoystickButton(stick1, 7);
-		spinHopperIndex.whileHeld(new SpinHopperIndex());
-		
-		JoystickButton spinHopperBelt  = new JoystickButton(stick1, 8);
-		spinHopperBelt.whileHeld(new SpinHopperBelt());
 		
 		/**
 		 * INTAKE FUNTIONS
 		 */
-		JoystickButton spintakeWheels = new JoystickButton(stick1, 9);
-		spintakeWheels.whileHeld(new SpinIntakesManual());
 
 
 		/**
 		 * CLIMBING FUNTIONS
-		 */
-//		JoystickButton climbUp = new JoystickButton(stick1, 10);
-//		climbUp.whileHeld(new Climber());
-		
+		 */	
 		
 		/**
 		 * GEAR MANIPULATOR FUNTIONS
 		 */
 		
-		JoystickButton gearReady = new JoystickButton(stick1, 1);
-		gearReady.whenPressed(new GearFlapOut());
-		JoystickButton gearStore = new JoystickButton(stick0, 4);
-		gearStore.whenPressed(new GearFlapIn());
-		
-		JoystickButton hookDown = new JoystickButton(stick0, 3);
+		TriggerButton hookDown = new TriggerButton(stick1, 3);
 		hookDown.whenPressed(new GearHookDown());
+		
 		JoystickButton hookUp = new JoystickButton(stick1, 4);
 		hookUp.whenPressed(new GearHookUp());
-		
 
 		JoystickButton gearDone = new JoystickButton(stick0, 1);
 		gearDone.whenPressed(new GearHookUpFlapOut());
 		
+		Button gearFlapOut = new POVButtonForTop(stick1, 0);
+		gearFlapOut.whenPressed(new GearFlapOut());
+		
+		Button gearFlapIn = new POVButtonForBottom(stick1, 0);
+		gearFlapIn.whenPressed(new GearFlapIn());
 		/**
 		 * MISC FUNTIONS
 		 */
 		
+		JoystickButton climb = new JoystickButton(stick1, 6);
+		climb.whileHeld(new ClimberGo());
+		JoystickButton manualIntake = new JoystickButton(stick1, 5);
+		manualIntake.whileHeld(new SpinIntakesManual());
 		
+		JoystickButton beltSpin = new JoystickButton(stick0, 4);
+		beltSpin.whileHeld(new SpinBelts());
 		
+	}
+	public double driveStickXAxis() {
+		return stick0.getRawAxis(0);
+	}
+	public double driveStickYAxis() {
+		return stick0.getRawAxis(5);
 	}
 	
-	public double driveStickYAxis() {
-		return stick0.getRawAxis(4);
+	public double intakeStickYAxis() {
+		return stick1.getRawAxis(5);
+	}
+	public double climbAxis() {
+		return -stick1.getRawAxis(2);
 	}
 
-	public double driveStickXAxis() {
-		return stick0.getRawAxis(1);
-	}
 	
 	public boolean getQuickTurnButton(){
 //		Checks the boolean value of button 6 (Right Bumper)
 		return stick0.getRawButton(6);
-	}
-	
-	public double getCoTriggers() {
-		return stick1.getRawAxis(3) - stick1.getRawAxis(2);
 	}
 	
 	public void rumble() {

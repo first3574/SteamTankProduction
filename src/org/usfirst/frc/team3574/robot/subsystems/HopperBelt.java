@@ -1,7 +1,7 @@
 package org.usfirst.frc.team3574.robot.subsystems;
 
 import org.usfirst.frc.team3574.robot.RobotMap;
-import org.usfirst.frc.team3574.robot.commands.hopper.BeltStop;
+import org.usfirst.frc.team3574.robot.commands.shooter.StopBelts;
 import org.usfirst.frc.team3574.robot.util.L;
 
 import com.ctre.CANTalon;
@@ -24,7 +24,7 @@ public class HopperBelt extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    	setDefaultCommand(new BeltStop());
+    	setDefaultCommand(new StopBelts());
     }
     
 	public void beltRun(){

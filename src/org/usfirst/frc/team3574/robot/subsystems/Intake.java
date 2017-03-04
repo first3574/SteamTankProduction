@@ -3,6 +3,7 @@ package org.usfirst.frc.team3574.robot.subsystems;
 import org.usfirst.frc.team3574.robot.Robot;
 import org.usfirst.frc.team3574.robot.RobotMap;
 import org.usfirst.frc.team3574.robot.commands.intake.SpIntakesWhenMoving;
+import org.usfirst.frc.team3574.robot.util.L;
 
 import com.ctre.CANTalon;
 
@@ -18,8 +19,7 @@ public class Intake extends Subsystem {
     // here. Call these from Commands.
 
 	public Intake() {
-		intake.changeControlMode(CANTalon.TalonControlMode.Voltage);
-		
+		intake.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
 	}
 	
     public void initDefaultCommand() {
@@ -28,19 +28,23 @@ public class Intake extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
     
-    public void intakeRun() {
-    	intake.set(-6);
+    /**
+     * negative is pulling into the robot
+     * @param speed
+     */
+    public void intakeRun(double speed) {
+    	intake.set(speed);
     }
     
     public void agitateHopper() {
-    	intake.set(3);
+    	intake.set(.5);
     }
 
     public void intakeStop() {
-    	intake.set(0.0);
+    	intake.set(0);
     }
     
     public void log() {
-    	
+    	L.ogSDTalonBasics("Intake", intake);
     }
 }

@@ -22,9 +22,9 @@ public class ClimberVariable extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (Math.abs(Robot.oi.getCoTriggers()) > 0.2) {
+    	if (Math.abs(Robot.oi.climbAxis()) > 0.2) {
     		// to the power of 5 for reactivity, could be clearer code!
-    		Robot.Climber.set(Math.pow(Robot.oi.getCoTriggers(), 3.0));
+    		Robot.Climber.set(Math.pow(Robot.oi.climbAxis(), 3.0));
     	} else {
     		Robot.Climber.set(0);
     	}

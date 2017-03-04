@@ -7,8 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class SpinIntakesManual extends Command {
 
+public class SpinIntakesManual extends Command {
+	
     public SpinIntakesManual() {
     	requires(Robot.Intake);
         // Use requires() here to declare subsystem dependencies
@@ -17,11 +18,10 @@ public class SpinIntakesManual extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.Intake.intakeRun();
     }
-
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	Robot.Intake.intakeRun(Robot.oi.intakeStickYAxis());
     }
 
     // Make this return true when this Command no longer needs to run execute()

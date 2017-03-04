@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class SpinFlys extends Command {
 
     public SpinFlys() {
+    	requires(Robot.Shooter);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -18,7 +19,13 @@ public class SpinFlys extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	L.ogCmdInit(this);
-    	Robot.Shooter.spinUp(2300); //1547
+    	Robot.Shooter.spinUp(2250); //1547
+    	
+//    	spinUp = 2250, angle = 105, distance = inches
+//    	spinUp = 3200ish, angle = 105, distance = several feet.
+    
+//    
+//    	
     }
 
     // Called repeatedly when this Command is scheduled to run
