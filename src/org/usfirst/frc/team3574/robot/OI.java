@@ -1,31 +1,20 @@
 package org.usfirst.frc.team3574.robot;
 
-import org.usfirst.frc.team3574.robot.commands.climber.ClimberGo;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.AlternateShifter;
-import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveForDistanceWithNavx;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveOtherWay;
-import org.usfirst.frc.team3574.robot.commands.drivetrain.ShiftHighGear;
-import org.usfirst.frc.team3574.robot.commands.drivetrain.ShiftLowGear;
-import org.usfirst.frc.team3574.robot.commands.drivetrain.ShiftOff;
 import org.usfirst.frc.team3574.robot.commands.gearmanipulator.GearFlapIn;
 import org.usfirst.frc.team3574.robot.commands.gearmanipulator.GearFlapOut;
 import org.usfirst.frc.team3574.robot.commands.gearmanipulator.GearHookDown;
 import org.usfirst.frc.team3574.robot.commands.gearmanipulator.GearHookUp;
 import org.usfirst.frc.team3574.robot.commands.gearmanipulator.GearHookUpFlapOut;
-import org.usfirst.frc.team3574.robot.commands.hopper.BeltStop;
-import org.usfirst.frc.team3574.robot.commands.hopper.IndexStop;
 import org.usfirst.frc.team3574.robot.commands.hopper.SpinHopperBelt;
 import org.usfirst.frc.team3574.robot.commands.hopper.SpinHopperIndex;
 import org.usfirst.frc.team3574.robot.commands.intake.SpinIntakesManual;
-import org.usfirst.frc.team3574.robot.commands.intake.SpIntakesWhenMoving;
 import org.usfirst.frc.team3574.robot.commands.shooter.SpinFlys;
-import org.usfirst.frc.team3574.robot.subsystems.HopperIndex;
 import org.usfirst.frc.team3574.robot.util.ResetYaw;
 
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 /**
  * This class is the glue that binds the controls on the physical operator
