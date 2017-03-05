@@ -26,8 +26,8 @@ public class Shooter extends Subsystem {
 	static final int nativeUnitsPerRotation = 48;
 	static final int nativeUnitsPerMeasurementRate = 18730/6000 * nativeUnitsPerRotation; // = 136 
 	static final double FEED_FORWARD_GAIN = nativeUnitsPerRotation/nativeUnitsPerMeasurementRate; // 0.35294117647
-	static final double PROPORTIONAL_GAIN = (.1 * nativeUnitsPerRotation) / 1832;
-	static final double INTEGRAL_GAIN = .003;
+	static final double PROPORTIONAL_GAIN = (.11 * nativeUnitsPerRotation) / 1832;
+	static final double INTEGRAL_GAIN = .0003;
 
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
@@ -106,6 +106,7 @@ public class Shooter extends Subsystem {
 	public void log() {
 		L.ogSDTalonBasics("Shooter Left", left1);
 		L.ogSDTalonBasics("Shooter Right", right1);
+		
 		L.ogSDTalonPID("Shooter Left", left1);
 		L.ogSDTalonPID("Shooter Right", right1);
 	}

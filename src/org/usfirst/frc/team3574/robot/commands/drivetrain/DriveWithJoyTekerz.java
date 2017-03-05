@@ -7,11 +7,13 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class DriveWithJoyArcade extends Command {
+public class DriveWithJoyTekerz extends Command {
 	double throttle = 0;
 	double wheel = 0;
-	
-    public DriveWithJoyArcade() {
+    public static final double kThrottleDeadband = 0.02;
+    private static final double kWheelDeadband = 0.1;
+
+    public DriveWithJoyTekerz() {
     	requires(Robot.DriveTrain);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -25,8 +27,8 @@ public class DriveWithJoyArcade extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	throttle = Robot.oi.driveStickTurnAxis();
-    	wheel = Robot.oi.driveStickThrottleAxis();
+        wheel = handleDeadband(Robot.oi.driveStickTurnAxis(), kWheelDeadband);
+        throttle = handleDeadband(Robot.oi.driveStickThrottleAxis(), kThrottleDeadband);
 
     	wheel = Math.pow(wheel, 3.0);
         throttle = Math.pow(throttle, 3.0);
@@ -47,4 +49,9 @@ public class DriveWithJoyArcade extends Command {
     // subsystems is scheduled to run
     protected void interrupted() {
     }
+
+    public double handleDeadband(double val, double deadband) {
+        return (Math.abs(val) > Math.abs(deadband)) ? val : 0.0;
+    }
+
 }

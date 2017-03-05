@@ -1,6 +1,8 @@
 package org.usfirst.frc.team3574.robot.subsystems;
 
 import org.usfirst.frc.team3574.robot.RobotMap;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithJoyArcade;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithJoyTekerz;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithPoof;
 import org.usfirst.frc.team3574.robot.util.L;
 
@@ -10,6 +12,7 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -45,10 +48,27 @@ public class DriveTrain extends Subsystem {
 	static final double I_GAIN = .003;
 	static final double D_GAIN = 0.0;
 	static final double F_GAIN = nativeUnitsPerRotation/nativeUnitsPerMeasurementRate;
-
+	static final double SHIFT_SPEED = 50;
+	
 	public DriveTrain () {
-		ahrs = new AHRS(I2C.Port.kOnboard);
 		
+        try {
+			/***********************************************************************
+			 * navX-MXP:
+			 * - Communication via RoboRIO MXP (SPI, I2C, TTL UART) and USB.            
+			 * - See http://navx-mxp.kauailabs.com/guidance/selecting-an-interface.
+			 * 
+			 * navX-Micro:
+			 * - Communication via I2C (RoboRIO MXP or Onboard) and USB.
+			 * - See http://navx-micro.kauailabs.com/guidance/selecting-an-interface.
+			 * 
+			 * Multiple navX-model devices on a single robot are supported.
+			 ************************************************************************/
+            ahrs = new AHRS(I2C.Port.kOnboard);
+        } catch (RuntimeException ex ) {
+            DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
+        }
+
 		if (ahrs != null) {
 			LiveWindow.addSensor("NavX", "Gyro", ahrs);
 		}
@@ -103,7 +123,7 @@ public class DriveTrain extends Subsystem {
 		}
 	}
 	public void initDefaultCommand() {
-		setDefaultCommand(new DriveWithPoof());
+		setDefaultCommand(new DriveWithJoyTekerz());
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
 	}
@@ -139,6 +159,20 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	private void automaticShifter() {
+		if(left1.getSpeed() > SHIFT_SPEED && right1.getSpeed() > SHIFT_SPEED)
+		{
+			if(getGearIsLow())
+			{
+				setGearHigh();
+			}
+		}
+		else if(left1.getSpeed() < SHIFT_SPEED && right1.getSpeed() < SHIFT_SPEED)
+		{
+			if(!getGearIsLow())
+			{
+				setGearLow();
+			}
+		}
 		// if low gear and going high speed, shift up
 		// if high gear and going low speed, shift down
 	}
@@ -158,6 +192,11 @@ public class DriveTrain extends Subsystem {
 	
 	//DRIVE SYSTEMS
 	public void driveArcade(double throttle, double turnValue) {
+		left1.set((throttle + turnValue) * driveOtherWay);
+		right1.set((throttle - turnValue) * driveOtherWay);
+	}
+	
+	public void driveTekerz(double throttle, double turnValue) {
 		left1.set((throttle + turnValue) * driveOtherWay);
 		right1.set((throttle - turnValue) * driveOtherWay);
 	}
@@ -189,14 +228,14 @@ public class DriveTrain extends Subsystem {
 		return right1.getOutputVoltage();
 	}
 
-	public void log() {
-		L.ogSD("Drive Yaw", getYaw());
-		
+	public void log() {		
 		L.ogSD("Compresser Switch" ,Boolean.toString(( new Compressor()).getPressureSwitchValue()));
-		SmartDashboard.putBoolean("YO. DAWG.", ahrs.isConnected());
 		L.ogSDTalonBasics("Drive Left", left1);
 		L.ogSDTalonBasics("Drive Right", right1);
 		L.ogSDTalonPID("Drive Left", left1);
 		L.ogSDTalonPID("Drive Right", right1);
+        SmartDashboard.putBoolean(  "I AM YOU!?_IsCalibrating",    ahrs.isCalibrating());
+        SmartDashboard.putNumber(   "I AM YOU!?_Yaw",              ahrs.getYaw());
+		SmartDashboard.putBoolean("I AM YOU!?_IsConnected", ahrs.isConnected());
 	}
 }

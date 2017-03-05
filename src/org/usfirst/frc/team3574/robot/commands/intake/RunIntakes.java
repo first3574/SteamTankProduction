@@ -1,4 +1,4 @@
-package org.usfirst.frc.team3574.robot.commands;
+package org.usfirst.frc.team3574.robot.commands.intake;
 
 import org.usfirst.frc.team3574.robot.Robot;
 
@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class agitateHoppe extends Command {
+public class RunIntakes extends Command {
 
-    public agitateHoppe() {
+    public RunIntakes() {
     	requires(Robot.Intake);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);

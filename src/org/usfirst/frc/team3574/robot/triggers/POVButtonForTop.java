@@ -21,7 +21,7 @@ public class POVButtonForTop extends Button{
 			
 			return true;
 		} else {
-//			L.og("HIGH flase");
+//			L.og("HIGH false");
 			
 			return false;
 		}

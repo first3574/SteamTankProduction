@@ -2,7 +2,6 @@ package org.usfirst.frc.team3574.robot;
 
 import java.nio.file.attribute.PosixFileAttributeView;
 
-import org.usfirst.frc.team3574.robot.commands.shoot;
 import org.usfirst.frc.team3574.robot.commands.climber.ClimberGo;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.AlternateShifter;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveOtherWay;
@@ -15,10 +14,12 @@ import org.usfirst.frc.team3574.robot.commands.gearmanipulator.GearHookUp;
 import org.usfirst.frc.team3574.robot.commands.gearmanipulator.GearHookUpFlapOut;
 import org.usfirst.frc.team3574.robot.commands.hopper.SpinHopperIndex;
 import org.usfirst.frc.team3574.robot.commands.intake.SpinIntakesManual;
+import org.usfirst.frc.team3574.robot.commands.shooter.IdleShooter;
 import org.usfirst.frc.team3574.robot.commands.shooter.SpinBelts;
 import org.usfirst.frc.team3574.robot.commands.shooter.SpinFlys;
 import org.usfirst.frc.team3574.robot.commands.shooter.SpinShooterSystem;
 import org.usfirst.frc.team3574.robot.commands.shooter.StopShooterSystem;
+import org.usfirst.frc.team3574.robot.commands.shooter.shoot;
 import org.usfirst.frc.team3574.robot.triggers.TriggerButton;
 import org.usfirst.frc.team3574.robot.util.ResetYaw;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
@@ -33,12 +34,44 @@ import org.usfirst.frc.team3574.robot.triggers.POVButtonForBottom;
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
-public class OI {
+public class OI {	
 //	Declaring the Joysticks we use
-	Joystick stick0 = new Joystick(0);
-	Joystick stick1 = new Joystick(1);
+	Joystick driver = new Joystick(0);
+	Joystick gunner = new Joystick(1);
 //	Boolean to show if the match is 20 seconds to end
 	public boolean isLast20 = false;
+	
+	/**
+	 * Buttons
+	 */
+	static final int A = 1;
+	static final int B = 2;
+	static final int X = 3;
+	static final int Y = 4;
+	static final int LEFT_BUMPER = 5;
+	static final int RIGHT_BUMPER = 6;
+	static final int BACK = 7;
+	static final int START = 8;
+	static final int RIGHT_THUMBSTICK_BUTTON = 9;
+	static final int LEFT_THUMBSTICK_BUTTON = 10;
+	
+	/**
+	 *  Axis
+	 */
+	static final int xboxLeftStickX = 0;
+	static final int xboxLeftStickY = 1;
+	static final int xboxRightStickX = 4;
+	static final int xboxRightStickY = 5;
+	
+	static final int xboxLeftTrigger = 2;
+	static final int xboxRightTrigger = 3;	
+	
+	/**
+	 * Misc
+	 */
+	int POV = 0;
+	
+	
 	
 	//// CREATING BUTTONS
 	// One type of button is a joystick button which is any button on a
@@ -68,39 +101,87 @@ public class OI {
 	// until it is finished as determined by it's isFinished method.
 	// button.whenReleased(new ExampleCommand());
 
-	public OI() { /* please make sure to place each button under it's respective function.
+	public OI() { /* please make sure to place each button under it's respective function.*/
+	
+	/**				Driver-Free/Used Buttons
+	 
+	 * A-----------Shooter: SpinUp.
+	 * B-----------free
+	 * X-----------free
+	 * Y-----------free
+	 * LBumper-----cheesyDrive: QuickTurn.
+	 * RBumper-----free
+	 * Back--------DriveTrain: ReverseDirection
+	 * Start-------free
+	 * RThumbstick-free
+	 * LThumbstick-free
+	  
+	 * 				Driver-Free/Used Axis
+	 
+	 *LXStick------used
+	 *LYStick------used
+	 *RXStick------used
+	 *RYStick------used
+	 *LTrigger-----free
+	 *RTrigger-----Shooter: shoot
+	 
+	 *POV----------DriveTrain: ShiftUp & ShiftDown
+	 */
+		
+	/**				Gunner-Free/Used Buttons
+	 
+	 * A-----------NotYet
+	 * B-----------free
+	 * X-----------free
+	 * Y-----------Shooter: IdleShooter
+	 * LBumper-----Intake: SetIntakeManual
+	 * RBumper-----free
+	 * Back--------free
+	 * Start-------free
+	 * RThumbstick-free
+	 * LThumbstick-free
+	  
+	 * 				Driver-Free/Used Axis
+	 
+	 *LXStick------free
+	 *LYStick------free
+	 *RXStick------NotYet
+	 *RYStick------Intake: UseIntakeManual
+	 *LTrigger-----Climber: ClimbUp
+	 *RTrigger-----GearManipulator: DropGear
+	 
+	 *POV----------GearManipulator: FlapOutHookUp & FlapIn
+	 */
+	
 		/**
 		 * DRIVETRAIN FUNTIONS
 		 */
 
-		Button highShiftWithPOV = new POVButtonForTop(stick0, 0);
+		Button highShiftWithPOV = new POVButtonForTop(driver, POV);
 		highShiftWithPOV.whenPressed(new ShiftHighGear());
 		
-		Button lowShiftWithPOV = new POVButtonForBottom(stick0, 0);
+		Button lowShiftWithPOV = new POVButtonForBottom(driver, POV);
 		lowShiftWithPOV.whenPressed(new ShiftLowGear());
 
-		//		To reset yaw [START BUTTON]
-		JoystickButton resetYaw = new JoystickButton(stick0, 8);
-		resetYaw.whenPressed(new ResetYaw());
-		
 //		Inverts drive controls [BACK BUTTON]
-		JoystickButton invertDrive = new JoystickButton(stick0, 7);
+		JoystickButton invertDrive = new JoystickButton(driver, BACK);
 		invertDrive.whenPressed(new DriveOtherWay());
 		
 		
 		/**
 		 * SHOOTING FUNTIONS
 		 */
-		JoystickButton spinShooterSystem = new JoystickButton(stick1, 1);
+		
+		JoystickButton spinShooterSystem = new JoystickButton(gunner, A);
 		spinShooterSystem.whenPressed(new SpinShooterSystem());
 		
-		
-		JoystickButton stopShooterSystem = new JoystickButton(stick1, 2);
-		stopShooterSystem.whenPressed(new StopShooterSystem());
-		
-		TriggerButton launchFuel = new TriggerButton(stick0, 3);
+		TriggerButton launchFuel = new TriggerButton(driver, xboxRightTrigger);
 		launchFuel.whileHeld(new shoot());
-//		launchFuel.whenPressed(new SpinHopperIndex());
+//		launchFuel.whenPressed(new SpinHopperIndex());		
+		
+		JoystickButton idleShooter = new JoystickButton(gunner, Y);
+		idleShooter.whenPressed(new IdleShooter());
+		
 		/**
 		 * HOPPER FUNTIONS
 		 */
@@ -108,65 +189,62 @@ public class OI {
 		/**
 		 * INTAKE FUNTIONS
 		 */
-
+		JoystickButton manualIntake = new JoystickButton(gunner, LEFT_BUMPER);
+		manualIntake.whileHeld(new SpinIntakesManual());
+		
 
 		/**
 		 * CLIMBING FUNTIONS
 		 */	
+
+		JoystickButton climb = new JoystickButton(gunner, RIGHT_BUMPER);
+		climb.whileHeld(new ClimberGo());
 		
 		/**
 		 * GEAR MANIPULATOR FUNTIONS
 		 */
-		
-		TriggerButton hookDown = new TriggerButton(stick1, 3);
+		TriggerButton hookDown = new TriggerButton(gunner, xboxRightTrigger);
 		hookDown.whenPressed(new GearHookDown());
 		
-		JoystickButton hookUp = new JoystickButton(stick1, 4);
+		JoystickButton hookUp = new JoystickButton(gunner, Y);
 		hookUp.whenPressed(new GearHookUp());
-
-		JoystickButton gearDone = new JoystickButton(stick0, 1);
-		gearDone.whenPressed(new GearHookUpFlapOut());
 		
-		Button gearFlapOut = new POVButtonForTop(stick1, 0);
-		gearFlapOut.whenPressed(new GearFlapOut());
+		Button gearFlapOut = new POVButtonForTop(gunner, POV);
+		gearFlapOut.whenPressed(new GearHookUpFlapOut());
 		
-		Button gearFlapIn = new POVButtonForBottom(stick1, 0);
+		Button gearFlapIn = new POVButtonForBottom(gunner, POV);
 		gearFlapIn.whenPressed(new GearFlapIn());
+		
 		/**
 		 * MISC FUNTIONS
 		 */
 		
-		JoystickButton climb = new JoystickButton(stick1, 6);
-		climb.whileHeld(new ClimberGo());
-		JoystickButton manualIntake = new JoystickButton(stick1, 5);
-		manualIntake.whileHeld(new SpinIntakesManual());
-		
-		JoystickButton beltSpin = new JoystickButton(stick0, 4);
-		beltSpin.whileHeld(new SpinBelts());
 		
 	}
-	public double driveStickXAxis() {
-		return stick0.getRawAxis(0);
+	public double driveStickThrottleAxis() {
+		return driver.getRawAxis(xboxRightStickY);
 	}
-	public double driveStickYAxis() {
-		return stick0.getRawAxis(5);
+	
+	public double driveStickTurnAxis() {
+		return -driver.getRawAxis(xboxLeftStickX);
 	}
 	
 	public double intakeStickYAxis() {
-		return stick1.getRawAxis(5);
+		return gunner.getRawAxis(xboxRightStickY);
 	}
+	
 	public double climbAxis() {
-		return -stick1.getRawAxis(2);
+		return -gunner.getRawAxis(xboxLeftTrigger);
 	}
 
 	
 	public boolean getQuickTurnButton(){
 //		Checks the boolean value of button 6 (Right Bumper)
-		return stick0.getRawButton(6);
+		return driver.getRawButton(6);
 	}
 	
 	public void rumble() {
-		stick0.setRumble(RumbleType.kRightRumble, 0.5);
-		stick1.setRumble(RumbleType.kRightRumble, 0.5);
+		driver.setRumble(RumbleType.kRightRumble, 0.5);
+		gunner.setRumble(RumbleType.kRightRumble, 0.5);
 	}
 }

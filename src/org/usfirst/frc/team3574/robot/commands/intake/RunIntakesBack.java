@@ -1,4 +1,4 @@
-package org.usfirst.frc.team3574.robot.commands.drivetrain;
+package org.usfirst.frc.team3574.robot.commands.intake;
 
 import org.usfirst.frc.team3574.robot.Robot;
 
@@ -7,31 +7,21 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class DriveWithJoyArcade extends Command {
-	double throttle = 0;
-	double wheel = 0;
-	
-    public DriveWithJoyArcade() {
-    	requires(Robot.DriveTrain);
+public class RunIntakesBack extends Command {
+
+    public RunIntakesBack() {
+    	requires(Robot.Intake);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    
-    
+    	Robot.Intake.intakeRun(1);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	throttle = Robot.oi.driveStickTurnAxis();
-    	wheel = Robot.oi.driveStickThrottleAxis();
-
-    	wheel = Math.pow(wheel, 3.0);
-        throttle = Math.pow(throttle, 3.0);
-
-    	Robot.DriveTrain.driveArcade(wheel, throttle);
     }
 
     // Make this return true when this Command no longer needs to run execute()

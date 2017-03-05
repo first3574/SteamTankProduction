@@ -24,8 +24,8 @@ public class DriveWithPoof extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-            double wheel = handleDeadband(Robot.oi.driveStickXAxis(), kWheelDeadband);
-            double throttle = handleDeadband(Robot.oi.driveStickYAxis(), kThrottleDeadband);
+            double wheel = handleDeadband(Robot.oi.driveStickTurnAxis(), kWheelDeadband);
+            double throttle = handleDeadband(Robot.oi.driveStickThrottleAxis(), kThrottleDeadband);
             
             //scaling!
             wheel = Math.pow(wheel, 5.0);
