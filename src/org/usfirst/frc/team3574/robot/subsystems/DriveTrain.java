@@ -119,7 +119,9 @@ public class DriveTrain extends Subsystem {
 			
 		} else{ //default to VBus
 			left1.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
+			left1.enableBrakeMode(true);
 			right1.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
+			right1.enableBrakeMode(true);
 		}
 	}
 	public void initDefaultCommand() {

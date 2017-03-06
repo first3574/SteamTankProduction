@@ -33,7 +33,7 @@ public class DriveWithJoyTekerz extends Command {
     	wheel = Math.pow(wheel, 3.0);
         throttle = Math.pow(throttle, 3.0);
 
-    	Robot.DriveTrain.driveArcade(wheel, throttle);
+    	Robot.DriveTrain.driveTekerz(wheel, throttle);
     }
 
     // Make this return true when this Command no longer needs to run execute()

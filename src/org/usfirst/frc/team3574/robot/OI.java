@@ -22,6 +22,8 @@ import org.usfirst.frc.team3574.robot.commands.shooter.StopShooterSystem;
 import org.usfirst.frc.team3574.robot.commands.shooter.shoot;
 import org.usfirst.frc.team3574.robot.triggers.TriggerButton;
 import org.usfirst.frc.team3574.robot.util.ResetYaw;
+import org.usfirst.frc.team3574.robot.util.RunClimberStopShooter;
+
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -44,10 +46,10 @@ public class OI {
 	/**
 	 * Buttons
 	 */
-	static final int A = 1;
-	static final int B = 2;
-	static final int X = 3;
-	static final int Y = 4;
+	static final int A_BUTTON = 1;
+	static final int B_BUTTON = 2;
+	static final int X_BUTTON = 3;
+	static final int Y_BUTTON = 4;
 	static final int LEFT_BUMPER = 5;
 	static final int RIGHT_BUMPER = 6;
 	static final int BACK = 7;
@@ -58,13 +60,13 @@ public class OI {
 	/**
 	 *  Axis
 	 */
-	static final int xboxLeftStickX = 0;
-	static final int xboxLeftStickY = 1;
-	static final int xboxRightStickX = 4;
-	static final int xboxRightStickY = 5;
+	static final int LEFT_STICK_X = 0;
+	static final int LEFT_STICK_Y = 1;
+	static final int RIGHT_STICK_X = 4;
+	static final int RIGHT_STICK_Y = 5;
 	
-	static final int xboxLeftTrigger = 2;
-	static final int xboxRightTrigger = 3;	
+	static final int LEFT_TRIGGER = 2;
+	static final int RIGHT_TRIGGER = 3;	
 	
 	/**
 	 * Misc
@@ -172,14 +174,14 @@ public class OI {
 		 * SHOOTING FUNTIONS
 		 */
 		
-		JoystickButton spinShooterSystem = new JoystickButton(gunner, A);
+		JoystickButton spinShooterSystem = new JoystickButton(gunner, A_BUTTON);
 		spinShooterSystem.whenPressed(new SpinShooterSystem());
 		
-		TriggerButton launchFuel = new TriggerButton(driver, xboxRightTrigger);
+		TriggerButton launchFuel = new TriggerButton(driver, RIGHT_TRIGGER);
 		launchFuel.whileHeld(new shoot());
 //		launchFuel.whenPressed(new SpinHopperIndex());		
 		
-		JoystickButton idleShooter = new JoystickButton(gunner, Y);
+		JoystickButton idleShooter = new JoystickButton(gunner, Y_BUTTON);
 		idleShooter.whenPressed(new IdleShooter());
 		
 		/**
@@ -197,16 +199,15 @@ public class OI {
 		 * CLIMBING FUNTIONS
 		 */	
 
-		JoystickButton climb = new JoystickButton(gunner, RIGHT_BUMPER);
-		climb.whileHeld(new ClimberGo());
+
 		
 		/**
 		 * GEAR MANIPULATOR FUNTIONS
 		 */
-		TriggerButton hookDown = new TriggerButton(gunner, xboxRightTrigger);
+		TriggerButton hookDown = new TriggerButton(gunner, RIGHT_TRIGGER);
 		hookDown.whenPressed(new GearHookDown());
 		
-		JoystickButton hookUp = new JoystickButton(gunner, Y);
+		JoystickButton hookUp = new JoystickButton(gunner, Y_BUTTON);
 		hookUp.whenPressed(new GearHookUp());
 		
 		Button gearFlapOut = new POVButtonForTop(gunner, POV);
@@ -222,21 +223,20 @@ public class OI {
 		
 	}
 	public double driveStickThrottleAxis() {
-		return driver.getRawAxis(xboxRightStickY);
+		return driver.getRawAxis(RIGHT_STICK_Y);
 	}
 	
 	public double driveStickTurnAxis() {
-		return -driver.getRawAxis(xboxLeftStickX);
+		return -driver.getRawAxis(LEFT_STICK_X);
 	}
 	
 	public double intakeStickYAxis() {
-		return gunner.getRawAxis(xboxRightStickY);
+		return gunner.getRawAxis(RIGHT_STICK_Y);
 	}
 	
 	public double climbAxis() {
-		return -gunner.getRawAxis(xboxLeftTrigger);
+		return -gunner.getRawAxis(LEFT_TRIGGER);
 	}
-
 	
 	public boolean getQuickTurnButton(){
 //		Checks the boolean value of button 6 (Right Bumper)
