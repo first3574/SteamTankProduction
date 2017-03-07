@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team3574.robot.commands.auto.AutonomousSelector;
+import org.usfirst.frc.team3574.robot.commands.auto.ForwardTurnForward;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveForDistanceManual;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithJoyArcade;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.NoDrive;
@@ -58,8 +59,7 @@ public class Robot extends IterativeRobot {
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
 		SmartDashboard.putData(Scheduler.getInstance());
-		
-		SmartDashboard.putData("Spin Right Round Baby Right Round", new DriveForDistanceManual(10, .20, 0));
+		SmartDashboard.putData("ForwardTurnForward", new ForwardTurnForward(true));
 	}
 
 	/**

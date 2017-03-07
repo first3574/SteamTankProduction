@@ -1,31 +1,23 @@
-package org.usfirst.frc.team3574.robot.commands.shooter;
+package org.usfirst.frc.team3574.robot.commands.shooter.copy;
 
 import org.usfirst.frc.team3574.robot.Robot;
-import org.usfirst.frc.team3574.robot.util.L;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class SpinFlys extends Command {
+public class StopBelts extends Command {
 
-    public SpinFlys() {
-    	requires(Robot.Shooter);
+    public StopBelts() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	requires(Robot.HopperBelt);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	L.ogCmdInit(this);
-    	Robot.Shooter.spinUp(1937.5); //1547
-    	
-//    	spinUp = 2250, angle = 105, distance = inches
-//    	spinUp = 3200ish, angle = 105, distance = several feet.
-    
-//    
-//    	
+    	Robot.HopperBelt.beltStop();
     }
 
     // Called repeatedly when this Command is scheduled to run

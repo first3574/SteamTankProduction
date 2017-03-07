@@ -2,6 +2,8 @@ package org.usfirst.frc.team3574.robot.subsystems;
 
 import org.usfirst.frc.team3574.robot.RobotMap;
 import org.usfirst.frc.team3574.robot.commands.climber.ClimberVariable;
+import org.usfirst.frc.team3574.robot.commands.climber.TriggerMonitor;
+import org.usfirst.frc.team3574.robot.triggers.TriggerButton;
 
 import com.ctre.CANTalon;
 
@@ -20,7 +22,7 @@ public class Climber extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    	setDefaultCommand(new ClimberVariable());
+    	setDefaultCommand(new TriggerMonitor());
     }
     /**
      * Reversing the output of these motors will not work.  If they spin the wrong direction consistantly, correct the code..
