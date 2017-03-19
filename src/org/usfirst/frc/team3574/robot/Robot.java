@@ -71,6 +71,7 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("Cross Baseline get Hopper Red", 1);
 		chooser.addObject("Cross Baseline get hopper bluet", 2);
 		chooser.addObject("OLD cross baseline", 3);
+		chooser.addObject("Hopper and Shoot Blue", 4);
 	
 		Shooter.shooterSpeed = 1937.5; //RPM
 		DriveTrain.resetYaw();

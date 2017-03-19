@@ -10,6 +10,7 @@ import org.usfirst.frc.team3574.robot.commands.drivetrain.RotateToADegree;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.RotateToADegreeClockwiseOnly;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.RotateToADegreeCounterClockwiseOnly;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.ShiftLowGear;
+import org.usfirst.frc.team3574.robot.commands.intake.RunIntakes;
 import org.usfirst.frc.team3574.robot.commands.shooter.AutoShoot;
 import org.usfirst.frc.team3574.robot.commands.shooter.SpinFlys;
 import org.usfirst.frc.team3574.robot.commands.shooter.shoot;
@@ -37,10 +38,11 @@ public class AutoDraftHopperShootBlue extends CommandGroup {
     	addSequential(new DriveForDistanceManual(-4.5, -.75, 0.0));
     	addSequential(new RotateToADegreeCounterClockwiseOnly(ANGLE_TOWARDS_BOILER, .5));
     	addSequential(new ResetYaw());
+    	addParallel(new RunIntakes());
 //    	addParallel(new SpinFlys());
     	addSequential(new DriveForDistanceManual(9.18, .75, 0.0));
     	addSequential(new RotateToADegreeClockwiseOnly(ANGLE_READY_TO_SHOOT, 0.5));
-    	addSequential(new DriveForDistanceManual(0.5, 0.2, 0.0));
+    	addSequential(new DriveForDistanceManual(0.8, 0.2, 0.0));
 //    	addSequential(new AutoShoot());
 //    	addSequential(new DisableBrakeMode());
     	

@@ -44,6 +44,8 @@ public class AutonomousSelector extends Command {
 					command = (new AutoCrossBaselinePrepHopperBlue());
 				} else if(autoStart.equals(3)) {
 					command = (new OLDCrossBaseline());
+				} else if(autoStart.equals(4)) {
+					command = (new AutoDraftHopperShootBlue());
 				}
 				
 				command.start();
