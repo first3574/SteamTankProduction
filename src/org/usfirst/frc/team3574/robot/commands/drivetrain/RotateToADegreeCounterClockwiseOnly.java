@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3574.robot.commands.drivetrain;
 
 import org.usfirst.frc.team3574.robot.Robot;
+import org.usfirst.frc.team3574.robot.util.L;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -11,11 +12,13 @@ public class RotateToADegreeCounterClockwiseOnly extends Command {
 	double yaw;
 	int reverse;
 	int targetYaw;
+	double speed;
 	
 	
-	public RotateToADegreeCounterClockwiseOnly(int positiveIsClockwise) {
+	public RotateToADegreeCounterClockwiseOnly(int positiveIsClockwise, double speed) {
 		requires(Robot.DriveTrain);
 		this.targetYaw = positiveIsClockwise;
+		this.speed = speed;
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 	}
@@ -24,7 +27,7 @@ public class RotateToADegreeCounterClockwiseOnly extends Command {
 	protected void initialize() {
 		reverse = -1;
 		
-		Robot.DriveTrain.driveArcade(0.0, -0.5 * reverse);
+		Robot.DriveTrain.driveTekerz(-speed * reverse, 0.0);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -36,8 +39,14 @@ public class RotateToADegreeCounterClockwiseOnly extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		if(yaw <= targetYaw) {
-			Robot.DriveTrain.driveArcade(0.0, 0.0);
+		L.ogSD("YAW MAN ",yaw);
+		L.ogSD("YAW MAN TARGET", targetYaw);
+		if(yaw <= targetYaw + 22) {
+			Robot.DriveTrain.driveTekerz(-0.2 * reverse, 0.0);
+		}
+		
+		if(yaw < targetYaw) {
+			Robot.DriveTrain.driveTekerz(0.0, 0.0);
 			return true;
 		} else {
 			return false;

@@ -8,11 +8,19 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team3574.robot.commands.auto.AutoDraftHopperShootBlue;
+import org.usfirst.frc.team3574.robot.commands.auto.AutoDraftHopperShootRed;
 import org.usfirst.frc.team3574.robot.commands.auto.AutonomousSelector;
-import org.usfirst.frc.team3574.robot.commands.auto.ForwardTurnForward;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveForDistanceManual;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithJoyArcade;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.NoDrive;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.ResetYaw;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.RotateToADegree;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.RotateToADegreeClockwiseOnly;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.RotateToADegreeCounterClockwiseOnly;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.ShiftLowGear;
+import org.usfirst.frc.team3574.robot.commands.shooter.LowerShooterSpeed;
+import org.usfirst.frc.team3574.robot.commands.shooter.RaiseShooterSpeed;
 import org.usfirst.frc.team3574.robot.commands.shooter.StopFlys;
 import org.usfirst.frc.team3574.robot.subsystems.Climber;
 import org.usfirst.frc.team3574.robot.subsystems.DriveTrain;
@@ -21,6 +29,12 @@ import org.usfirst.frc.team3574.robot.subsystems.HopperBelt;
 import org.usfirst.frc.team3574.robot.subsystems.HopperIndex;
 import org.usfirst.frc.team3574.robot.subsystems.Intake;
 import org.usfirst.frc.team3574.robot.subsystems.Shooter;
+import org.usfirst.frc.team3574.robot.util.BesterTester;
+import org.usfirst.frc.team3574.robot.util.BesterTesterTester;
+import org.usfirst.frc.team3574.robot.util.L;
+import org.usfirst.frc.team3574.robot.util.RumbleAtThirty;
+import org.usfirst.frc.team3574.robot.util.StartRumble;
+import org.usfirst.frc.team3574.robot.util.StopRumble;
 
 
 /**
@@ -54,12 +68,41 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		oi = new OI();
 		chooser.addDefault("Do Nothing", 0);
-		chooser.addObject("Cross Baseline", 1);
+		chooser.addObject("Cross Baseline get Hopper Red", 1);
+		chooser.addObject("Cross Baseline get hopper bluet", 2);
+		chooser.addObject("OLD cross baseline", 3);
+	
+		Shooter.shooterSpeed = 1937.5; //RPM
+		DriveTrain.resetYaw();
+		DriveTrain.resetEncoders();
 		
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
 		SmartDashboard.putData(Scheduler.getInstance());
-		SmartDashboard.putData("ForwardTurnForward", new ForwardTurnForward(true));
+		SmartDashboard.putData("Auto Hopper-Shoot", new AutoDraftHopperShootRed());
+		L.ogSD("Shoot Lower", new LowerShooterSpeed());
+		L.ogSD("Shoot Higher", new RaiseShooterSpeed());
+		
+		L.ogSD("Reset Yaw", new ResetYaw());
+		
+//		L.ogSD("PULL THE LEVER!!", new StartRumble(Robot.oi.driverWoodpecker));
+//		L.ogSD("PULL THE BIG LEVER!!", new RumbleAtThirty());
+//		L.ogSD("UN-PULL THE LEVER!!", new StopRumble(Robot.oi.driverWoodpecker));
+		
+//		L.ogSD("Rotate 90 left", new RotateToADegree(90, 0.4));
+//		L.ogSD("Rotate 180 left", new RotateToADegree(180, 0.4));
+//		L.ogSD("Rotate 90 right", new RotateToADegree(-90, 0.4));
+//		L.ogSD("Rotate 180 right", new RotateToADegree(-180, 0.4));
+//
+//		L.ogSD("Drive 10", new DriveForDistanceManual(10.0, .4, 0));
+//		L.ogSD("Drive .5", new DriveForDistanceManual(0.5, .4, 0));
+//		L.ogSD("Drive -1", new DriveForDistanceManual(1.0, -.4, 0));
+//		L.ogSD("Drive -.5", new DriveForDistanceManual(0.5, -.4, 0));
+		
+		L.ogSD("Auto Drive Hopper Shoot Red", new AutoDraftHopperShootRed());	
+		L.ogSD("Auto Drive Hopper Shoot Blue", new AutoDraftHopperShootBlue());
+		
+//		L.ogSD("low gear", new ShiftLowGear());
 	}
 
 	/**

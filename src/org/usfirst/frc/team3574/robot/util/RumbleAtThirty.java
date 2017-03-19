@@ -1,19 +1,28 @@
-package org.usfirst.frc.team3574.robot.commands.shooter;
+package org.usfirst.frc.team3574.robot.util;
 
-import org.usfirst.frc.team3574.robot.commands.hopper.SpinHopperIndex;
-import org.usfirst.frc.team3574.robot.commands.intake.SpinIntakesManual;
-import org.usfirst.frc.team3574.robot.commands.intake.RunIntakes;
+import org.usfirst.frc.team3574.robot.Robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class shoot extends CommandGroup {
-
-    public shoot() {
-//    	addParallel(new RunIntakes());
-    	addSequential(new SpinHopperIndex());
+public class RumbleAtThirty extends CommandGroup {
+	double matchTime = DriverStation.getInstance().getMatchTime();
+    public RumbleAtThirty() {
+    	
+    	if(matchTime <= 30){
+//    		Robot.oi.startRumble();
+    		L.ogSD("Match Time", matchTime);
+    	} else{
+    		Robot.oi.stopRumble();
+    		L.ogSD("Match Time", matchTime);
+    	}
+    	
+    	
+    	
+    	
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());

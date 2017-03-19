@@ -1,22 +1,20 @@
-package org.usfirst.frc.team3574.robot.commands.gearmanipulator;
-
-import org.usfirst.frc.team3574.robot.Robot;
+package org.usfirst.frc.team3574.robot.util;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class GearFlapIn extends Command {
+public class BesterTesterTester extends Command {
 
-    public GearFlapIn() {
+    public BesterTesterTester() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.GearManipulator.flapGearStore();
+    	(new BesterTester()).start();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -25,7 +23,7 @@ public class GearFlapIn extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true

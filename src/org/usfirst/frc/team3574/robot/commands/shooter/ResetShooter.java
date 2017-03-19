@@ -1,4 +1,4 @@
-package org.usfirst.frc.team3574.robot.commands.drivetrain;
+package org.usfirst.frc.team3574.robot.commands.shooter;
 
 import org.usfirst.frc.team3574.robot.Robot;
 
@@ -7,16 +7,18 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ShiftLowGear extends Command {
+public class ResetShooter extends Command {
 
-    public ShiftLowGear() {
+    public ResetShooter() {
+    	requires(Robot.Shooter);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.DriveTrain.setGearLow();
+    	Robot.Shooter.shooterSpeed = 1937.5;
+    	Robot.Shooter.stop();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -25,11 +27,7 @@ public class ShiftLowGear extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if(timeSinceInitialized() > .04) {
-    		return true;
-    	}else {
-        	return false;
-        }
+        return false;
     }
 
     // Called once after isFinished returns true

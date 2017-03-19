@@ -2,6 +2,7 @@ package org.usfirst.frc.team3574.robot.subsystems;
 
 import org.usfirst.frc.team3574.robot.RobotMap;
 import org.usfirst.frc.team3574.robot.commands.hopper.IndexStop;
+import org.usfirst.frc.team3574.robot.util.L;
 
 import com.ctre.CANTalon;
 
@@ -34,7 +35,8 @@ public class HopperIndex extends Subsystem {
 	
 
 	public void log(){
-		
+
+        L.ogSD("Indexer current", hopperIndex.getOutputCurrent());
 	}
 }
 

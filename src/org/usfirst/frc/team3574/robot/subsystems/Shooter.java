@@ -29,6 +29,8 @@ public class Shooter extends Subsystem {
 	static final double PROPORTIONAL_GAIN = (.11 * nativeUnitsPerRotation) / 1832;
 	static final double INTEGRAL_GAIN = .0003;
 
+	
+	public double shooterSpeed = 1937.5; //RPM
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
 
@@ -51,8 +53,9 @@ public class Shooter extends Subsystem {
 
 		left2.changeControlMode(CANTalon.TalonControlMode.Follower);
 		left2.set(left1.getDeviceID());
+		
 
-
+//		right1.changeControlMode(CANTalon.TalonControlMode.Current);
 		right1.reverseOutput(false);
 		right1.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 		right1.reverseSensor(false);
@@ -79,12 +82,14 @@ public class Shooter extends Subsystem {
 
 	public void spinUp(double revsPerMinute) {
 		left1.set(revsPerMinute);
+//		left2.set(left1.getOutputCurrent());
 		right1.set(revsPerMinute);
+//		right2.set(right1.getOutputCurrent());
 	}
 
 	public void stop() {
-		left1.set(1.0);
-		right1.set(1.0);
+		left1.set(0.0);
+		right1.set(0.0);
 	}
 	
 	public int getLeftEnc() {

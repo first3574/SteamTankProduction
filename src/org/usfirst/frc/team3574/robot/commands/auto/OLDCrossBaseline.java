@@ -7,10 +7,10 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class AutoCrossBaseline extends CommandGroup {
+public class OLDCrossBaseline extends CommandGroup {
 
-    public AutoCrossBaseline() {
-    	addSequential(new DriveForDistanceManual(7, 0.5, 0.0));
+    public OLDCrossBaseline() {
+    	addSequential(new DriveForDistanceManual(11 * 1200,0.5,0));
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());

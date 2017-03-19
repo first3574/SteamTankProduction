@@ -1,22 +1,25 @@
-package org.usfirst.frc.team3574.robot.commands.drivetrain;
+package org.usfirst.frc.team3574.robot.util;
 
-import org.usfirst.frc.team3574.robot.Robot;
-
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class ShiftLowGear extends Command {
-
-    public ShiftLowGear() {
+public class StartRumble extends Command {
+	
+	Joystick stickToRumble;
+    public StartRumble(Joystick rumbledStick) {
+    	this.stickToRumble = rumbledStick;
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
-    protected void initialize() {
-    	Robot.DriveTrain.setGearLow();
+    protected void initialize () {
+//    	stickToRumble.setRumble(RumbleType.kLeftRumble, 1);
+    	L.og("RUMBLING!!");
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -25,11 +28,7 @@ public class ShiftLowGear extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if(timeSinceInitialized() > .04) {
-    		return true;
-    	}else {
-        	return false;
-        }
+        return false;
     }
 
     // Called once after isFinished returns true

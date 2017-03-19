@@ -1,35 +1,31 @@
-package org.usfirst.frc.team3574.robot.commands.drivetrain;
-
-import org.usfirst.frc.team3574.robot.Robot;
+package org.usfirst.frc.team3574.robot.util;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class ShiftLowGear extends Command {
+public class BesterTester extends Command {
 
-    public ShiftLowGear() {
+    public BesterTester() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.DriveTrain.setGearLow();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	L.og("INHALE THE MEMES");
+    	L.og("EXHALE THE MEMES");
+    	L.og("INJECT THE MEMES INTO MY BLOODSTREAM");
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if(timeSinceInitialized() > .04) {
-    		return true;
-    	}else {
-        	return false;
-        }
+        return false;
     }
 
     // Called once after isFinished returns true

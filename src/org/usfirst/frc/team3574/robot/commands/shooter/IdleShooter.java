@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class IdleShooter extends Command {
 
     public IdleShooter() {
+    	requires(Robot.Shooter);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }

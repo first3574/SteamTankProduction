@@ -1,23 +1,19 @@
 package org.usfirst.frc.team3574.robot.commands.auto;
 
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveForDistanceManual;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.RotateToADegreeClockwiseOnly;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class ForwardTurnForward extends CommandGroup {
+public class AutoCrossBaselinePrepHopperRed extends CommandGroup {
 
-    public ForwardTurnForward(boolean isLeftTurn) {
-    	addSequential(new DriveForDistanceManual(1, 1, 0));
-    	if(isLeftTurn){
-    		addSequential(new DriveForDistanceManual(0, 1, 1));
-    	}
-    	else{
-    		addSequential(new DriveForDistanceManual(0, 1, -1));
-    	}
-    	addSequential(new DriveForDistanceManual(1, 1, 0));
+    public AutoCrossBaselinePrepHopperRed() {
+    	addSequential(new DriveForDistanceManual(8.0, 0.5, 0.0));
+//    	addSequential(new RotateToADegreeClockwiseOnly(90-10));
+    	addSequential(new DriveForDistanceManual(4.0, 0.4, 0.0));
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -35,4 +31,4 @@ public class ForwardTurnForward extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     }
-} 
+}

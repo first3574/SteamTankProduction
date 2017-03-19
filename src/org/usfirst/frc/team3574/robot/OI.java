@@ -7,14 +7,16 @@ import org.usfirst.frc.team3574.robot.commands.drivetrain.AlternateShifter;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveOtherWay;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.ShiftHighGear;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.ShiftLowGear;
-import org.usfirst.frc.team3574.robot.commands.gearmanipulator.GearFlapIn;
+import org.usfirst.frc.team3574.robot.commands.gearmanipulator.DropGearHooks;
 import org.usfirst.frc.team3574.robot.commands.gearmanipulator.GearFlapOut;
-import org.usfirst.frc.team3574.robot.commands.gearmanipulator.GearHookDown;
+import org.usfirst.frc.team3574.robot.commands.gearmanipulator.CloseGearDoor;
 import org.usfirst.frc.team3574.robot.commands.gearmanipulator.GearHookUp;
 import org.usfirst.frc.team3574.robot.commands.gearmanipulator.GearHookUpFlapOut;
 import org.usfirst.frc.team3574.robot.commands.hopper.SpinHopperIndex;
 import org.usfirst.frc.team3574.robot.commands.intake.SpinIntakesManual;
 import org.usfirst.frc.team3574.robot.commands.shooter.IdleShooter;
+import org.usfirst.frc.team3574.robot.commands.shooter.RaiseShooterSpeed;
+import org.usfirst.frc.team3574.robot.commands.shooter.ResetShooter;
 import org.usfirst.frc.team3574.robot.commands.shooter.SpinBelts;
 import org.usfirst.frc.team3574.robot.commands.shooter.SpinFlys;
 import org.usfirst.frc.team3574.robot.commands.shooter.SpinShooterSystem;
@@ -38,7 +40,7 @@ import org.usfirst.frc.team3574.robot.triggers.POVButtonForBottom;
  */
 public class OI {	
 //	Declaring the Joysticks we use
-	Joystick driver = new Joystick(0);
+	Joystick driverWoodpecker = new Joystick(0);
 	Joystick gunner = new Joystick(1);
 //	Boolean to show if the match is 20 seconds to end
 	public boolean isLast20 = false;
@@ -159,15 +161,15 @@ public class OI {
 		 * DRIVETRAIN FUNTIONS
 		 */
 
-		Button highShiftWithPOV = new POVButtonForTop(driver, POV);
+		Button highShiftWithPOV = new POVButtonForTop(driverWoodpecker, POV);
 		highShiftWithPOV.whenPressed(new ShiftHighGear());
 		
-		Button lowShiftWithPOV = new POVButtonForBottom(driver, POV);
+		Button lowShiftWithPOV = new POVButtonForBottom(driverWoodpecker, POV);
 		lowShiftWithPOV.whenPressed(new ShiftLowGear());
 
 //		Inverts drive controls [BACK BUTTON]
-		JoystickButton invertDrive = new JoystickButton(driver, BACK);
-		invertDrive.whenPressed(new DriveOtherWay());
+//		JoystickButton invertDrive = new JoystickButton(driverWoodpecker, BACK);
+//		invertDrive.whenPressed(new DriveOtherWay());
 		
 		
 		/**
@@ -177,12 +179,20 @@ public class OI {
 		JoystickButton spinShooterSystem = new JoystickButton(gunner, A_BUTTON);
 		spinShooterSystem.whenPressed(new SpinShooterSystem());
 		
-		TriggerButton launchFuel = new TriggerButton(driver, RIGHT_TRIGGER);
+		TriggerButton launchFuel = new TriggerButton(driverWoodpecker, RIGHT_TRIGGER);
 		launchFuel.whileHeld(new shoot());
 //		launchFuel.whenPressed(new SpinHopperIndex());		
 		
-		JoystickButton idleShooter = new JoystickButton(gunner, Y_BUTTON);
-		idleShooter.whenPressed(new IdleShooter());
+//		JoystickButton idleShooter = new JoystickButton(gunner, Y_BUTTON);
+//		idleShooter.whenPressed(new IdleShooter());
+		
+		
+		JoystickButton raiseShot = new JoystickButton(gunner, BACK);
+		raiseShot.whenPressed(new RaiseShooterSpeed());
+		
+//		JoystickButton stopShooter = new JoystickButton(gunner, LEFT_BUMPER);
+//		stopShooter.whenPressed(new ResetShooter());
+		
 		
 		/**
 		 * HOPPER FUNTIONS
@@ -191,8 +201,6 @@ public class OI {
 		/**
 		 * INTAKE FUNTIONS
 		 */
-		JoystickButton manualIntake = new JoystickButton(gunner, LEFT_BUMPER);
-		manualIntake.whileHeld(new SpinIntakesManual());
 		
 
 		/**
@@ -205,16 +213,16 @@ public class OI {
 		 * GEAR MANIPULATOR FUNTIONS
 		 */
 		TriggerButton hookDown = new TriggerButton(gunner, RIGHT_TRIGGER);
-		hookDown.whenPressed(new GearHookDown());
+		hookDown.whenPressed(new DropGearHooks());
 		
-		JoystickButton hookUp = new JoystickButton(gunner, Y_BUTTON);
-		hookUp.whenPressed(new GearHookUp());
+//		JoystickButton hookUp = new JoystickButton(gunner, Y_BUTTON);
+//		hookUp.whenPressed(new GearHookUp());
 		
 		Button gearFlapOut = new POVButtonForTop(gunner, POV);
 		gearFlapOut.whenPressed(new GearHookUpFlapOut());
 		
 		Button gearFlapIn = new POVButtonForBottom(gunner, POV);
-		gearFlapIn.whenPressed(new GearFlapIn());
+		gearFlapIn.whenPressed(new CloseGearDoor());
 		
 		/**
 		 * MISC FUNTIONS
@@ -223,11 +231,11 @@ public class OI {
 		
 	}
 	public double driveStickThrottleAxis() {
-		return driver.getRawAxis(RIGHT_STICK_Y);
+		return driverWoodpecker.getRawAxis(RIGHT_STICK_Y);
 	}
 	
 	public double driveStickTurnAxis() {
-		return -driver.getRawAxis(LEFT_STICK_X);
+		return -driverWoodpecker.getRawAxis(LEFT_STICK_X);
 	}
 	
 	public double intakeStickYAxis() {
@@ -235,16 +243,20 @@ public class OI {
 	}
 	
 	public double climbAxis() {
-		return -gunner.getRawAxis(LEFT_TRIGGER);
+		return gunner.getRawAxis(LEFT_TRIGGER);
 	}
 	
 	public boolean getQuickTurnButton(){
 //		Checks the boolean value of button 6 (Right Bumper)
-		return driver.getRawButton(6);
+		return driverWoodpecker.getRawButton(6);
 	}
 	
-	public void rumble() {
-		driver.setRumble(RumbleType.kRightRumble, 0.5);
-		gunner.setRumble(RumbleType.kRightRumble, 0.5);
+	public void startRumble() {
+//		driverWoodpecker.setRumble(RumbleType.kLeftRumble, 1);
 	}
+	
+	public void stopRumble(){
+		driverWoodpecker.setRumble(RumbleType.kLeftRumble, 1);
+	}
+	
 }

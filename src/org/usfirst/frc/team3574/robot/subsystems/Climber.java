@@ -4,6 +4,7 @@ import org.usfirst.frc.team3574.robot.RobotMap;
 import org.usfirst.frc.team3574.robot.commands.climber.ClimberVariable;
 import org.usfirst.frc.team3574.robot.commands.climber.TriggerMonitor;
 import org.usfirst.frc.team3574.robot.triggers.TriggerButton;
+import org.usfirst.frc.team3574.robot.util.L;
 
 import com.ctre.CANTalon;
 
@@ -44,11 +45,13 @@ public class Climber extends Subsystem {
     }
     
     public void set(double speed) {
-    	climberLeft.set(-13.0 * speed);
-    	climberRight.set(13.0 * speed);
+    	climberLeft.set(13.0 * speed);
+    	climberRight.set(-13.0 * speed);
     }
     
     public void log(){
+    	L.ogSD("Left Climber current", climberLeft.getOutputCurrent());
+    	L.ogSD("Right Climber current", climberRight.getOutputCurrent());
     }
 
 }

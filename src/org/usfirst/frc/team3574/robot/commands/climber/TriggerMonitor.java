@@ -31,8 +31,7 @@ public class TriggerMonitor extends Command {
     protected boolean isFinished() {
     	if(Robot.oi.climbAxis() > .02){
     		Scheduler.getInstance().add(new RunClimberStopShooter());
-    		
-    		L.og("got here");
+    		Robot.Shooter.stop();
     		return true;
     	}
     	else{

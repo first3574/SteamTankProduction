@@ -36,8 +36,9 @@ public class HopperBelt extends Subsystem {
 	}
 
 	public void log() {
-		L.ogSDTalonBasics("Hopper Belt", hopperBelt);
-		L.ogSD("BOB", hopperBelt.getFaultUnderVoltage());
+//		L.ogSDTalonBasics("Hopper Belt", hopperBelt);
+//		L.ogSD("BOB", hopperBelt.getFaultUnderVoltage());
+		L.ogSD("Belt Current", hopperBelt.getOutputVoltage());
 	}
 }
 

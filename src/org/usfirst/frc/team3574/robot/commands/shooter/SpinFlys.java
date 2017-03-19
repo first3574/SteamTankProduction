@@ -19,7 +19,7 @@ public class SpinFlys extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	L.ogCmdInit(this);
-    	Robot.Shooter.spinUp(1937.5); //1547
+    	Robot.Shooter.spinUp(1937.5 + 50); //1547
     	
 //    	spinUp = 2250, angle = 105, distance = inches
 //    	spinUp = 3200ish, angle = 105, distance = several feet.

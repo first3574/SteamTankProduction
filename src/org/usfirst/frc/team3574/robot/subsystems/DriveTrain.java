@@ -37,7 +37,7 @@ public class DriveTrain extends Subsystem {
 	/**
 	 * A command/system can multiply this number by -1 and reverse the output of the drive motors.
 	 */
-	public double driveOtherWay = 1.0;
+	public double driveOtherWay = -1.0;
 
 	public boolean isQuickTurn = false;
 	private TalonControlMode controlMode;
@@ -48,7 +48,9 @@ public class DriveTrain extends Subsystem {
 	static final double I_GAIN = .003;
 	static final double D_GAIN = 0.0;
 	static final double F_GAIN = nativeUnitsPerRotation/nativeUnitsPerMeasurementRate;
-	static final double SHIFT_SPEED = 50;
+	static final double SHIFT_SPEED = 220;
+	
+	static final int TICKS_PER_FOOT = 3099;
 	
 	public DriveTrain () {
 		
@@ -81,17 +83,28 @@ public class DriveTrain extends Subsystem {
 		
 		left1.reverseOutput(false);
 		left1.setFeedbackDevice(CANTalon.FeedbackDevice.CtreMagEncoder_Relative);
-		left1.reverseSensor(false);
+//		left1.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+//		left1.reverseSensor(false);
 		
-		left2.changeControlMode(CANTalon.TalonControlMode.Follower);
-		left2.set(left1.getDeviceID());
-
+//		left2.changeControlMode(CANTalon.TalonControlMode.Follower);
+//		left2.set(left1.getDeviceID());
+		left2.reverseOutput(false);
+//		left2.setFeedbackDevice(CANTalon.FeedbackDevice.CtreMagEncoder_Relative);
+//		left2.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+//		left2.reverseSensor(false);
+		
 		right1.reverseOutput(true);
 		right1.setFeedbackDevice(CANTalon.FeedbackDevice.CtreMagEncoder_Relative);
-		right1.reverseSensor(true);
+//		right1.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+//		right1.reverseSensor(false);
 		
-		right2.changeControlMode(CANTalon.TalonControlMode.Follower);
-		right2.set(right1.getDeviceID());
+//		right2.changeControlMode(CANTalon.TalonControlMode.Follower);
+//		right2.set(right1.getDeviceID());
+		right2.reverseOutput(true);
+//		right2.setFeedbackDevice(CANTalon.FeedbackDevice.CtreMagEncoder_Relative);
+//		right2.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+//		right2.reverseSensor(false);
+		
 	}
 	
 	public void setDriveMode(TalonControlMode DRIVE_MODE){
@@ -122,6 +135,10 @@ public class DriveTrain extends Subsystem {
 			left1.enableBrakeMode(true);
 			right1.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
 			right1.enableBrakeMode(true);
+			left2.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
+			left2.enableBrakeMode(true);
+			right2.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
+			right2.enableBrakeMode(true);
 		}
 	}
 	public void initDefaultCommand() {
@@ -143,6 +160,10 @@ public class DriveTrain extends Subsystem {
 		}
 	}
 	
+	public double getAngle() {
+		return (getYaw() + 360) % 360;
+	}
+	
 	//SHIFTER FUNCTIONS
 	public void setGearHigh() {
 		shifter.set(DoubleSolenoid.Value.kForward);
@@ -161,14 +182,14 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	private void automaticShifter() {
-		if(left1.getSpeed() > SHIFT_SPEED && right1.getSpeed() > SHIFT_SPEED)
+		if(Math.abs(left1.getSpeed()) > SHIFT_SPEED && Math.abs(right1.getSpeed()) > SHIFT_SPEED)
 		{
 			if(getGearIsLow())
 			{
 				setGearHigh();
 			}
 		}
-		else if(left1.getSpeed() < SHIFT_SPEED && right1.getSpeed() < SHIFT_SPEED)
+		else //if(Math.abs(left1.getSpeed()) < SHIFT_SPEED || Math.abs(right1.getSpeed()) < SHIFT_SPEED)
 		{
 			if(!getGearIsLow())
 			{
@@ -193,14 +214,27 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	//DRIVE SYSTEMS
+	@Deprecated
 	public void driveArcade(double throttle, double turnValue) {
 		left1.set((throttle + turnValue) * driveOtherWay);
 		right1.set((throttle - turnValue) * driveOtherWay);
 	}
 	
-	public void driveTekerz(double throttle, double turnValue) {
-		left1.set((throttle + turnValue) * driveOtherWay);
-		right1.set((throttle - turnValue) * driveOtherWay);
+	public void driveTekerz(double turn, double throttle) {
+		double turnMod = Math.max(Math.abs(left1.getSpeed()), Math.abs(right1.getSpeed()));
+		turnMod  *= (.00035 * 2);
+		turn *= (1 - turnMod);
+		
+		L.ogSD("Turn Mod", turnMod);
+		L.ogSD("Turn", turn);
+		L.ogSD("Throttle", throttle);
+		
+		
+		left1.set((turn + throttle) * driveOtherWay);
+		left2.set((turn + throttle) * driveOtherWay);
+		right1.set((turn - throttle) * driveOtherWay);
+		right2.set((turn - throttle) * driveOtherWay);
+//		automaticShifter();
 	}
 	
 	public void driveTank(double left, double right) {
@@ -219,7 +253,7 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public int getRightEnc() {
-		return right1.getEncPosition();
+		return -right1.getEncPosition();
 	}
 
 	public double getLeftVolt(){
@@ -230,15 +264,41 @@ public class DriveTrain extends Subsystem {
 	public double getRightVolt(){
 		return right1.getOutputVoltage();
 	}
+	
+	public void enableBrakeMode() {
+		left1.enableBrakeMode(true);
+		left2.enableBrakeMode(true);
+		right1.enableBrakeMode(true);
+		right2.enableBrakeMode(true);
+	}
 
+	public void disableBrakeMode() {
+		left1.enableBrakeMode(false);
+		left2.enableBrakeMode(false);
+		right1.enableBrakeMode(false);
+		right2.enableBrakeMode(false);
+	}
+	
 	public void log() {		
 		L.ogSD("Compresser Switch" ,Boolean.toString(( new Compressor()).getPressureSwitchValue()));
-		L.ogSDTalonBasics("Drive Left", left1);
-		L.ogSDTalonBasics("Drive Right", right1);
-		L.ogSDTalonPID("Drive Left", left1);
-		L.ogSDTalonPID("Drive Right", right1);
-        SmartDashboard.putBoolean(  "I AM YOU!?_IsCalibrating",    ahrs.isCalibrating());
-        SmartDashboard.putNumber(   "I AM YOU!?_Yaw",              ahrs.getYaw());
-		SmartDashboard.putBoolean("I AM YOU!?_IsConnected", ahrs.isConnected());
+//		L.ogSDTalonBasics("Drive Left", left1);
+//		L.ogSDTalonBasics("Drive Right", right1);
+//		L.ogSDTalonPID("Drive Left", left1);
+//		L.ogSDTalonPID("Drive Right", right1);
+//        SmartDashboard.putBoolean("IMU IsCalibrating", ahrs.isCalibrating());
+		L.ogSD("Drive Left Enc", getLeftEnc());
+		L.ogSD("Drive Right Enc", getRightEnc());
+		SmartDashboard.putNumber("Yaw", ahrs.getYaw());
+        L.ogSD("Angle", getAngle());
+//		SmartDashboard.putBoolean("I AM YOU!?_IsConnected", ahrs.isConnected());
+        
+        L.ogSD("Left Enc Speed", left1.getSpeed());
+        L.ogSD("Right Enc Speed", right1.getSpeed());
+        
+        
+        L.ogSD("Drive left current1", left1.getOutputCurrent());
+        L.ogSD("Drive left current2", left2.getOutputCurrent());
+        L.ogSD("Drive right current1", right1.getOutputCurrent());
+        L.ogSD("Drive right current2", right2.getOutputCurrent());
 	}
 }

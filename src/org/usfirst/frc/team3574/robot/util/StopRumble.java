@@ -1,23 +1,27 @@
-package org.usfirst.frc.team3574.robot.commands.gearmanipulator;
+package org.usfirst.frc.team3574.robot.util;
 
-import org.usfirst.frc.team3574.robot.Robot;
-
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class GearHookDown extends Command {
-
-    public GearHookDown() {
+public class StopRumble extends Command {
+	
+	Joystick stickToStop;
+    
+	public StopRumble(Joystick rumbledStick) {
+		stickToStop = rumbledStick;
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
-    protected void initialize() {
-    	Robot.GearManipulator.hookDown();
-    }
+    protected void initialize () {
+    	stickToStop.setRumble(RumbleType.kLeftRumble, 0);
+    	L.og("NOT RUMBLING");
+    	}
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
@@ -25,7 +29,7 @@ public class GearHookDown extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true
