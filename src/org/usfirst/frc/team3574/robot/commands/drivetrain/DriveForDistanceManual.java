@@ -15,7 +15,7 @@ public class DriveForDistanceManual extends Command {
 	boolean isNegativeSpeed;
 	static final double TICKS_PER_FOOT = 3099;
 	
-    public DriveForDistanceManual(int ticks, double speed, double rotation) {
+    private DriveForDistanceManual(int ticks, double speed, double rotation) {
         requires(Robot.DriveTrain);
         this.targetTicks = ticks;
         this.speed = speed;

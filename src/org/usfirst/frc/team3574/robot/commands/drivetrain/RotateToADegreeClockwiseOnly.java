@@ -14,10 +14,15 @@ public class RotateToADegreeClockwiseOnly extends Command {
 	int targetYaw;
 	double speed;
 	
-	
-	public RotateToADegreeClockwiseOnly(int positiveIsClockwise, double speed) {
+	/**
+	 * 
+	 * @param angle
+	 * please use a positive number : )
+	 * @param speed
+	 */
+	public RotateToADegreeClockwiseOnly(int angle, double speed) {
 		requires(Robot.DriveTrain);
-		this.targetYaw = positiveIsClockwise;
+		this.targetYaw = angle;
 		this.speed = speed;
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
@@ -25,12 +30,12 @@ public class RotateToADegreeClockwiseOnly extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		reverse = 1;
+		reverse = -1;
 	
-		if(targetYaw < 0) {
-			reverse *= -1;
-		}
-		Robot.DriveTrain.driveTekerz(-speed * reverse, 0.0);
+//		if(targetYaw < 0) {
+//			reverse *= -1;
+//		}
+		Robot.DriveTrain.driveTekerz(speed * reverse, 0.0);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -42,21 +47,13 @@ public class RotateToADegreeClockwiseOnly extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-//		if(yaw >= targetYaw - 20) {
-//			Robot.DriveTrain.driveTekerz(-0.2 * reverse, 0.0);
-//		}
-//		
-//		if(yaw >= targetYaw && yaw <= targetYaw + 5) {
-//			Robot.DriveTrain.driveTekerz(0.0, 0.0);
-//			return true;
-//		} else {
-//			return false;
-//		}
+		L.ogSD("YAW MAN ",yaw);
+		L.ogSD("YAW MAN TARGET", targetYaw);
 		if(yaw >= targetYaw - 22) {
-			Robot.DriveTrain.driveTekerz(-0.2 * reverse, 0.0);
+			Robot.DriveTrain.driveTekerz(0.2 * reverse, 0.0);
 		}
 		
-		if(yaw < targetYaw) {
+		if(yaw > targetYaw) {
 			Robot.DriveTrain.driveTekerz(0.0, 0.0);
 			return true;
 		} else {

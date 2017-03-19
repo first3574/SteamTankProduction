@@ -14,10 +14,15 @@ public class RotateToADegreeCounterClockwiseOnly extends Command {
 	int targetYaw;
 	double speed;
 	
-	
-	public RotateToADegreeCounterClockwiseOnly(int positiveIsClockwise, double speed) {
+	/**
+	 * 
+	 * @param angle
+	 * please use a negative number : )
+	 * @param speed
+	 */
+	public RotateToADegreeCounterClockwiseOnly(int angle, double speed) {
 		requires(Robot.DriveTrain);
-		this.targetYaw = positiveIsClockwise;
+		this.targetYaw = angle;
 		this.speed = speed;
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
@@ -25,9 +30,9 @@ public class RotateToADegreeCounterClockwiseOnly extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		reverse = -1;
+		reverse = 1;
 		
-		Robot.DriveTrain.driveTekerz(-speed * reverse, 0.0);
+		Robot.DriveTrain.driveTekerz(speed * reverse, 0.0);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -42,7 +47,7 @@ public class RotateToADegreeCounterClockwiseOnly extends Command {
 		L.ogSD("YAW MAN ",yaw);
 		L.ogSD("YAW MAN TARGET", targetYaw);
 		if(yaw <= targetYaw + 22) {
-			Robot.DriveTrain.driveTekerz(-0.2 * reverse, 0.0);
+			Robot.DriveTrain.driveTekerz(0.2 * reverse, 0.0);
 		}
 		
 		if(yaw < targetYaw) {

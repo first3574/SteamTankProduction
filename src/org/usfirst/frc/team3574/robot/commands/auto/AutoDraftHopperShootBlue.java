@@ -22,11 +22,11 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutoDraftHopperShootBlue extends CommandGroup {
 	private static int ANGLE_TOWARDS_HOPPER = -90;
 	private static int ANGLE_TOWARDS_BOILER = -90;
-	private static int ANGLE_READY_TO_SHOOT = ANGLE_TOWARDS_BOILER + 45;
+	private static int ANGLE_READY_TO_SHOOT = 43;
 	
     public AutoDraftHopperShootBlue() {
     	addSequential(new ResetYaw());
-    	addSequential(new EnableBrakeMode());
+//    	addSequential(new EnableBrakeMode());
     	addSequential(new ShiftLowGear());
     	
     	addSequential(new DriveForDistanceManual(10.167, .75, 0.0));
@@ -38,11 +38,11 @@ public class AutoDraftHopperShootBlue extends CommandGroup {
     	addSequential(new RotateToADegreeCounterClockwiseOnly(ANGLE_TOWARDS_BOILER, .5));
     	addSequential(new ResetYaw());
 //    	addParallel(new SpinFlys());
-    	addSequential(new DriveForDistanceManual(9.33, .75, 0.0));
-//    	addSequential(new RotateToADegreeClockwiseOnly(ANGLE_READY_TO_SHOOT, 0.2));
-//    	addSequential(new DriveForDistanceManual(0.5, 0.2, 0.0));
+    	addSequential(new DriveForDistanceManual(9.18, .75, 0.0));
+    	addSequential(new RotateToADegreeClockwiseOnly(ANGLE_READY_TO_SHOOT, 0.5));
+    	addSequential(new DriveForDistanceManual(0.5, 0.2, 0.0));
 //    	addSequential(new AutoShoot());
-    	addSequential(new DisableBrakeMode());
+//    	addSequential(new DisableBrakeMode());
     	
         // Add Commands here:
         // e.g. addSequential(new Command1());
