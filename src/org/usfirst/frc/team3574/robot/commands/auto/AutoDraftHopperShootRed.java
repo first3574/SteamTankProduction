@@ -7,6 +7,8 @@ import org.usfirst.frc.team3574.robot.commands.drivetrain.ResetYaw;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.RotateToADegree;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.RotateToADegreeClockwiseOnly;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.RotateToADegreeCounterClockwiseOnly;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.ShiftLowGear;
+import org.usfirst.frc.team3574.robot.commands.intake.RunIntakes;
 import org.usfirst.frc.team3574.robot.commands.shooter.AutoShoot;
 import org.usfirst.frc.team3574.robot.commands.shooter.SpinFlys;
 import org.usfirst.frc.team3574.robot.commands.shooter.shoot;
@@ -18,22 +20,31 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class AutoDraftHopperShootRed extends CommandGroup {
 	private static int ANGLE_TOWARDS_HOPPER = 90;
-	private static int ANGLE_TOWARDS_BOILER = 180;
-	private static int ANGLE_READY_TO_SHOOT = ANGLE_TOWARDS_BOILER - 45;
+	private static int ANGLE_TOWARDS_BOILER = 90;
+	private static int ANGLE_READY_TO_SHOOT = -44;
 	
     public AutoDraftHopperShootRed() {
     	addSequential(new ResetYaw());
-    	addSequential(new DriveForDistanceManual(8.0, 1, 0.0));
-    	addSequential(new RotateToADegreeClockwiseOnly(ANGLE_TOWARDS_HOPPER, 1));
-    	addSequential(new DriveForDistanceManual(2.0, 1, 0.0));
-//    	addSequential(new NoDrive(), 5);
-//    	addSequential(new DriveForDistanceManual(-2.0, -0.4, 0.0));
-//    	addSequential(new RotateToADegree(ANGLE_TOWARDS_BOILER, 0.4));
-//    	addParallel(new SpinFlys());
-//    	addSequential(new DriveForDistanceManual(4.33, 0.6, 0.0));
-//    	addSequential(new RotateToADegree(ANGLE_READY_TO_SHOOT, 0.4));
-//    	addSequential(new DriveForDistanceManual(0.5, 0.2, 0.0));
-//    	addSequential(new AutoShoot());
+//    	addSequential(new EnableBrakeMode());
+    	addSequential(new ShiftLowGear());
+    	
+    	// this is longer on purpose even though that makes absolutely zero sense
+    	addSequential(new DriveForDistanceManual(10.827, 1.0, 0.0));
+    	addSequential(new RotateToADegreeClockwiseOnly(ANGLE_TOWARDS_HOPPER, .6));
+    	addSequential(new ResetYaw());
+    	addSequential(new DriveForDistanceManual(2.7, 0.5, 0.0, 0.0), 2);
+    	addSequential(new NoDrive(), 1.0);
+    	addSequential(new DriveForDistanceManual(-2.5, -1, 0.0));
+    	addSequential(new RotateToADegreeClockwiseOnly(ANGLE_TOWARDS_BOILER, .6));
+    	addSequential(new ResetYaw());
+    	addParallel(new RunIntakes());
+    	addParallel(new SpinFlys(2375));
+    	addSequential(new DriveForDistanceManual(8.18, 1.0, 0.0, 1.0));
+    	addSequential(new RotateToADegreeCounterClockwiseOnly(ANGLE_READY_TO_SHOOT, 0.8));
+//    	addSequential(new DriveForDistanceManual(0.8, 0.75, 0.0));
+    	addSequential(new AutoShoot());
+//    	addSequential(new DisableBrakeMode());
+    	
     	
         // Add Commands here:
         // e.g. addSequential(new Command1());

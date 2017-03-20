@@ -177,7 +177,8 @@ public class OI {
 		 */
 		
 		JoystickButton spinShooterSystem = new JoystickButton(gunner, A_BUTTON);
-		spinShooterSystem.whenPressed(new SpinShooterSystem());
+//		spinShooterSystem.whenPressed(new SpinShooterSystem());
+		spinShooterSystem.whenPressed(new SpinFlys());
 		
 		TriggerButton launchFuel = new TriggerButton(driverWoodpecker, RIGHT_TRIGGER);
 		launchFuel.whileHeld(new shoot());

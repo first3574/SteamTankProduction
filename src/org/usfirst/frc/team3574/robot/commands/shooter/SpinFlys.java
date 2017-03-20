@@ -9,21 +9,28 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class SpinFlys extends Command {
+	private double speed = 1937.5 + 50;
+//	    	spinUp = 2250, angle = 105, distance = inches
+//	    	spinUp = 3200ish, angle = 105, distance = several feet.
+	    
 
     public SpinFlys() {
     	requires(Robot.Shooter);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
+    
+    public SpinFlys(double shooterSpeed) {
+    	this();
+    	this.speed = shooterSpeed;
+    }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	L.ogCmdInit(this);
-    	Robot.Shooter.spinUp(1937.5 + 50); //1547
+    	Robot.Shooter.spinUp(speed); //1547
+    	Robot.HopperBelt.beltRun();
     	
-//    	spinUp = 2250, angle = 105, distance = inches
-//    	spinUp = 3200ish, angle = 105, distance = several feet.
-    
 //    
 //    	
     }

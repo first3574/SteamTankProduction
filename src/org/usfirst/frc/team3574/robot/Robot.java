@@ -59,6 +59,7 @@ public class Robot extends IterativeRobot {
 	Command rumbleRemindee;
 	//SendableChooser<Command> chooser = new SendableChooser<>();
 	SendableChooser<Object> chooser = new SendableChooser<>();
+	SendableChooser<Object> alliance = new SendableChooser<>();
 	
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -69,16 +70,20 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		chooser.addDefault("Do Nothing", 0);
 		chooser.addObject("Cross Baseline get Hopper Red", 1);
-		chooser.addObject("Cross Baseline get hopper bluet", 2);
+		chooser.addObject("Cross Baseline get hopper blue", 2);
 		chooser.addObject("OLD cross baseline", 3);
-		chooser.addObject("Hopper and Shoot Blue", 4);
+		chooser.addObject("Hopper and Shoot", 4);
 	
+		alliance.addObject("Blue", 0);
+		alliance.addObject("Red", 1);
+		
 		Shooter.shooterSpeed = 1937.5; //RPM
 		DriveTrain.resetYaw();
 		DriveTrain.resetEncoders();
 		
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
+		SmartDashboard.putData("Alliance", alliance);
 		SmartDashboard.putData(Scheduler.getInstance());
 		SmartDashboard.putData("Auto Hopper-Shoot", new AutoDraftHopperShootRed());
 		L.ogSD("Shoot Lower", new LowerShooterSpeed());
@@ -95,7 +100,7 @@ public class Robot extends IterativeRobot {
 //		L.ogSD("Rotate 90 right", new RotateToADegree(-90, 0.4));
 //		L.ogSD("Rotate 180 right", new RotateToADegree(-180, 0.4));
 //
-//		L.ogSD("Drive 10", new DriveForDistanceManual(10.0, .4, 0));
+		L.ogSD("hopper shoot first step", new DriveForDistanceManual(10.167, 1.0, 0.0));
 //		L.ogSD("Drive .5", new DriveForDistanceManual(0.5, .4, 0));
 //		L.ogSD("Drive -1", new DriveForDistanceManual(1.0, -.4, 0));
 //		L.ogSD("Drive -.5", new DriveForDistanceManual(0.5, -.4, 0));
@@ -141,7 +146,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = new AutonomousSelector(chooser.getSelected());
+		autonomousCommand = new AutonomousSelector(chooser.getSelected(), alliance.getSelected());
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",

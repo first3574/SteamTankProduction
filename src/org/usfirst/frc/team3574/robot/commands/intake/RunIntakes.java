@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3574.robot.commands.intake;
 
 import org.usfirst.frc.team3574.robot.Robot;
+import org.usfirst.frc.team3574.robot.util.L;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -18,6 +19,7 @@ public class RunIntakes extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.Intake.intakeRun(-1.0);
+    	L.og("Intake Started");
 //    	Robot.Intake.agitateHopper();
     }
 

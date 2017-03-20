@@ -45,11 +45,16 @@ public class RotateToADegreeClockwiseOnly extends Command {
 //		System.out.println(yaw);
 	}
 
+	boolean runOnce = false;
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
 		L.ogSD("YAW MAN ",yaw);
 		L.ogSD("YAW MAN TARGET", targetYaw);
 		if(yaw >= targetYaw - 22) {
+			if(!runOnce) {
+				L.og("Rotating Slowed " + this.timeSinceInitialized());
+				runOnce = true;
+			}
 			Robot.DriveTrain.driveTekerz(0.2 * reverse, 0.0);
 		}
 		
@@ -63,6 +68,7 @@ public class RotateToADegreeClockwiseOnly extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
+		L.og("Rotate Clockwise " + this.timeSinceInitialized());
 	}
 
 	// Called when another command which requires one or more of the same

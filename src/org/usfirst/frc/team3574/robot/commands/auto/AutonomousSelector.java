@@ -16,10 +16,11 @@ public class AutonomousSelector extends Command {
 	int step;
 	boolean isFinished = false;
 	Object autoStart;
+	Object alliance;
 
-	public AutonomousSelector(Object autoStart) {
+	public AutonomousSelector(Object autoStart, Object alliance) {
 		this.autoStart = autoStart;
-		
+		this.alliance = alliance;
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 	}
@@ -44,8 +45,10 @@ public class AutonomousSelector extends Command {
 					command = (new AutoCrossBaselinePrepHopperBlue());
 				} else if(autoStart.equals(3)) {
 					command = (new OLDCrossBaseline());
-				} else if(autoStart.equals(4)) {
+				} else if(autoStart.equals(4) && alliance.equals(0)) {
 					command = (new AutoDraftHopperShootBlue());
+				} else if(autoStart.equals(4) && alliance.equals(1)) {
+					command = (new AutoDraftHopperShootRed());
 				}
 				
 				command.start();

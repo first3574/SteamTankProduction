@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3574.robot.subsystems;
 
 import org.usfirst.frc.team3574.robot.RobotMap;
+import org.usfirst.frc.team3574.robot.commands.shooter.StopFlys;
 import org.usfirst.frc.team3574.robot.util.L;
 
 import com.ctre.CANTalon;
@@ -76,6 +77,7 @@ public class Shooter extends Subsystem {
 
 
 	public void initDefaultCommand() {
+		setDefaultCommand(new StopFlys());
 		// Set the default command for a subsystem here.
 		//setDefaultCommand(new MySpecialCommand());
 	}
