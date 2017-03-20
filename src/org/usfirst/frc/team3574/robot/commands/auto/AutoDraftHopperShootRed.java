@@ -34,7 +34,7 @@ public class AutoDraftHopperShootRed extends CommandGroup {
     	addSequential(new ResetYaw());
     	addSequential(new DriveForDistanceManual(2.7, 0.5, 0.0, 0.0), 2);
     	addSequential(new NoDrive(), 1.0);
-    	addSequential(new DriveForDistanceManual(-2.5, -1, 0.0));
+    	addSequential(new DriveForDistanceManual(0.167, -1, 0.0));
     	addSequential(new RotateToADegreeClockwiseOnly(ANGLE_TOWARDS_BOILER, .6));
     	addSequential(new ResetYaw());
     	addParallel(new RunIntakes());

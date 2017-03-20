@@ -63,6 +63,7 @@ public class DriveForDistanceManual extends Command {
 	boolean runOnece = false;
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
+
 		if(timeSinceInitialized() > .12 && (targetTicks - TICKS_PER_FOOT * this.slowDownValue < Math.abs(Robot.DriveTrain.getLeftEnc()) || targetTicks - TICKS_PER_FOOT * this.slowDownValue < Math.abs(Robot.DriveTrain.getRightEnc()))) {    			
 			
 			if(!runOnece) {
@@ -71,7 +72,10 @@ public class DriveForDistanceManual extends Command {
 			}
 			Robot.DriveTrain.driveTekerz(0.0, (speed / Math.abs(speed) * -0.4));
 		}
-		if(timeSinceInitialized() > .12 && (targetTicks < Math.abs(Robot.DriveTrain.getLeftEnc()) || targetTicks < Math.abs(Robot.DriveTrain.getRightEnc()))) {
+		if(timeSinceInitialized() > .12 && 
+				(targetTicks < Math.abs(Robot.DriveTrain.getLeftEnc()) || 
+						targetTicks < Math.abs(Robot.DriveTrain.getRightEnc()
+				))) {
 			Robot.DriveTrain.driveTekerz(0.0, 0.0);
 			return true;
 //					} else if(isNegativeSpeed && (targetTicks > Robot.DriveTrain.getLeftEnc() || targetTicks > Robot.DriveTrain.getRightEnc())) {
