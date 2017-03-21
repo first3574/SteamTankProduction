@@ -102,7 +102,8 @@ public class Robot extends IterativeRobot {
 //
 //		L.ogSD("hopper shoot first step", new DriveForDistanceManual(10.167, 1.0, 0.0));
 //		L.ogSD("Drive .5", new DriveForDistanceManual(0.5, .4, 0));
-		L.ogSD("Drive -1", new DriveForDistanceManual(2.0, -.4, 0));
+		L.ogSD("Drive 1 foot", new DriveForDistanceManual(1.0, 0.4, 0));
+		L.ogSD("Drive -1 foot", new DriveForDistanceManual(1.0, -0.4, 0));
 //		L.ogSD("Drive -.5", new DriveForDistanceManual(0.5, -.4, 0));
 		
 		L.ogSD("Auto Drive Hopper Shoot Red", new AutoDraftHopperShootRed());	

@@ -48,8 +48,7 @@ public class RotateToADegreeClockwiseOnly extends Command {
 	boolean runOnce = false;
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		L.ogSD("YAW MAN ",yaw);
-		L.ogSD("YAW MAN TARGET", targetYaw);
+		L.ogSD("Target Yaw", targetYaw);
 		if(yaw >= targetYaw - 22) {
 			if(!runOnce) {
 				L.og("Rotating Slowed " + this.timeSinceInitialized());
