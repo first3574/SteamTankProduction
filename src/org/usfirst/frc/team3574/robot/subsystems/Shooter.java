@@ -110,6 +110,29 @@ public class Shooter extends Subsystem {
 		return right1.getEncVelocity();
 	}
 	
+	public double getLeftSpeed() {
+		return left1.getSpeed();
+	}
+	public double getRightSpeed() {
+		return right1.getSpeed();
+	}
+	
+	public boolean acceptableShooterRange() {
+		int offset = 10;
+		
+		if(right1.getSpeed() < (right1.getSetpoint() + offset) && 
+				right1.getSpeed() > (right1.getSetpoint() - offset) &&
+				left1.getSpeed() < (left1.getSetpoint() + offset) && 
+				left1.getSpeed() > (left1.getSetpoint() - offset)) {
+			L.og("True");
+			return true;
+		} else {
+			L.og("False");
+			return false;
+		}
+		
+	}
+	
 	public void log() {
 		L.ogSDTalonBasics("Shooter Left", left1);
 		L.ogSDTalonBasics("Shooter Right", right1);

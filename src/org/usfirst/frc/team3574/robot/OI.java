@@ -12,7 +12,7 @@ import org.usfirst.frc.team3574.robot.commands.gearmanipulator.GearFlapOut;
 import org.usfirst.frc.team3574.robot.commands.gearmanipulator.CloseGearDoor;
 import org.usfirst.frc.team3574.robot.commands.gearmanipulator.GearHookUp;
 import org.usfirst.frc.team3574.robot.commands.gearmanipulator.GearHookUpFlapOut;
-import org.usfirst.frc.team3574.robot.commands.hopper.SpinHopperIndex;
+import org.usfirst.frc.team3574.robot.commands.hopper.NEWSpinHopperIndex;
 import org.usfirst.frc.team3574.robot.commands.intake.SpinIntakesManual;
 import org.usfirst.frc.team3574.robot.commands.shooter.IdleShooter;
 import org.usfirst.frc.team3574.robot.commands.shooter.RaiseShooterSpeed;

@@ -1,5 +1,6 @@
 package org.usfirst.frc.team3574.robot.commands.shooter;
 
+import org.usfirst.frc.team3574.robot.commands.hopper.NEWSpinHopperIndex;
 import org.usfirst.frc.team3574.robot.commands.hopper.SpinHopperIndex;
 import org.usfirst.frc.team3574.robot.commands.intake.SpinIntakesManual;
 import org.usfirst.frc.team3574.robot.commands.intake.RunIntakes;

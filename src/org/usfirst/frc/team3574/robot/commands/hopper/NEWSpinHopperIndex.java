@@ -8,22 +8,39 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class SpinHopperIndex extends Command {
-
-    public SpinHopperIndex() {
-        requires(Robot.HopperIndex);
-    	// Use requires() here to declare subsystem dependencies
+public class NEWSpinHopperIndex extends Command {
+	double timerOffset = 0.0;
+	double timeToRun;
+	double timeToRunOffset = 0.05;
+	boolean runOnce = false;
+	
+    public NEWSpinHopperIndex() {
+        // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	requires(Robot.HopperIndex);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.HopperIndex.indexerRun();
+//    	Robot.HopperIndex.indexerRun();
     	L.og("Shoot Started");
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	if(timeSinceInitialized() > timerOffset && Robot.Shooter.acceptableShooterRange()) {
+    		if(!runOnce) {
+    			timeToRun = timeSinceInitialized() + timeToRunOffset;
+    			runOnce = true;
+    		}
+        	if(timeSinceInitialized() > timeToRun) {
+        		timerOffset += timeSinceInitialized() + 0.25;
+        		runOnce = false;
+        		Robot.HopperIndex.indexerStop();
+        	} else {
+        		Robot.HopperIndex.indexerRun();
+        	}
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
