@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3574.robot.commands.hopper;
 
 import org.usfirst.frc.team3574.robot.Robot;
+import org.usfirst.frc.team3574.robot.util.L;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -18,6 +19,7 @@ public class SpinHopperIndex extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.HopperIndex.indexerRun();
+    	L.og("Shoot Started");
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -37,6 +39,6 @@ public class SpinHopperIndex extends Command {
     // subsystems is scheduled to run
     protected void interrupted() {
     	Robot.HopperIndex.indexerStop();
-    	
+    	L.og("Shoot Ended " + timeSinceInitialized());
     }
 }

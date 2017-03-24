@@ -18,7 +18,7 @@ public class StartRumble extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize () {
-//    	stickToRumble.setRumble(RumbleType.kLeftRumble, 1);
+    	stickToRumble.setRumble(RumbleType.kLeftRumble, 1);
     	L.og("RUMBLING!!");
     }
 

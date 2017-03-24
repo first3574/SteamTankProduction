@@ -28,7 +28,7 @@ public class HopperBelt extends Subsystem {
     }
     
 	public void beltRun(){
-		hopperBelt.set(1);
+		hopperBelt.set(0.75);
 	}	
 	
 	public void beltStop(){

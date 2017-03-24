@@ -21,6 +21,7 @@ import org.usfirst.frc.team3574.robot.commands.drivetrain.RotateToADegreeCounter
 import org.usfirst.frc.team3574.robot.commands.drivetrain.ShiftLowGear;
 import org.usfirst.frc.team3574.robot.commands.shooter.LowerShooterSpeed;
 import org.usfirst.frc.team3574.robot.commands.shooter.RaiseShooterSpeed;
+import org.usfirst.frc.team3574.robot.commands.shooter.SpinFlys;
 import org.usfirst.frc.team3574.robot.commands.shooter.StopFlys;
 import org.usfirst.frc.team3574.robot.subsystems.Climber;
 import org.usfirst.frc.team3574.robot.subsystems.DriveTrain;
@@ -91,9 +92,9 @@ public class Robot extends IterativeRobot {
 		
 		L.ogSD("Reset Yaw", new ResetYaw());
 		
-//		L.ogSD("PULL THE LEVER!!", new StartRumble(Robot.oi.driverWoodpecker));
-//		L.ogSD("PULL THE BIG LEVER!!", new RumbleAtThirty());
-//		L.ogSD("UN-PULL THE LEVER!!", new StopRumble(Robot.oi.driverWoodpecker));
+		L.ogSD("PULL THE LEVER!!", new StartRumble(Robot.oi.driverWoodpecker));
+		L.ogSD("PULL THE BIG LEVER!!", new RumbleAtThirty());
+		L.ogSD("UN-PULL THE LEVER!!", new StopRumble(Robot.oi.driverWoodpecker));
 		
 //		L.ogSD("Rotate 90 left", new RotateToADegree(90, 0.4));
 //		L.ogSD("Rotate 180 left", new RotateToADegree(180, 0.4));
@@ -102,8 +103,9 @@ public class Robot extends IterativeRobot {
 //
 //		L.ogSD("hopper shoot first step", new DriveForDistanceManual(10.167, 1.0, 0.0));
 //		L.ogSD("Drive .5", new DriveForDistanceManual(0.5, .4, 0));
-		L.ogSD("Drive 1 foot", new DriveForDistanceManual(1.0, 0.4, 0));
-		L.ogSD("Drive -1 foot", new DriveForDistanceManual(1.0, -0.4, 0));
+		L.ogSD("Drive 7 feet", new DriveForDistanceManual(7.0, .85, 0));
+		L.ogSD("Drive -7 feet", new DriveForDistanceManual(7.0, -.85, 0));
+		L.ogSD("Spin Flys Auto", new SpinFlys(2375));
 //		L.ogSD("Drive -.5", new DriveForDistanceManual(0.5, -.4, 0));
 		
 		L.ogSD("Auto Drive Hopper Shoot Red", new AutoDraftHopperShootRed());	

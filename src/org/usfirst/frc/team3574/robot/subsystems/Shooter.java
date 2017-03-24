@@ -28,8 +28,8 @@ public class Shooter extends Subsystem {
 	static final int nativeUnitsPerMeasurementRate = 18730/6000 * nativeUnitsPerRotation; // = 136 
 	static final double FEED_FORWARD_GAIN = nativeUnitsPerRotation/nativeUnitsPerMeasurementRate; // 0.35294117647
 	static final double PROPORTIONAL_GAIN = (.11 * nativeUnitsPerRotation) / 1832;
-	static final double INTEGRAL_GAIN = .0003;
-
+	static final double INTEGRAL_GAIN = .005;//0.0003
+	
 	
 	public double shooterSpeed = 1937.5; //RPM
 	// Put methods for controlling this subsystem
@@ -46,8 +46,8 @@ public class Shooter extends Subsystem {
 		left1.changeControlMode(CANTalon.TalonControlMode.Speed);
 		left1.configNominalOutputVoltage(0, -0);
 		left1.configPeakOutputVoltage(12, -12);
-//        left1.setF(FEED_FORWARD_GAIN);
-		left1.setF(1023/245);
+//        left1.setF(0.05); //0.05
+		left1.setF(1023/245);//1023/245
         left1.setP(PROPORTIONAL_GAIN);
         left1.setI(INTEGRAL_GAIN); 
         left1.setD(0);
