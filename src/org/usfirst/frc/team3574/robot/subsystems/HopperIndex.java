@@ -25,8 +25,8 @@ public class HopperIndex extends Subsystem {
     	setDefaultCommand(new IndexStop());
     }
     
-	public void indexerRun(){
-		hopperIndex.set(6);
+	public void indexerRun() {
+		hopperIndex.set(9); //~75% ?
 	}
 	
 	public void indexerStop(){

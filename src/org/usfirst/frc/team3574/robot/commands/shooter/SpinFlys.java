@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class SpinFlys extends Command {
-	public double speed = 1937.5 + 50;
+	public double speed = Robot.Shooter.shooterSpeed;
 //	    	spinUp = 2250, angle = 105, distance = inches
 //	    	spinUp = 3200ish, angle = 105, distance = several feet.
 	    

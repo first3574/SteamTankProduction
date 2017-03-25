@@ -9,10 +9,9 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class NEWSpinHopperIndex extends Command {
-	double timerOffset = 0.0;
+	double startTimeOfLoop = 0.0;
 	double timeToRun;
-	double timeToRunOffset = 0.05;
-	boolean runOnce = false;
+	boolean isIndexing = false;
 	
     public NEWSpinHopperIndex() {
         // Use requires() here to declare subsystem dependencies
@@ -22,24 +21,34 @@ public class NEWSpinHopperIndex extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	startTimeOfLoop = -loopLength;
 //    	Robot.HopperIndex.indexerRun();
     	L.og("Shoot Started");
     }
-
+    
+    double loopLength = 0.49;
+	double timeToRunLength = 0.05;
+    
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(timeSinceInitialized() > timerOffset && Robot.Shooter.acceptableShooterRange()) {
-    		if(!runOnce) {
-    			timeToRun = timeSinceInitialized() + timeToRunOffset;
-    			runOnce = true;
-    		}
-        	if(timeSinceInitialized() > timeToRun) {
-        		timerOffset += timeSinceInitialized() + 0.25;
-        		runOnce = false;
-        		Robot.HopperIndex.indexerStop();
-        	} else {
-        		Robot.HopperIndex.indexerRun();
-        	}
+    	
+//    	if (Robot.Shooter.acceptableShooterRange()) {
+//        	Robot.HopperIndex.indexerRun();
+//    	} else {
+//    		Robot.HopperIndex.indexerStop();
+//    	}
+    	
+    	if (startTimeOfLoop + loopLength < timeSinceInitialized() && Robot.Shooter.acceptableShooterRange()) {
+    		startTimeOfLoop = timeSinceInitialized();    		
+    		isIndexing = true;
+    	}
+    	if (isIndexing) {
+    		if (startTimeOfLoop + timeToRunLength < timeSinceInitialized()) {
+    			Robot.HopperIndex.indexerStop();
+    			isIndexing = false;
+    		} else {
+    			Robot.HopperIndex.indexerRun();
+    		}    			
     	}
     }
 

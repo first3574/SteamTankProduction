@@ -55,6 +55,9 @@ public class Robot extends IterativeRobot {
 	public static final GearManipulator GearManipulator = new GearManipulator();
 	public static final Shooter Shooter = new Shooter();
 	public static OI oi;
+	
+//	private Timer time = new Timer();
+	
 //	Declaring some Commands
 	Command autonomousCommand;
 	Command rumbleRemindee;
@@ -85,7 +88,7 @@ public class Robot extends IterativeRobot {
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
 		SmartDashboard.putData("Alliance", alliance);
-		SmartDashboard.putData(Scheduler.getInstance());
+		SmartDashboard.putData("Scheduler (named = Bob)", Scheduler.getInstance());
 		SmartDashboard.putData("Auto Hopper-Shoot", new AutoDraftHopperShootRed());
 		L.ogSD("Shoot Lower", new LowerShooterSpeed());
 		L.ogSD("Shoot Higher", new RaiseShooterSpeed());
@@ -132,6 +135,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		
+		
 		
 		this.log();
 	}

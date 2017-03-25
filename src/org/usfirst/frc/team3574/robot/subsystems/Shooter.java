@@ -26,12 +26,12 @@ public class Shooter extends Subsystem {
 	 */
 	static final int nativeUnitsPerRotation = 48;
 	static final int nativeUnitsPerMeasurementRate = 18730/6000 * nativeUnitsPerRotation; // = 136 
-	static final double FEED_FORWARD_GAIN = nativeUnitsPerRotation/nativeUnitsPerMeasurementRate; // 0.35294117647
-	static final double PROPORTIONAL_GAIN = (.11 * nativeUnitsPerRotation) / 1832;
+	static final double FEED_FORWARD_GAIN = 0.0;//1023/245; //nativeUnitsPerRotation/nativeUnitsPerMeasurementRate; // 0.35294117647
+	static final double PROPORTIONAL_GAIN = 1.0; //(.11 * nativeUnitsPerRotation) / 1832;
 	static final double INTEGRAL_GAIN = .005;//0.0003
+	static final double D = 0.0;
 	
-	
-	public double shooterSpeed = 1937.5; //RPM
+	public double shooterSpeed = 1987.5; //RPM
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
 
@@ -46,11 +46,10 @@ public class Shooter extends Subsystem {
 		left1.changeControlMode(CANTalon.TalonControlMode.Speed);
 		left1.configNominalOutputVoltage(0, -0);
 		left1.configPeakOutputVoltage(12, -12);
-//        left1.setF(0.05); //0.05
-		left1.setF(1023/245);//1023/245
+		left1.setF(FEED_FORWARD_GAIN);//1023/245
         left1.setP(PROPORTIONAL_GAIN);
         left1.setI(INTEGRAL_GAIN); 
-        left1.setD(0);
+        left1.setD(D);
 
 		left2.changeControlMode(CANTalon.TalonControlMode.Follower);
 		left2.set(left1.getDeviceID());
@@ -65,11 +64,10 @@ public class Shooter extends Subsystem {
 		right1.changeControlMode(CANTalon.TalonControlMode.Speed);
 		right1.configNominalOutputVoltage(0, -0);
 		right1.configPeakOutputVoltage(12, -12);
-//		right1.setF(FEED_FORWARD_GAIN);
-		right1.setF(1023/245);
+		right1.setF(FEED_FORWARD_GAIN);
 		right1.setP(PROPORTIONAL_GAIN);
 		right1.setI(INTEGRAL_GAIN); 
-		right1.setD(0);
+		right1.setD(D);
 
 		right2.changeControlMode(CANTalon.TalonControlMode.Follower);
 		right2.set(right1.getDeviceID());
@@ -116,14 +114,16 @@ public class Shooter extends Subsystem {
 	public double getRightSpeed() {
 		return right1.getSpeed();
 	}
+
+	int offset = 50;
 	
+
 	public boolean acceptableShooterRange() {
-		int offset = 10;
-		
-		if(right1.getSpeed() < (right1.getSetpoint() + offset) && 
-				right1.getSpeed() > (right1.getSetpoint() - offset) &&
-				left1.getSpeed() < (left1.getSetpoint() + offset) && 
-				left1.getSpeed() > (left1.getSetpoint() - offset)) {
+		if(right1.getSpeed() <= (right1.getSetpoint() + offset) 
+				&& right1.getSpeed() >= (right1.getSetpoint() - 0.0) 
+//				&& left1.getSpeed() < (left1.getSetpoint() + offset) 
+//				&& left1.getSpeed() > (left1.getSetpoint() - 0.0)
+				) {
 			L.og("True");
 			return true;
 		} else {
@@ -132,8 +132,12 @@ public class Shooter extends Subsystem {
 		}
 		
 	}
-	
+	double speed;
 	public void log() {
+		if((speed = getLeftSpeed()) > 2900) {
+			L.ogSD("Shooter Speed", speed);
+		}
+		
 		L.ogSDTalonBasics("Shooter Left", left1);
 		L.ogSDTalonBasics("Shooter Right", right1);
 		

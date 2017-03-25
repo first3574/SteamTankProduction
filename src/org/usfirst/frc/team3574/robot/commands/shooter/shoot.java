@@ -14,7 +14,7 @@ public class shoot extends CommandGroup {
 
     public shoot() {
 //    	addParallel(new RunIntakes());
-    	addSequential(new SpinHopperIndex());
+    	addSequential(new NEWSpinHopperIndex());
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());

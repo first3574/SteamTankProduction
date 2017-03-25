@@ -15,7 +15,7 @@ public class HopperBelt extends Subsystem {
 	CANTalon hopperBelt = RobotMap.motorHopBelt;
 	
 	public HopperBelt(){
-    	hopperBelt.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
+    	hopperBelt.changeControlMode(CANTalon.TalonControlMode.Voltage);
 	}
 
     // Put methods for controlling this subsystem
@@ -28,8 +28,8 @@ public class HopperBelt extends Subsystem {
     }
     
 	public void beltRun(){
-		hopperBelt.set(0.75);
-	}	
+		hopperBelt.set(13);//86% ?
+	}
 	
 	public void beltStop(){
 		hopperBelt.set(0);
