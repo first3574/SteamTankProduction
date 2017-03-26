@@ -45,7 +45,8 @@ public class NEWSpinHopperIndex extends Command {
         	Robot.Shooter.spinUp(2925);
         	slowedDown = true;
         	L.ogSD("Shooter Speed", 3900.0);
-    	} 
+    	}
+    	
     	if(!slowedDown) {
     		L.ogSD("Shooter Speed", 3900.0);	
     	}
