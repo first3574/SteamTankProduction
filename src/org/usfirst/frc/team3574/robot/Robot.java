@@ -2,6 +2,7 @@
 package org.usfirst.frc.team3574.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -55,6 +56,9 @@ public class Robot extends IterativeRobot {
 	public static final GearManipulator GearManipulator = new GearManipulator();
 	public static final Shooter Shooter = new Shooter();
 	public static OI oi;
+	Timer time = new Timer();
+	double lastTime = 0.0;
+	
 	
 //	private Timer time = new Timer();
 	
@@ -71,6 +75,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
+		time.start();
 		oi = new OI();
 		chooser.addDefault("Do Nothing", 0);
 		chooser.addObject("Cross Baseline get Hopper Red", 1);
@@ -108,7 +113,7 @@ public class Robot extends IterativeRobot {
 //		L.ogSD("Drive .5", new DriveForDistanceManual(0.5, .4, 0));
 		L.ogSD("Drive 7 feet", new DriveForDistanceManual(7.0, .85, 0));
 		L.ogSD("Drive -7 feet", new DriveForDistanceManual(7.0, -.85, 0));
-		L.ogSD("Spin Flys Auto", new SpinFlys(3225));
+		L.ogSD("Spin Flys Auto", new SpinFlys((3225 - 100)));
 //		L.ogSD("Drive -.5", new DriveForDistanceManual(0.5, -.4, 0));
 		
 		L.ogSD("Auto Drive Hopper Shoot Red", new AutoDraftHopperShootRed());	
@@ -126,8 +131,8 @@ public class Robot extends IterativeRobot {
 	public void disabledInit() {
 		this.log();
 		
-		Command stopFlywheels = new StopFlys();
-		Scheduler.getInstance().add(stopFlywheels);
+//		Command stopFlywheels = new StopFlys();
+//		Scheduler.getInstance().add(stopFlywheels);
 //		stopFlywheels.start();
 
 	}
@@ -135,9 +140,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
-		
-		
-		
 		this.log();
 	}
 
@@ -209,6 +211,10 @@ public class Robot extends IterativeRobot {
 		Shooter.log();
 		Intake.log();
 		HopperBelt.log();
+		double t = time.get();
+		L.ogSD("loop time", t - lastTime);
+		lastTime = t;
+
 	}
 
 	/**

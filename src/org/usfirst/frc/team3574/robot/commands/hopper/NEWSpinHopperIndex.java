@@ -12,6 +12,7 @@ public class NEWSpinHopperIndex extends Command {
 	double startTimeOfLoop = 0.0;
 	double timeToRun;
 	boolean isIndexing = false;
+	boolean slowedDown = false;
 	
     public NEWSpinHopperIndex() {
         // Use requires() here to declare subsystem dependencies
@@ -24,19 +25,30 @@ public class NEWSpinHopperIndex extends Command {
     	startTimeOfLoop = -loopLength;
 //    	Robot.HopperIndex.indexerRun();
     	L.og("Shoot Started");
+//    	Robot.Shooter.spinUp(2925);
+    	slowedDown = false;
+    	L.ogSD("Shooter Speed", 3900.0);
     }
     
-    double loopLength = 0.49;
+    double loopLength = 0.08;
 	double timeToRunLength = 0.05;
     
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	
 //    	if (Robot.Shooter.acceptableShooterRange()) {
 //        	Robot.HopperIndex.indexerRun();
 //    	} else {
 //    		Robot.HopperIndex.indexerStop();
 //    	}
+    	
+    	if (!slowedDown && timeSinceInitialized() > 0.2) {
+        	Robot.Shooter.spinUp(2925);
+        	slowedDown = true;
+        	L.ogSD("Shooter Speed", 3900.0);
+    	} 
+    	if(!slowedDown) {
+    		L.ogSD("Shooter Speed", 3900.0);	
+    	}
     	
     	if (startTimeOfLoop + loopLength < timeSinceInitialized() && Robot.Shooter.acceptableShooterRange()) {
     		startTimeOfLoop = timeSinceInitialized();    		
