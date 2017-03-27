@@ -10,6 +10,7 @@ import org.usfirst.frc.team3574.robot.commands.drivetrain.RotateToADegree;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.RotateToADegreeClockwiseOnly;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.RotateToADegreeCounterClockwiseOnly;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.ShiftLowGear;
+import org.usfirst.frc.team3574.robot.commands.hopper.NEWSpinHopperIndex5InchesBack;
 import org.usfirst.frc.team3574.robot.commands.intake.RunIntakes;
 import org.usfirst.frc.team3574.robot.commands.shooter.AutoShoot;
 import org.usfirst.frc.team3574.robot.commands.shooter.SpinFlys;
@@ -22,8 +23,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class AutoDraftHopperShootBlue extends CommandGroup {
 	private static int ANGLE_TOWARDS_HOPPER = -90;
-	private static int ANGLE_TOWARDS_BOILER = -90;
-	private static int ANGLE_READY_TO_SHOOT = 43;
+	private static int ANGLE_TOWARDS_BOILER = -89;
+	private static int ANGLE_READY_TO_SHOOT = 44;
 	
     public AutoDraftHopperShootBlue() {
     	addSequential(new ResetYaw());
@@ -34,8 +35,11 @@ public class AutoDraftHopperShootBlue extends CommandGroup {
     	addSequential(new RotateToADegreeCounterClockwiseOnly(ANGLE_TOWARDS_HOPPER, .6));
     	addSequential(new ResetYaw());
     	addSequential(new DriveForDistanceManual(2.7, 0.5, 0.0, 0.0), 2);
-    	addSequential(new NoDrive(), 1.5);
+    	addSequential(new NoDrive(), 1.0);
 
+
+    	addParallel(new SpinFlys(3125));
+    	
     	// don't bother backing up
     	// addSequential(new DriveForDistanceManual(-4.5, -1, 0.0));
     	addSequential(new RotateToADegreeCounterClockwiseOnly(ANGLE_TOWARDS_BOILER, .6));
@@ -44,10 +48,9 @@ public class AutoDraftHopperShootBlue extends CommandGroup {
     	addSequential(new ResetYaw());
     	addParallel(new RunIntakes());
     	addSequential(new DriveForDistanceManual(9.18, 1.0, 0.0));
-//    	addParallel(new SpinFlys(2250));
     	addSequential(new RotateToADegreeClockwiseOnly(ANGLE_READY_TO_SHOOT, 0.6));
-    	addSequential(new DriveForDistanceManual(0.8, 0.75, 0.0));
-    	addSequential(new AutoShoot());
+//    	addSequential(new DriveForDistanceManual(0.8, 0.75, 0.0));
+    	addSequential(new NEWSpinHopperIndex5InchesBack());
 //    	addSequential(new DisableBrakeMode());
     	
         // Add Commands here:

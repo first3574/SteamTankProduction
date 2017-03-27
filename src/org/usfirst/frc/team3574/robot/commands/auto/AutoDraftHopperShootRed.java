@@ -8,6 +8,7 @@ import org.usfirst.frc.team3574.robot.commands.drivetrain.RotateToADegree;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.RotateToADegreeClockwiseOnly;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.RotateToADegreeCounterClockwiseOnly;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.ShiftLowGear;
+import org.usfirst.frc.team3574.robot.commands.hopper.NEWSpinHopperIndex5InchesBack;
 import org.usfirst.frc.team3574.robot.commands.intake.RunIntakes;
 import org.usfirst.frc.team3574.robot.commands.shooter.AutoShoot;
 import org.usfirst.frc.team3574.robot.commands.shooter.SpinFlys;
@@ -20,7 +21,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class AutoDraftHopperShootRed extends CommandGroup {
 	private static int ANGLE_TOWARDS_HOPPER = 90;
-	private static int ANGLE_TOWARDS_BOILER = 88;
+	private static int ANGLE_TOWARDS_BOILER = 89;
 	private static int ANGLE_READY_TO_SHOOT = -44;
 	
     public AutoDraftHopperShootRed() {
@@ -42,13 +43,12 @@ public class AutoDraftHopperShootRed extends CommandGroup {
     	addSequential(new RotateToADegreeClockwiseOnly(ANGLE_TOWARDS_BOILER, 0.8));
     	
     	
-    	
     	addSequential(new ResetYaw());
     	addParallel(new RunIntakes());
-    	addSequential(new DriveForDistanceManual(8.18, 1.0, 0.0, 1.0));
+    	addSequential(new DriveForDistanceManual(8.55, 1.0, 0.0, 1.0));
     	addSequential(new RotateToADegreeCounterClockwiseOnly(ANGLE_READY_TO_SHOOT, 0.8));
 //    	addSequential(new DriveForDistanceManual(0.8, 0.75, 0.0));
-    	addSequential(new AutoShoot());
+    	addSequential(new NEWSpinHopperIndex5InchesBack());
 //    	addSequential(new DisableBrakeMode());
     	
     	

@@ -64,9 +64,12 @@ public class DriveForDistanceManual extends Command {
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
 
+		if (leftDistanceTravelled() < 1.0 && rightDistanceTravelled() < 1.0) {
+			Robot.DriveTrain.driveTekerz(0.0, (speed / Math.abs(speed) * -0.6));			
+		}
+		
 		if(timeSinceInitialized() > .12 && (targetTicks - TICKS_PER_FOOT * this.slowDownValue < Math.abs(Robot.DriveTrain.getLeftEnc()) 
 				|| targetTicks - TICKS_PER_FOOT * this.slowDownValue < Math.abs(Robot.DriveTrain.getRightEnc())
-				|| (leftDistanceTravelled() < 1.0 && rightDistanceTravelled() < 1.0)
 						)) {    			
 			
 			if(!runOnece) {
