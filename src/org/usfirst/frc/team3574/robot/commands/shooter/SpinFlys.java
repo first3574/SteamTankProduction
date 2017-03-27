@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class SpinFlys extends Command {
-	public double speed = Robot.Shooter.shooterSpeed;
+	public double speed = Robot.Shooter.START_SPEED_AGAINST_WALL;
 //	    	spinUp = 2250, angle = 105, distance = inches
 //	    	spinUp = 3200ish, angle = 105, distance = several feet.
 	    
@@ -28,7 +28,7 @@ public class SpinFlys extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	L.ogCmdInit(this);
-    	Robot.Shooter.spinUp(speed); //1547
+    	Robot.Shooter.setSetpoint(speed); //1547
     	Robot.HopperBelt.beltRun();
     	
 //    

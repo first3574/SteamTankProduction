@@ -19,7 +19,7 @@ public class RunIntakes extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.Intake.intakeRun(-1.0);
-    	L.og("Intake Started");
+    	L.ogCmdInit(this);
 //    	Robot.Intake.agitateHopper();
     }
 

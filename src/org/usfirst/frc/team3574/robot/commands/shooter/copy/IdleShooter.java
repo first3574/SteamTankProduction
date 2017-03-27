@@ -16,7 +16,7 @@ public class IdleShooter extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.Shooter.spinUp(1000);
+    	Robot.Shooter.setSetpoint(1000);
     	Robot.HopperBelt.beltStop();
     }
 

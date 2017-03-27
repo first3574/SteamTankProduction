@@ -20,6 +20,7 @@ public class NoDrive extends Command {
     protected void initialize() {
 //    	L.ogCmdInit(this);
     	Robot.DriveTrain.driveTank(0, 0);
+    	L.ogCmdInit(this);
     }
 
     // Called repeatedly when this Command is scheduled to run

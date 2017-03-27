@@ -1,7 +1,5 @@
-package org.usfirst.frc.team3574.robot.commands.shooter.copy;
+package org.usfirst.frc.team3574.robot.commands.gearmanipulator;
 
-import org.usfirst.frc.team3574.robot.commands.hopper.NEWSpinHopperIndexAgainstWall;
-import org.usfirst.frc.team3574.robot.commands.intake.SpinIntakesManual;
 import org.usfirst.frc.team3574.robot.commands.intake.RunIntakes;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -9,11 +7,13 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class shoot extends CommandGroup {
+public class DropGearHooksRunIntakes extends CommandGroup {
 
-    public shoot() {
-    	addParallel(new RunIntakes());
-    	addSequential(new NEWSpinHopperIndexAgainstWall());
+    public DropGearHooksRunIntakes() {
+    	
+    	addSequential(new DropGearHooks());
+    	addSequential(new RunIntakes(), 0.05);
+    	
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());

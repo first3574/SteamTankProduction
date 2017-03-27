@@ -1,5 +1,7 @@
 package org.usfirst.frc.team3574.robot.commands.gearmanipulator;
 
+import org.usfirst.frc.team3574.robot.commands.intake.RunIntakes;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**

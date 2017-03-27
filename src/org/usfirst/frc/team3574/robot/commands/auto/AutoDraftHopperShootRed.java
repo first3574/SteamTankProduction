@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class AutoDraftHopperShootRed extends CommandGroup {
 	private static int ANGLE_TOWARDS_HOPPER = 90;
-	private static int ANGLE_TOWARDS_BOILER = 90;
+	private static int ANGLE_TOWARDS_BOILER = 88;
 	private static int ANGLE_READY_TO_SHOOT = -44;
 	
     public AutoDraftHopperShootRed() {
@@ -34,11 +34,17 @@ public class AutoDraftHopperShootRed extends CommandGroup {
     	addSequential(new ResetYaw());
     	addSequential(new DriveForDistanceManual(2.7, 0.5, 0.0, 0.0), 2);
     	addSequential(new NoDrive(), 1.0);
-    	addSequential(new DriveForDistanceManual(0.167, -1, 0.0));
-    	addSequential(new RotateToADegreeClockwiseOnly(ANGLE_TOWARDS_BOILER, .6));
+
+    	addParallel(new SpinFlys(3125));
+    	
+    	//don't bother backing up
+    	//addSequential(new DriveForDistanceManual(0.167, -1, 0.0));
+    	addSequential(new RotateToADegreeClockwiseOnly(ANGLE_TOWARDS_BOILER, 0.8));
+    	
+    	
+    	
     	addSequential(new ResetYaw());
     	addParallel(new RunIntakes());
-    	addParallel(new SpinFlys(2375));
     	addSequential(new DriveForDistanceManual(8.18, 1.0, 0.0, 1.0));
     	addSequential(new RotateToADegreeCounterClockwiseOnly(ANGLE_READY_TO_SHOOT, 0.8));
 //    	addSequential(new DriveForDistanceManual(0.8, 0.75, 0.0));

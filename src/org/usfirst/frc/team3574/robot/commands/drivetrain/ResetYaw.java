@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3574.robot.commands.drivetrain;
 
 import org.usfirst.frc.team3574.robot.Robot;
+import org.usfirst.frc.team3574.robot.util.L;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -17,6 +18,7 @@ public class ResetYaw extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.DriveTrain.resetYaw();
+    	L.ogCmdInit(this);
     }
 
     // Called repeatedly when this Command is scheduled to run

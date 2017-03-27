@@ -35,8 +35,12 @@ public class AutoDraftHopperShootBlue extends CommandGroup {
     	addSequential(new ResetYaw());
     	addSequential(new DriveForDistanceManual(2.7, 0.5, 0.0, 0.0), 2);
     	addSequential(new NoDrive(), 1.5);
-    	addSequential(new DriveForDistanceManual(-4.5, -1, 0.0));
+
+    	// don't bother backing up
+    	// addSequential(new DriveForDistanceManual(-4.5, -1, 0.0));
     	addSequential(new RotateToADegreeCounterClockwiseOnly(ANGLE_TOWARDS_BOILER, .6));
+
+    	
     	addSequential(new ResetYaw());
     	addParallel(new RunIntakes());
     	addSequential(new DriveForDistanceManual(9.18, 1.0, 0.0));

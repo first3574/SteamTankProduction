@@ -46,12 +46,12 @@ public class DriveForDistanceManual extends Command {
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		Robot.DriveTrain.resetEncoders();
-		Robot.DriveTrain.driveTekerz(rotation, -speed);
+    	L.ogCmdInit(this);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-
+		
 //		if(Robot.DriveTrain.getLeftEnc() < 200 && Robot.DriveTrain.getRightEnc() < 200) {
 //			Robot.DriveTrain.driveArcade( 0.5, rotation * 0.5);
 //			} else if(Robot.DriveTrain.getLeftEnc() > (targetTicks - 500) || Robot.DriveTrain.getRightEnc() > (targetTicks - 500)) {
@@ -64,13 +64,18 @@ public class DriveForDistanceManual extends Command {
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
 
-		if(timeSinceInitialized() > .12 && (targetTicks - TICKS_PER_FOOT * this.slowDownValue < Math.abs(Robot.DriveTrain.getLeftEnc()) || targetTicks - TICKS_PER_FOOT * this.slowDownValue < Math.abs(Robot.DriveTrain.getRightEnc()))) {    			
+		if(timeSinceInitialized() > .12 && (targetTicks - TICKS_PER_FOOT * this.slowDownValue < Math.abs(Robot.DriveTrain.getLeftEnc()) 
+				|| targetTicks - TICKS_PER_FOOT * this.slowDownValue < Math.abs(Robot.DriveTrain.getRightEnc())
+				|| (leftDistanceTravelled() < 1.0 && rightDistanceTravelled() < 1.0)
+						)) {    			
 			
 			if(!runOnece) {
 				L.og("Driving Slowed " + this.timeSinceInitialized());
 				runOnece = true;
 			}
 			Robot.DriveTrain.driveTekerz(0.0, (speed / Math.abs(speed) * -0.4));
+		} else {
+			Robot.DriveTrain.driveTekerz(rotation, -speed);
 		}
 		if(timeSinceInitialized() > .12 && 
 				(targetTicks < Math.abs(Robot.DriveTrain.getLeftEnc()) || 
@@ -97,4 +102,15 @@ public class DriveForDistanceManual extends Command {
 	// subsystems is scheduled to run
 	protected void interrupted() {
 	}
+	
+	double rightDistanceTravelled() {
+//		L.og("RIGHT:	" + Math.abs(Robot.DriveTrain.getRightEnc()) / TICKS_PER_FOOT);
+		return Math.abs(Robot.DriveTrain.getRightEnc()) / TICKS_PER_FOOT;
+	}
+	
+	double leftDistanceTravelled() {
+//		L.og("LEFT:					" + Math.abs(Robot.DriveTrain.getLeftEnc()) / TICKS_PER_FOOT);
+		return Math.abs(Robot.DriveTrain.getLeftEnc()) / TICKS_PER_FOOT;
+	}
+	
 }

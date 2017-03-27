@@ -57,7 +57,9 @@ public class Robot extends IterativeRobot {
 	public static final Shooter Shooter = new Shooter();
 	public static OI oi;
 	Timer time = new Timer();
+	Timer autoTimer = new Timer();
 	double lastTime = 0.0;
+	int autoIteration = 0;
 	
 	
 //	private Timer time = new Timer();
@@ -108,12 +110,12 @@ public class Robot extends IterativeRobot {
 //		L.ogSD("Rotate 180 left", new RotateToADegree(180, 0.4));
 //		L.ogSD("Rotate 90 right", new RotateToADegree(-90, 0.4));
 //		L.ogSD("Rotate 180 right", new RotateToADegree(-180, 0.4));
-//
+
 //		L.ogSD("hopper shoot first step", new DriveForDistanceManual(10.167, 1.0, 0.0));
 //		L.ogSD("Drive .5", new DriveForDistanceManual(0.5, .4, 0));
-		L.ogSD("Drive 7 feet", new DriveForDistanceManual(7.0, .85, 0));
-		L.ogSD("Drive -7 feet", new DriveForDistanceManual(7.0, -.85, 0));
-		L.ogSD("Spin Flys Auto", new SpinFlys((3225 - 100)));
+		L.ogSD("Drive 10 feet", new DriveForDistanceManual(10.0, 0.60, 0));
+		L.ogSD("Drive -10 feet", new DriveForDistanceManual(10.0, 0.60, 0));
+		L.ogSD("Spin Flys Auto", new SpinFlys((3125)));
 //		L.ogSD("Drive -.5", new DriveForDistanceManual(0.5, -.4, 0));
 		
 		L.ogSD("Auto Drive Hopper Shoot Red", new AutoDraftHopperShootRed());	
@@ -168,6 +170,9 @@ public class Robot extends IterativeRobot {
 		// schedule the autonomous command (example)
 		if (autonomousCommand != null)
 			autonomousCommand.start();
+		autoTimer.reset();
+		autoTimer.start();
+		autoIteration = 0;
 	}
 
 	/**
@@ -176,8 +181,11 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
-		
+		if (autoIteration % 7 == 0) { 
+			L.og(autoTimer.get());
+		}
 		this.log();
+		autoIteration++;
 	}
 
 	@Override
@@ -206,11 +214,11 @@ public class Robot extends IterativeRobot {
 	 */
 	public void log() {
 		DriveTrain.log();
-		Climber.log();
-		HopperIndex.log();
-		Shooter.log();
-		Intake.log();
-		HopperBelt.log();
+//		Climber.log();
+//		HopperIndex.log();
+//		Shooter.log();
+//		Intake.log();
+//		HopperBelt.log();
 		double t = time.get();
 		L.ogSD("loop time", t - lastTime);
 		lastTime = t;

@@ -92,6 +92,16 @@ public class L {
 		SmartDashboard.putData(key, data);
 	}
 	
+	/**
+	 * Put something on the SmartDashboard.
+	 * @param key
+	 * @param data
+	 */
+	public static void ogSD(String key, boolean data) {
+		SmartDashboard.putBoolean(key, data);
+	}
+	
+	
 	public static void ogSDTalonBasics(String baseKey, CANTalon talon) {
 		SmartDashboard.putNumber(baseKey + " Current", talon.getOutputCurrent());
 		SmartDashboard.putNumber(baseKey + " Voltage", talon.getOutputVoltage());

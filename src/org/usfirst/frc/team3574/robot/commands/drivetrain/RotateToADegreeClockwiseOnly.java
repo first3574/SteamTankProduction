@@ -13,6 +13,7 @@ public class RotateToADegreeClockwiseOnly extends Command {
 	int reverse;
 	int targetYaw;
 	double speed;
+	double slowedSpeed = 0.2;
 	
 	/**
 	 * 
@@ -27,6 +28,10 @@ public class RotateToADegreeClockwiseOnly extends Command {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 	}
+	public RotateToADegreeClockwiseOnly(int angle, double speed, double slowSpeed) {
+		this(angle, speed);
+		this.slowedSpeed = slowSpeed;
+	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
@@ -36,6 +41,7 @@ public class RotateToADegreeClockwiseOnly extends Command {
 //			reverse *= -1;
 //		}
 		Robot.DriveTrain.driveTekerz(speed * reverse, 0.0);
+    	L.ogCmdInit(this);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -54,7 +60,7 @@ public class RotateToADegreeClockwiseOnly extends Command {
 				L.og("Rotating Slowed " + this.timeSinceInitialized());
 				runOnce = true;
 			}
-			Robot.DriveTrain.driveTekerz(0.2 * reverse, 0.0);
+			Robot.DriveTrain.driveTekerz(slowedSpeed * reverse, 0.0);
 		}
 		
 		if(yaw > targetYaw) {

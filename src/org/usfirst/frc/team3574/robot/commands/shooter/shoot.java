@@ -1,6 +1,6 @@
 package org.usfirst.frc.team3574.robot.commands.shooter;
 
-import org.usfirst.frc.team3574.robot.commands.hopper.NEWSpinHopperIndex;
+import org.usfirst.frc.team3574.robot.commands.hopper.NEWSpinHopperIndexAgainstWall;
 import org.usfirst.frc.team3574.robot.commands.hopper.SpinHopperIndex;
 import org.usfirst.frc.team3574.robot.commands.intake.SpinIntakesManual;
 import org.usfirst.frc.team3574.robot.commands.intake.RunIntakes;
@@ -14,7 +14,7 @@ public class shoot extends CommandGroup {
 
     public shoot() {
 //    	addParallel(new RunIntakes());
-    	addSequential(new NEWSpinHopperIndex());
+    	addSequential(new NEWSpinHopperIndexAgainstWall());
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());

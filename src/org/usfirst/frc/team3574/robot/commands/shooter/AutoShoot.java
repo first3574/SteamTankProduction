@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3574.robot.commands.shooter;
 
 import org.usfirst.frc.team3574.robot.Robot;
+import org.usfirst.frc.team3574.robot.util.L;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -18,6 +19,7 @@ public class AutoShoot extends Command {
     protected void initialize() {
     	Robot.Intake.intakeRun(-1.0);
     	Robot.HopperIndex.indexerRun();
+    	L.ogCmdInit(this);
     }
 
     // Called repeatedly when this Command is scheduled to run

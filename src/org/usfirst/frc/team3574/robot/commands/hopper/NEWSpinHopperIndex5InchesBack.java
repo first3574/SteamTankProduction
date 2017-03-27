@@ -8,13 +8,13 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class NEWSpinHopperIndex extends Command {
+public class NEWSpinHopperIndex5InchesBack extends Command {
 	double startTimeOfLoop = 0.0;
 	double timeToRun;
 	boolean isIndexing = false;
 	boolean slowedDown = false;
 	
-    public NEWSpinHopperIndex() {
+    public NEWSpinHopperIndex5InchesBack() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.HopperIndex);
@@ -42,7 +42,7 @@ public class NEWSpinHopperIndex extends Command {
 //    	}
     	
     	if (!slowedDown && timeSinceInitialized() > 0.2) {
-        	Robot.Shooter.spinUp(2925);
+        	Robot.Shooter.setSetpoint(3025);
         	slowedDown = true;
         	L.ogSD("Shooter Speed", 3900.0);
     	}
