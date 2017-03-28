@@ -214,11 +214,11 @@ public class Robot extends IterativeRobot {
 	 */
 	public void log() {
 		DriveTrain.log();
-//		Climber.log();
-//		HopperIndex.log();
-//		Shooter.log();
-//		Intake.log();
-//		HopperBelt.log();
+		Climber.log();
+		HopperIndex.log();
+		Shooter.log();
+		Intake.log();
+		HopperBelt.log();
 		double t = time.get();
 		L.ogSD("loop time", t - lastTime);
 		lastTime = t;

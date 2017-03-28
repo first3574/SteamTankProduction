@@ -26,12 +26,13 @@ public class Shooter extends Subsystem {
 	 */
 	static final int nativeUnitsPerRotation = 48;
 	static final int nativeUnitsPerMeasurementRate = 18730/6000 * nativeUnitsPerRotation; // = 136 
-	static final double FEED_FORWARD_GAIN = 0.0;//1023/245; //nativeUnitsPerRotation/nativeUnitsPerMeasurementRate; // 0.35294117647
-	static final double PROPORTIONAL_GAIN = 1.0; //(.11 * nativeUnitsPerRotation) / 1832;
-	static final double INTEGRAL_GAIN = .005;//0.0003
+	static final double FEED_FORWARD_GAIN = 1023/265; //1023/260; //1023/245; //nativeUnitsPerRotation/nativeUnitsPerMeasurementRate; // 0.35294117647
+	static final double PROPORTIONAL_GAIN = 1.0; //0.1; //1.0;  //(.11 * nativeUnitsPerRotation) / 1832;
+	static final double INTEGRAL_GAIN = 0.0075; //0.0025;//0.005;//0.0003
 	static final double D = 0.0;
 	
-	public double shooterSpeed = 1987.5; //RPM
+	public static final double START_SPEED_AGAINST_WALL = 3025.0;
+	public double shooterSpeed = 0.0; //RPM
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
 
@@ -48,8 +49,11 @@ public class Shooter extends Subsystem {
 		left1.configPeakOutputVoltage(12, -12);
 		left1.setF(FEED_FORWARD_GAIN);//1023/245
         left1.setP(PROPORTIONAL_GAIN);
-        left1.setI(INTEGRAL_GAIN); 
+        left1.setI(INTEGRAL_GAIN);
         left1.setD(D);
+
+//        left1..setIZone(100);
+//        right1.setIZone(100);
 
 		left2.changeControlMode(CANTalon.TalonControlMode.Follower);
 		left2.set(left1.getDeviceID());
@@ -73,6 +77,10 @@ public class Shooter extends Subsystem {
 		right2.set(right1.getDeviceID());
 	}
 
+	public void clearI () {
+		right1.clearIAccum();
+		left1.clearIAccum();
+	}
 
 	public void initDefaultCommand() {
 		setDefaultCommand(new StopFlys());
@@ -80,7 +88,7 @@ public class Shooter extends Subsystem {
 		//setDefaultCommand(new MySpecialCommand());
 	}
 
-	public void spinUp(double revsPerMinute) {
+	public void setSetpoint(double revsPerMinute) {
 		left1.set(revsPerMinute);
 //		left2.set(left1.getOutputCurrent());
 		right1.set(revsPerMinute);
@@ -134,7 +142,7 @@ public class Shooter extends Subsystem {
 	}
 	double speed;
 	public void log() {
-		if((speed = getLeftSpeed()) > 2900) {
+		if((speed = getLeftSpeed()) > 2800) {
 			L.ogSD("Shooter Speed", speed);
 		}
 		

@@ -48,8 +48,8 @@ public class DriveTrain extends Subsystem {
 	static final double I_GAIN = .003;
 	static final double D_GAIN = 0.0;
 	static final double F_GAIN = nativeUnitsPerRotation/nativeUnitsPerMeasurementRate;
-	static final double SHIFT_SPEED = 220;
-	
+	static final double SHIFT_SPEED_TOP = 150;
+	static final double SHIFT_SPEED_BOTTOM = 190;
 	static final int TICKS_PER_FOOT = 3099;
 	
 	public DriveTrain () {
@@ -172,6 +172,9 @@ public class DriveTrain extends Subsystem {
 	public boolean getGearIsLow() {
 		return (shifter.get() == DoubleSolenoid.Value.kReverse);
 	}
+	public boolean getGearIsHigh() {
+		return (shifter.get() == DoubleSolenoid.Value.kForward);
+	}
 	
 	public void setGearLow() {
 		shifter.set(DoubleSolenoid.Value.kReverse);
@@ -182,22 +185,49 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	private void automaticShifter() {
-		if(Math.abs(left1.getSpeed()) > SHIFT_SPEED && Math.abs(right1.getSpeed()) > SHIFT_SPEED)
-		{
-			if(getGearIsLow())
-			{
+		
+//		if(left1.getSpeed() > SHIFT_SPEED_TOP && right1.getSpeed() < -SHIFT_SPEED_TOP) {
+//		
+//		L.ogSD("Shifters Running High", true);
+//		if(getGearIsLow()) {
+//			L.og("Setting To High Gear");
+//			setGearHigh();
+//		} else if(left1.getSpeed() < -SHIFT_SPEED_TOP && right1.getSpeed() > SHIFT_SPEED_TOP) {
+//		
+//	L.ogSD("Shifters Running High", true);
+//	if(getGearIsLow()) {
+//		L.og("Setting To High Gear");
+//		setGearHigh();
+//	}
+//	
+//	} else {
+//		L.ogSD("Shifters Running High", false);
+//		if(getGearIsHigh())	{
+//			L.og("Setting To Low Gear");
+//			setGearLow();
+//		}
+//		
+//	}
+		
+		if(Math.abs(left1.getSpeed()) > SHIFT_SPEED_TOP && Math.abs(right1.getSpeed()) > SHIFT_SPEED_TOP) {
+			
+			L.ogSD("Shifters Running High", true);
+			if(getGearIsLow()) {
+				L.og("Setting To High Gear");
 				setGearHigh();
 			}
-		}
-		else //if(Math.abs(left1.getSpeed()) < SHIFT_SPEED || Math.abs(right1.getSpeed()) < SHIFT_SPEED)
-		{
-			if(!getGearIsLow())
+			
+		} else //if(Math.abs(left1.getSpeed()) < SHIFT_SPEED_BOTTOM || Math.abs(right1.getSpeed()) < SHIFT_SPEED_BOTTOM) 
 			{
+			L.ogSD("Shifters Running High", false);
+			if(getGearIsHigh())	{
+				L.og("Setting To Low Gear");
 				setGearLow();
 			}
+			
 		}
-		// if low gear and going high speed, shift up
-		// if high gear and going low speed, shift down
+		// if in low gear and going high speed, shift up
+		// if in high gear and going low speed, shift down
 	}
 	
 	public void toggleShift() {
@@ -229,6 +259,8 @@ public class DriveTrain extends Subsystem {
 		L.ogSD("Turn", turn);
 		L.ogSD("Throttle", throttle);
 		
+//		turn *= 12.5;
+//		throttle *= 12.5;
 		
 		left1.set((turn + throttle) * driveOtherWay);
 		left2.set((turn + throttle) * driveOtherWay);
@@ -280,25 +312,25 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public void log() {		
-		L.ogSD("Compresser Switch" ,Boolean.toString(( new Compressor()).getPressureSwitchValue()));
-//		L.ogSDTalonBasics("Drive Left", left1);
-//		L.ogSDTalonBasics("Drive Right", right1);
-//		L.ogSDTalonPID("Drive Left", left1);
-//		L.ogSDTalonPID("Drive Right", right1);
-//        SmartDashboard.putBoolean("IMU IsCalibrating", ahrs.isCalibrating());
-		L.ogSD("Drive Left Enc", getLeftEnc());
-		L.ogSD("Drive Right Enc", getRightEnc());
-		SmartDashboard.putNumber("Yaw", ahrs.getYaw());
-        L.ogSD("Angle", getAngle());
-//		SmartDashboard.putBoolean("I AM YOU!?_IsConnected", ahrs.isConnected());
-        
-        L.ogSD("Left Enc Speed", left1.getSpeed());
-        L.ogSD("Right Enc Speed", right1.getSpeed());
-        
-        
-        L.ogSD("Drive left current1", left1.getOutputCurrent());
-        L.ogSD("Drive left current2", left2.getOutputCurrent());
-        L.ogSD("Drive right current1", right1.getOutputCurrent());
-        L.ogSD("Drive right current2", right2.getOutputCurrent());
+//		L.ogSD("Compressor Switch" ,Boolean.toString(( new Compressor()).getPressureSwitchValue()));
+////		L.ogSDTalonBasics("Drive Left", left1);
+////		L.ogSDTalonBasics("Drive Right", right1);
+////		L.ogSDTalonPID("Drive Left", left1);
+////		L.ogSDTalonPID("Drive Right", right1);
+////        SmartDashboard.putBoolean("IMU IsCalibrating", ahrs.isCalibrating());
+//		L.ogSD("Drive Left Enc", getLeftEnc());
+//		L.ogSD("Drive Right Enc", getRightEnc());
+//		SmartDashboard.putNumber("Yaw", ahrs.getYaw());
+//        L.ogSD("Angle", getAngle());
+////		SmartDashboard.putBoolean("I AM YOU!?_IsConnected", ahrs.isConnected());
+//        
+//        L.ogSD("Left Enc Speed", left1.getSpeed());
+//        L.ogSD("Right Enc Speed", right1.getSpeed());
+//        
+//        
+//        L.ogSD("Drive left current1", left1.getOutputCurrent());
+//        L.ogSD("Drive left current2", left2.getOutputCurrent());
+//        L.ogSD("Drive right current1", right1.getOutputCurrent());
+//        L.ogSD("Drive right current2", right2.getOutputCurrent());
 	}
 }

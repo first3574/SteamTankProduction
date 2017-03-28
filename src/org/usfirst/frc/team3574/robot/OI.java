@@ -8,11 +8,12 @@ import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveOtherWay;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.ShiftHighGear;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.ShiftLowGear;
 import org.usfirst.frc.team3574.robot.commands.gearmanipulator.DropGearHooks;
+import org.usfirst.frc.team3574.robot.commands.gearmanipulator.DropGearHooksRunIntakes;
 import org.usfirst.frc.team3574.robot.commands.gearmanipulator.GearFlapOut;
 import org.usfirst.frc.team3574.robot.commands.gearmanipulator.CloseGearDoor;
 import org.usfirst.frc.team3574.robot.commands.gearmanipulator.GearHookUp;
 import org.usfirst.frc.team3574.robot.commands.gearmanipulator.GearHookUpFlapOut;
-import org.usfirst.frc.team3574.robot.commands.hopper.NEWSpinHopperIndex;
+import org.usfirst.frc.team3574.robot.commands.hopper.NEWSpinHopperIndexAgainstWall;
 import org.usfirst.frc.team3574.robot.commands.intake.SpinIntakesManual;
 import org.usfirst.frc.team3574.robot.commands.shooter.IdleShooter;
 import org.usfirst.frc.team3574.robot.commands.shooter.RaiseShooterSpeed;
@@ -184,15 +185,12 @@ public class OI {
 		launchFuel.whileHeld(new shoot());
 //		launchFuel.whenPressed(new SpinHopperIndex());		
 		
-//		JoystickButton idleShooter = new JoystickButton(gunner, Y_BUTTON);
-//		idleShooter.whenPressed(new IdleShooter());
-		
 		
 		JoystickButton raiseShot = new JoystickButton(gunner, BACK);
 		raiseShot.whenPressed(new RaiseShooterSpeed());
 		
-//		JoystickButton stopShooter = new JoystickButton(gunner, LEFT_BUMPER);
-//		stopShooter.whenPressed(new ResetShooter());
+		JoystickButton stopShooter = new JoystickButton(gunner, Y_BUTTON);
+		stopShooter.whenPressed(new ResetShooter());
 		
 		
 		/**
@@ -214,7 +212,7 @@ public class OI {
 		 * GEAR MANIPULATOR FUNTIONS
 		 */
 		TriggerButton hookDown = new TriggerButton(gunner, RIGHT_TRIGGER);
-		hookDown.whenPressed(new DropGearHooks());
+		hookDown.whenPressed(new DropGearHooksRunIntakes());
 		
 //		JoystickButton hookUp = new JoystickButton(gunner, Y_BUTTON);
 //		hookUp.whenPressed(new GearHookUp());
