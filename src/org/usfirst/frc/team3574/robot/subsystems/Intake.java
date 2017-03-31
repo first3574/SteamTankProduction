@@ -36,11 +36,11 @@ public class Intake extends Subsystem {
      * @param speed
      */
     public void intakeRun(double speed) {
-    	intake.set(speed);
+    	intake.set(-speed);
     }
     
     public void agitateHopper() {
-    	intake.set(.5);
+    	intake.set(-.5);
     }
 
     public void intakeStop() {
