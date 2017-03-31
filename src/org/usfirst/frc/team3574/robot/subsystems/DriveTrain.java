@@ -320,7 +320,7 @@ public class DriveTrain extends Subsystem {
 ////        SmartDashboard.putBoolean("IMU IsCalibrating", ahrs.isCalibrating());
 //		L.ogSD("Drive Left Enc", getLeftEnc());
 //		L.ogSD("Drive Right Enc", getRightEnc());
-//		SmartDashboard.putNumber("Yaw", ahrs.getYaw());
+		L.ogSD("Yaw", ahrs.getYaw());
 //        L.ogSD("Angle", getAngle());
 ////		SmartDashboard.putBoolean("I AM YOU!?_IsConnected", ahrs.isConnected());
 //        
