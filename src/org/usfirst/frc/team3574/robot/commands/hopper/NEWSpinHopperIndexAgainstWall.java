@@ -3,6 +3,7 @@ package org.usfirst.frc.team3574.robot.commands.hopper;
 import org.usfirst.frc.team3574.robot.Robot;
 import org.usfirst.frc.team3574.robot.util.L;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -13,6 +14,7 @@ public class NEWSpinHopperIndexAgainstWall extends Command {
 	double timeToRun;
 	boolean isIndexing = false;
 	boolean slowedDown = false;
+	Timer time = new Timer();
 	
     public NEWSpinHopperIndexAgainstWall() {
         // Use requires() here to declare subsystem dependencies
@@ -22,9 +24,11 @@ public class NEWSpinHopperIndexAgainstWall extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	time.reset();
+    	time.start();
     	startTimeOfLoop = -loopLength;
 //    	Robot.HopperIndex.indexerRun();
-    	L.og("Shoot Started");
+    	L.ogCmdInit(this);
 //    	Robot.Shooter.spinUp(2925);
     	slowedDown = false;
     	L.ogSD("Shooter Speed", 3900.0);
@@ -42,7 +46,7 @@ public class NEWSpinHopperIndexAgainstWall extends Command {
 //    	}
     	
     	if (!slowedDown && timeSinceInitialized() > 0.2) {
-        	Robot.Shooter.setSetpoint(2925);
+        	Robot.Shooter.setSetpoint(Robot.Shooter.DROPPED_SPEED_AGAINST_WALL);
         	slowedDown = true;
         	L.ogSD("Shooter Speed", 3900.0);
     	}
@@ -60,6 +64,7 @@ public class NEWSpinHopperIndexAgainstWall extends Command {
     			Robot.HopperIndex.indexerStop();
     			isIndexing = false;
     		} else {
+    	    	L.og(time.get());
     			Robot.HopperIndex.indexerRun();
     		}    			
     	}

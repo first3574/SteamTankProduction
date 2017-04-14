@@ -1,22 +1,20 @@
-package org.usfirst.frc.team3574.robot.commands.shooter;
+package org.usfirst.frc.team3574.robot.commands.auto;
 
-import org.usfirst.frc.team3574.robot.commands.hopper.NEWSpinHopperIndexAgainstWall;
-import org.usfirst.frc.team3574.robot.commands.hopper.SpinHopperIndex;
-import org.usfirst.frc.team3574.robot.commands.intake.SpinIntakesManual;
-import org.usfirst.frc.team3574.robot.commands.intake.RunIntakes;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveForDistanceManual;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class shoot extends CommandGroup {
+public class HopperShoot extends CommandGroup {
 
-    public shoot() {
-//    	addParallel(new RunIntakes());
-    	addSequential(new NEWSpinHopperIndexAgainstWall());
-//    	addSequential(new SpinHopperIndex());
-        // Add Commands here:
+    public HopperShoot() {
+    	addSequential(new DriveForDistanceManual(6.6, -1.0, 0.0));
+    	addSequential(new DriveForDistanceManual(0.0, 0.5, 0.5));
+    	addSequential(new DriveForDistanceManual(4.8, 1.0, 0.0));
+    	addSequential(new DriveForDistanceManual(0.0, 0.5, 0.5));
+    	// Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
         // these will run in order.

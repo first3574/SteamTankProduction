@@ -30,10 +30,10 @@ public class AutoDraftHopperShootRed extends CommandGroup {
     	addSequential(new ShiftLowGear());
     	
     	// this is longer on purpose even though that makes absolutely zero sense
-    	addSequential(new DriveForDistanceManual(10.827, 1.0, 0.0));
+    	addSequential(new DriveForDistanceManual(10.67, 1.0, 0.0), 8);
     	addSequential(new RotateToADegreeClockwiseOnly(ANGLE_TOWARDS_HOPPER, .6));
     	addSequential(new ResetYaw());
-    	addSequential(new DriveForDistanceManual(2.7, 0.5, 0.0, 0.0), 2);
+    	addSequential(new DriveForDistanceManual(3.363, 0.5, 0.0, 0.0), 4);
     	addSequential(new NoDrive(), 1.0);
 
     	addParallel(new SpinFlys(3125));
@@ -45,7 +45,7 @@ public class AutoDraftHopperShootRed extends CommandGroup {
     	
     	addSequential(new ResetYaw());
     	addParallel(new RunIntakes());
-    	addSequential(new DriveForDistanceManual(8.55, 1.0, 0.0, 1.0));
+    	addSequential(new DriveForDistanceManual(9.08, 1.0, 0.0, 1.0));
     	addSequential(new RotateToADegreeCounterClockwiseOnly(ANGLE_READY_TO_SHOOT, 0.8));
 //    	addSequential(new DriveForDistanceManual(0.8, 0.75, 0.0));
     	addSequential(new NEWSpinHopperIndex5InchesBack());

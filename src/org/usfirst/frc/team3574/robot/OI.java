@@ -14,6 +14,7 @@ import org.usfirst.frc.team3574.robot.commands.gearmanipulator.CloseGearDoor;
 import org.usfirst.frc.team3574.robot.commands.gearmanipulator.GearHookUp;
 import org.usfirst.frc.team3574.robot.commands.gearmanipulator.GearHookUpFlapOut;
 import org.usfirst.frc.team3574.robot.commands.hopper.NEWSpinHopperIndexAgainstWall;
+import org.usfirst.frc.team3574.robot.commands.hopper.SpinHopperIndex;
 import org.usfirst.frc.team3574.robot.commands.intake.SpinIntakesManual;
 import org.usfirst.frc.team3574.robot.commands.shooter.IdleShooter;
 import org.usfirst.frc.team3574.robot.commands.shooter.RaiseShooterSpeed;
@@ -181,10 +182,12 @@ public class OI {
 //		spinShooterSystem.whenPressed(new SpinShooterSystem());
 		spinShooterSystem.whenPressed(new SpinFlys());
 		
-		TriggerButton launchFuel = new TriggerButton(driverWoodpecker, RIGHT_TRIGGER);
+		TriggerButton launchFuel = new TriggerButton(driverWoodpecker, LEFT_TRIGGER);
 		launchFuel.whileHeld(new shoot());
 //		launchFuel.whenPressed(new SpinHopperIndex());		
 		
+		TriggerButton shootOverride = new TriggerButton(driverWoodpecker, RIGHT_TRIGGER);
+		shootOverride.whileHeld(new SpinHopperIndex());
 		
 		JoystickButton raiseShot = new JoystickButton(gunner, BACK);
 		raiseShot.whenPressed(new RaiseShooterSpeed());

@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
+@Deprecated
 public class DriveForDistanceWithNavx extends Command {
 	int targetTicks;
 	double speed;

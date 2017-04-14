@@ -4,6 +4,7 @@ import org.usfirst.frc.team3574.robot.RobotMap;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithJoyArcade;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithJoyTekerz;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithPoof;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.ResetYaw;
 import org.usfirst.frc.team3574.robot.util.L;
 
 import com.ctre.CANTalon;
@@ -151,6 +152,9 @@ public class DriveTrain extends Subsystem {
 	public void resetYaw() {
 		ahrs.zeroYaw();
 	}
+	public void resetAHRS() {
+		ahrs.reset();
+	}
 	
 	public double getYaw() {
 		if (ahrs != null) {
@@ -247,7 +251,10 @@ public class DriveTrain extends Subsystem {
 	@Deprecated
 	public void driveArcade(double throttle, double turnValue) {
 		left1.set((throttle + turnValue) * driveOtherWay);
+		left2.set((throttle + turnValue) * driveOtherWay);
 		right1.set((throttle - turnValue) * driveOtherWay);
+		right2.set((throttle - turnValue) * driveOtherWay);
+
 	}
 	
 	public void driveTekerz(double turn, double throttle) {
@@ -320,7 +327,11 @@ public class DriveTrain extends Subsystem {
 ////        SmartDashboard.putBoolean("IMU IsCalibrating", ahrs.isCalibrating());
 //		L.ogSD("Drive Left Enc", getLeftEnc());
 //		L.ogSD("Drive Right Enc", getRightEnc());
-		L.ogSD("Yaw", ahrs.getYaw());
+		L.ogSD("Yaw", this.getYaw());
+		L.ogSD("Left Current", left1.getOutputCurrent());
+		L.ogSD("Right Current", right1.getOutputCurrent());
+//		L.ogSD("left drive enc", left1.getEncPosition());
+//		L.ogSD("right drive enc", left2.getEncPosition());
 //        L.ogSD("Angle", getAngle());
 ////		SmartDashboard.putBoolean("I AM YOU!?_IsConnected", ahrs.isConnected());
 //        
@@ -332,5 +343,6 @@ public class DriveTrain extends Subsystem {
 //        L.ogSD("Drive left current2", left2.getOutputCurrent());
 //        L.ogSD("Drive right current1", right1.getOutputCurrent());
 //        L.ogSD("Drive right current2", right2.getOutputCurrent());
+		
 	}
 }

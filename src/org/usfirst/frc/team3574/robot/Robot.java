@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team3574.robot.commands.auto.AutoDraftHopperShootBlue;
 import org.usfirst.frc.team3574.robot.commands.auto.AutoDraftHopperShootRed;
 import org.usfirst.frc.team3574.robot.commands.auto.AutonomousSelector;
+import org.usfirst.frc.team3574.robot.commands.auto.SideGearShoot;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveForDistanceManual;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithJoyArcade;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.NoDrive;
@@ -106,20 +107,22 @@ public class Robot extends IterativeRobot {
 		L.ogSD("PULL THE BIG LEVER!!", new RumbleAtThirty());
 		L.ogSD("UN-PULL THE LEVER!!", new StopRumble(Robot.oi.driverWoodpecker));
 		
-//		L.ogSD("Rotate 90 left", new RotateToADegree(90, 0.4));
+		L.ogSD("Rotate 90 left", new RotateToADegreeCounterClockwiseOnly(90, 0.6));
 //		L.ogSD("Rotate 180 left", new RotateToADegree(180, 0.4));
 //		L.ogSD("Rotate 90 right", new RotateToADegree(-90, 0.4));
 //		L.ogSD("Rotate 180 right", new RotateToADegree(-180, 0.4));
 
 //		L.ogSD("hopper shoot first step", new DriveForDistanceManual(10.167, 1.0, 0.0));
 //		L.ogSD("Drive .5", new DriveForDistanceManual(0.5, .4, 0));
-		L.ogSD("Drive 10 feet", new DriveForDistanceManual(10.0, 0.60, 0));
-		L.ogSD("Drive -10 feet", new DriveForDistanceManual(10.0, 0.60, 0));
+		L.ogSD("Drive 10 feet 0.6speed", new DriveForDistanceManual(10.0, 0.60, 0));
+		L.ogSD("Drive 10 feet 1speed", new DriveForDistanceManual(10.0, 1.0, 0));
 		L.ogSD("Spin Flys Auto", new SpinFlys((3125)));
 //		L.ogSD("Drive -.5", new DriveForDistanceManual(0.5, -.4, 0));
 		
-		L.ogSD("Auto Drive Hopper Shoot Red", new AutoDraftHopperShootRed());	
+		L.ogSD("Auto Drive Hopper Shoot Red", new AutoDraftHopperShootRed());	 
 		L.ogSD("Auto Drive Hopper Shoot Blue", new AutoDraftHopperShootBlue());
+		
+		L.ogSD("SideGearShoot THing", new SideGearShoot());
 		
 //		L.ogSD("low gear", new ShiftLowGear());
 	}
@@ -182,7 +185,7 @@ public class Robot extends IterativeRobot {
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 		if (autoIteration % 7 == 0) { 
-			L.og(autoTimer.get());
+			L.og(autoTimer.get() + " || " + this.DriveTrain.getYaw());
 		}
 		this.log();
 		autoIteration++;

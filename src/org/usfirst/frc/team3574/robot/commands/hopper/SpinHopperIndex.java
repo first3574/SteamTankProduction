@@ -9,7 +9,8 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class SpinHopperIndex extends Command {
-
+	boolean slowedDown;
+	
     public SpinHopperIndex() {
         requires(Robot.HopperIndex);
     	// Use requires() here to declare subsystem dependencies
@@ -18,12 +19,18 @@ public class SpinHopperIndex extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	slowedDown = false;
     	Robot.HopperIndex.indexerRun();
-    	L.og("Shoot Started");
+    	L.ogCmdInit(this);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	if (!slowedDown && timeSinceInitialized() > 0.2) {
+        	Robot.Shooter.setSetpoint(Robot.Shooter.DROPPED_SPEED_AGAINST_WALL);
+        	slowedDown = true;
+        	L.ogSD("Shooter Speed", 3900.0);
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()

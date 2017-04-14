@@ -28,10 +28,11 @@ public class Shooter extends Subsystem {
 	static final int nativeUnitsPerMeasurementRate = 18730/6000 * nativeUnitsPerRotation; // = 136 
 	static final double FEED_FORWARD_GAIN = 1023/265; //1023/260; //1023/245; //nativeUnitsPerRotation/nativeUnitsPerMeasurementRate; // 0.35294117647
 	static final double PROPORTIONAL_GAIN = 1.0; //0.1; //1.0;  //(.11 * nativeUnitsPerRotation) / 1832;
-	static final double INTEGRAL_GAIN = 0.0075; //0.0025;//0.005;//0.0003
+	static final double INTEGRAL_GAIN = 0.01; //.0075
 	static final double D = 0.0;
 	
-	public static final double START_SPEED_AGAINST_WALL = 3025.0;
+	public static final double START_SPEED_AGAINST_WALL = 3000.0;
+	public static final double DROPPED_SPEED_AGAINST_WALL = 2837.0;
 	public double shooterSpeed = 0.0; //RPM
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
@@ -123,12 +124,12 @@ public class Shooter extends Subsystem {
 		return right1.getSpeed();
 	}
 
-	int offset = 50;
+	int offset = 500; //50
 	
 
 	public boolean acceptableShooterRange() {
 		if(right1.getSpeed() <= (right1.getSetpoint() + offset) 
-				&& right1.getSpeed() >= (right1.getSetpoint() - 0.0) 
+				&& right1.getSpeed() >= (right1.getSetpoint() - 25.0) 
 //				&& left1.getSpeed() < (left1.getSetpoint() + offset) 
 //				&& left1.getSpeed() > (left1.getSetpoint() - 0.0)
 				) {

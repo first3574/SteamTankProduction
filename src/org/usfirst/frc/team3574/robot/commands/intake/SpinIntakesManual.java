@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 
 public class SpinIntakesManual extends Command {
+	double power;
 	
     public SpinIntakesManual() {
     	requires(Robot.Intake);
@@ -21,7 +22,8 @@ public class SpinIntakesManual extends Command {
     }
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.Intake.intakeRun(Robot.oi.intakeStickYAxis());
+    	power = deadzone(Robot.oi.intakeStickYAxis());
+    	Robot.Intake.intakeRun(power);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -37,5 +39,13 @@ public class SpinIntakesManual extends Command {
     // subsystems is scheduled to run
     protected void interrupted() {
     	Robot.Intake.intakeStop();
+    }
+    
+    private double deadzone(double axis) {
+    	if(Math.abs(axis) > 0.3) {
+    		return axis;
+    	} else {
+    	return 0.0;
+    	}
     }
 }

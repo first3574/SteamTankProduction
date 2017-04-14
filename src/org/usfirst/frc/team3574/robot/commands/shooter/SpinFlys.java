@@ -29,17 +29,11 @@ public class SpinFlys extends Command {
     protected void initialize() {
     	L.ogCmdInit(this);
     	Robot.Shooter.setSetpoint(speed); //1547
-    	Robot.HopperBelt.beltRun();
-    	
-//    
-//    	
+    	Robot.HopperBelt.beltRun();  	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-//    	if (Robot.Shooter.getLeftSpeed() > 3400.0) {
-//    		Robot.Shooter.clearI();
-//    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
