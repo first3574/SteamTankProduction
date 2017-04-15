@@ -2,6 +2,14 @@ package org.usfirst.frc.team3574.robot.commands.auto;
 
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveForDistanceDOESNOTSTOP;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveForDistanceManual;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.RotateToADegreeClockwiseOnly;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.RotateToADegreeCounterClockwiseOnly;
+import org.usfirst.frc.team3574.robot.commands.gearmanipulator.DropGearHooks;
+import org.usfirst.frc.team3574.robot.commands.gearmanipulator.DropGearHooksRunIntakes;
+import org.usfirst.frc.team3574.robot.commands.hopper.NEWSpinHopperIndex5InchesBack;
+import org.usfirst.frc.team3574.robot.commands.hopper.NEWSpinHopperIndexAgainstWall;
+import org.usfirst.frc.team3574.robot.commands.hopper.SpinHopperIndex;
+import org.usfirst.frc.team3574.robot.commands.shooter.SpinFlys;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -11,14 +19,22 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class SideGearShoot extends CommandGroup {
 
     public SideGearShoot() {
-//    	addSequential(new DriveForDistanceManual(1.0, 1.0, 0.0));
-    	addSequential(new DriveForDistanceDOESNOTSTOP(1.0, -0.4, -0.25));
-    	addSequential(new DriveForDistanceDOESNOTSTOP(1.0, -0.4, 0.25));
-//    	addSequential(new DriveForDistanceManual(2.0, 1.0, 0.0));
-//    	addSequential(new DriveForDistanceManual(3.0, -1.0, 0.0));
-//    	addSequential(new DriveForDistanceManual(0.0, 0.5, 0.5));
-//    	addSequential(new DriveForDistanceManual(1.0, 1.0, 0.0));
-        // Add Commands here:
+
+    	addSequential(new DriveForDistanceDOESNOTSTOP(1.0, 0.75, 0.0));
+    	addSequential(new DriveForDistanceDOESNOTSTOP(2.0, 0.75, -0.5));
+    	addSequential(new DriveForDistanceDOESNOTSTOP(1.0, 0.75, 0.5));
+    	addSequential(new DriveForDistanceDOESNOTSTOP(2.0, 1.0, 0.0));
+    	addSequential(new DriveForDistanceDOESNOTSTOP(0.0, 0.0, 0.0));
+    	addSequential(new DropGearHooksRunIntakes());
+    	addSequential(new SpinFlys());
+    	addSequential(new DriveForDistanceDOESNOTSTOP(5.0, -1.0, 0.0));
+    	addSequential(new RotateToADegreeClockwiseOnly(167, 0.75));
+    	addSequential(new DriveForDistanceDOESNOTSTOP(1.3, 1.0, 0.0));
+    	addSequential(new SpinHopperIndex());
+    	addSequential(new DriveForDistanceDOESNOTSTOP(0.0, 0.0, 0.0));
+    	
+    	
+    	// Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
         // these will run in order.

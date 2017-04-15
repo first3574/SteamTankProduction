@@ -49,7 +49,7 @@ public class DriveForDistanceDOESNOTSTOP extends Command {
 		
 		if(timeSinceInitialized() > .12 && 
 				(targetTicks < Math.abs(Robot.DriveTrain.getLeftEnc()) 
-//						|| targetTicks < Math.abs(Robot.DriveTrain.getRightEnc())
+						|| targetTicks < Math.abs(Robot.DriveTrain.getRightEnc())
 				)) {
 			return true;
 		} else {

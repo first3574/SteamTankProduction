@@ -7,13 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class DriveWithJoyTekerz extends Command {
-	double throttle = 0;
-	double wheel = 0;
-    public static final double kThrottleDeadband = 0.02;
-    private static final double kWheelDeadband = 0.1;
+public class TurnQuickClockwise extends Command {
 
-    public DriveWithJoyTekerz() {
+    public TurnQuickClockwise() {
     	requires(Robot.DriveTrain);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -21,24 +17,20 @@ public class DriveWithJoyTekerz extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    
-    
+    	Robot.DriveTrain.driveTekerz(-0.25, 0.0);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        wheel = handleDeadband(Robot.oi.driveStickTurnAxis(), kWheelDeadband);
-        throttle = handleDeadband(Robot.oi.driveStickThrottleAxis(), kThrottleDeadband);
-
-    	wheel = Math.pow(wheel, 5.0); //3
-        throttle = Math.pow(throttle, 3.0); //3
-
-    	Robot.DriveTrain.driveTekerz(wheel, throttle);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+    	if (timeSinceInitialized() > .15) {
+    		Robot.DriveTrain.driveTekerz(0.0, 0.0);
+    		return true;
+    	}
+    	return false;
     }
 
     // Called once after isFinished returns true
@@ -49,9 +41,4 @@ public class DriveWithJoyTekerz extends Command {
     // subsystems is scheduled to run
     protected void interrupted() {
     }
-
-    public double handleDeadband(double val, double deadband) {
-        return (Math.abs(val) > Math.abs(deadband)) ? val : 0.0;
-    }
-
 }

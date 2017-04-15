@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -67,7 +68,8 @@ public class DriveTrain extends Subsystem {
 			 * 
 			 * Multiple navX-model devices on a single robot are supported.
 			 ************************************************************************/
-            ahrs = new AHRS(I2C.Port.kOnboard);
+//            ahrs = new AHRS(I2C.Port.kOnboard);
+        	ahrs = new AHRS(Port.kUSB);
         } catch (RuntimeException ex ) {
             DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
         }
@@ -166,6 +168,12 @@ public class DriveTrain extends Subsystem {
 	
 	public double getAngle() {
 		return (getYaw() + 360) % 360;
+	}
+	
+	public void isStopping() {
+		if((left1.getOutputCurrent() > 20.0 && right1.getOutputCurrent() > 20.0) && (ahrs.getVelocityX() >= -0.1 && ahrs.getVelocityX() <= 0.1)) {
+			setGearLow();
+		}
 	}
 	
 	//SHIFTER FUNCTIONS
@@ -274,6 +282,7 @@ public class DriveTrain extends Subsystem {
 		right1.set((turn - throttle) * driveOtherWay);
 		right2.set((turn - throttle) * driveOtherWay);
 //		automaticShifter();
+//		isStopping();
 	}
 	
 	public void driveTank(double left, double right) {
@@ -320,18 +329,25 @@ public class DriveTrain extends Subsystem {
 	
 	public void log() {		
 //		L.ogSD("Compressor Switch" ,Boolean.toString(( new Compressor()).getPressureSwitchValue()));
-////		L.ogSDTalonBasics("Drive Left", left1);
-////		L.ogSDTalonBasics("Drive Right", right1);
-////		L.ogSDTalonPID("Drive Left", left1);
-////		L.ogSDTalonPID("Drive Right", right1);
-////        SmartDashboard.putBoolean("IMU IsCalibrating", ahrs.isCalibrating());
+//		L.ogSDTalonBasics("Drive Left", left1);
+//		L.ogSDTalonBasics("Drive Right", right1);
+//		L.ogSDTalonPID("Drive Left", left1);
+//		L.ogSDTalonPID("Drive Right", right1);
+//        SmartDashboard.putBoolean("IMU IsCalibrating", ahrs.isCalibrating());
 //		L.ogSD("Drive Left Enc", getLeftEnc());
 //		L.ogSD("Drive Right Enc", getRightEnc());
+		
+//		L.ogSD("AHRS rate", ahrs.getRate());
+//		L.ogSD("Robot Velocity X", ahrs.);
+//		L.ogSD("Robot Velocity Y", ahrs.getVelocityY());
+//		L.ogSD("Robot Velocity Z", ahrs.getVelocityZ());
+		
+		
 		L.ogSD("Yaw", this.getYaw());
 		L.ogSD("Left Current", left1.getOutputCurrent());
 		L.ogSD("Right Current", right1.getOutputCurrent());
-//		L.ogSD("left drive enc", left1.getEncPosition());
-//		L.ogSD("right drive enc", left2.getEncPosition());
+		L.ogSD("left drive enc", left1.getEncPosition());
+		L.ogSD("right drive enc", left2.getEncPosition());
 //        L.ogSD("Angle", getAngle());
 ////		SmartDashboard.putBoolean("I AM YOU!?_IsConnected", ahrs.isConnected());
 //        

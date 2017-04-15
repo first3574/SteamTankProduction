@@ -1,6 +1,10 @@
 package org.usfirst.frc.team3574.robot.commands.auto;
 
+import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveForDistanceDOESNOTSTOP;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveForDistanceManual;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.NoDrive;
+import org.usfirst.frc.team3574.robot.commands.gearmanipulator.DropGearHooksRunIntakes;
+import org.usfirst.frc.team3574.robot.commands.intake.RunIntakes;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -10,9 +14,18 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class FrontGear extends CommandGroup {
 
     public FrontGear() {
-    	addSequential(new DriveForDistanceManual(3, 1.0, 0.0));
-    	addSequential(new DriveForDistanceManual(2, -1.0, 0.0));
-        // Add Commands here:
+    	addSequential(new DriveForDistanceDOESNOTSTOP(3.0, 0.75, 0.0));
+    	addSequential(new DriveForDistanceDOESNOTSTOP(0.0, 0.0, 0.0));
+    	addSequential(new DropGearHooksRunIntakes());
+    	addSequential(new NoDrive(), .5);
+    	addSequential(new DriveForDistanceDOESNOTSTOP(2.0, -1.0, 0.0));
+    	
+    	
+    	
+    	
+    	
+    	
+    	// Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
         // these will run in order.

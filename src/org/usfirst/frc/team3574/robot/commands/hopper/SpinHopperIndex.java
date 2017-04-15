@@ -13,6 +13,7 @@ public class SpinHopperIndex extends Command {
 	
     public SpinHopperIndex() {
         requires(Robot.HopperIndex);
+        requires(Robot.Intake);
     	// Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -23,9 +24,20 @@ public class SpinHopperIndex extends Command {
     	Robot.HopperIndex.indexerRun();
     	L.ogCmdInit(this);
     }
-
+    
+    int timeOffset = 0;
+    
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	if (timeSinceInitialized() < timeOffset){
+    		Robot.Intake.intakeRun(-1);
+    	} else {
+    		Robot.Intake.intakeRun(1);
+    		if(timeSinceInitialized() > timeOffset + 1) {
+    			timeOffset += 1;
+    		}
+    	}
+    	
     	if (!slowedDown && timeSinceInitialized() > 0.2) {
         	Robot.Shooter.setSetpoint(Robot.Shooter.DROPPED_SPEED_AGAINST_WALL);
         	slowedDown = true;

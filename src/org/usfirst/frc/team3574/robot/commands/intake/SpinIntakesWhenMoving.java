@@ -8,14 +8,14 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class SpIntakesWhenMoving extends Command {
+public class SpinIntakesWhenMoving extends Command {
 	double getLeftValue;
 	double getRightValue;
 	double deadZoneHalf = 2;
 	Timer time = new Timer();
 	boolean runOnce;
 	
-    public SpIntakesWhenMoving() {
+    public SpinIntakesWhenMoving() {
     	requires(Robot.Intake);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);

@@ -39,6 +39,13 @@ public class NEWSpinHopperIndexAgainstWall extends Command {
     
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	if (timeSinceInitialized() > 1.0){
+    		Robot.Intake.intakeRun(1);
+    	} else {
+    		Robot.Intake.intakeRun(-1);
+    	}
+   
+    	
 //    	if (Robot.Shooter.acceptableShooterRange()) {
 //        	Robot.HopperIndex.indexerRun();
 //    	} else {

@@ -2,6 +2,7 @@ package org.usfirst.frc.team3574.robot.commands.auto;
 
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveForDistanceManual;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.NoDrive;
+import org.usfirst.frc.team3574.robot.util.L;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
@@ -31,6 +32,7 @@ public class AutonomousSelector extends Command {
 		step = 0;
 		time.reset();
 		time.start();
+		L.og((int) autoStart);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -49,6 +51,12 @@ public class AutonomousSelector extends Command {
 					command = (new AutoDraftHopperShootBlue());
 				} else if(autoStart.equals(4) && alliance.equals(1)) {
 					command = (new AutoDraftHopperShootRed());
+				} else if(autoStart.equals(5)) {
+					command = (new HopperShoot());
+				} else if(autoStart.equals(6)) {
+					command = (new FrontGear());
+				} else if(autoStart.equals(7)) {
+					command = (new SideGearShoot());
 				}
 				
 				command.start();

@@ -3,41 +3,45 @@ package org.usfirst.frc.team3574.robot.util;
 import org.usfirst.frc.team3574.robot.Robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class RumbleAtThirty extends CommandGroup {
-	double matchTime = DriverStation.getInstance().getMatchTime();
+public class RumbleAtThirty extends Command {
+
     public RumbleAtThirty() {
-    	
-    	if(matchTime <= 30){
-//    		Robot.oi.startRumble();
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
+    }
+
+    // Called just before this Command runs the first time
+    protected void initialize() {
+    }
+
+    // Called repeatedly when this Command is scheduled to run
+    protected void execute() {
+    	double matchTime = DriverStation.getInstance().getMatchTime();
+    	if(matchTime <= 30 && matchTime >= 28) {
+    		Robot.oi.startRumble();
     		L.ogSD("Match Time", matchTime);
     	} else{
     		Robot.oi.stopRumble();
     		L.ogSD("Match Time", matchTime);
     	}
-    	
-    	
-    	
-    	
-        // Add Commands here:
-        // e.g. addSequential(new Command1());
-        //      addSequential(new Command2());
-        // these will run in order.
+    }
 
-        // To run multiple commands at the same time,
-        // use addParallel()
-        // e.g. addParallel(new Command1());
-        //      addSequential(new Command2());
-        // Command1 and Command2 will run in parallel.
+    // Make this return true when this Command no longer needs to run execute()
+    protected boolean isFinished() {
+        return false;
+    }
 
-        // A command group will require all of the subsystems that each member
-        // would require.
-        // e.g. if Command1 requires chassis, and Command2 requires arm,
-        // a CommandGroup containing them would require both the chassis and the
-        // arm.
+    // Called once after isFinished returns true
+    protected void end() {
+    }
+
+    // Called when another command which requires one or more of the same
+    // subsystems is scheduled to run
+    protected void interrupted() {
     }
 }

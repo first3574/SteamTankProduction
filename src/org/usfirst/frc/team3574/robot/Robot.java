@@ -21,6 +21,7 @@ import org.usfirst.frc.team3574.robot.commands.drivetrain.RotateToADegree;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.RotateToADegreeClockwiseOnly;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.RotateToADegreeCounterClockwiseOnly;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.ShiftLowGear;
+import org.usfirst.frc.team3574.robot.commands.hopper.NEWSpinHopperIndex5InchesBack;
 import org.usfirst.frc.team3574.robot.commands.shooter.LowerShooterSpeed;
 import org.usfirst.frc.team3574.robot.commands.shooter.RaiseShooterSpeed;
 import org.usfirst.frc.team3574.robot.commands.shooter.SpinFlys;
@@ -78,6 +79,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
+		
 		time.start();
 		oi = new OI();
 		chooser.addDefault("Do Nothing", 0);
@@ -85,7 +87,12 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("Cross Baseline get hopper blue", 2);
 		chooser.addObject("OLD cross baseline", 3);
 		chooser.addObject("Hopper and Shoot", 4);
-	
+		chooser.addObject("NewHopperShoot", 5);
+		chooser.addObject("NewFrontGear", 6);
+		chooser.addObject("NewSideGearShoot", 7);
+		
+		
+		
 		alliance.addObject("Blue", 0);
 		alliance.addObject("Red", 1);
 		
@@ -104,7 +111,6 @@ public class Robot extends IterativeRobot {
 		L.ogSD("Reset Yaw", new ResetYaw());
 		
 		L.ogSD("PULL THE LEVER!!", new StartRumble(Robot.oi.driverWoodpecker));
-		L.ogSD("PULL THE BIG LEVER!!", new RumbleAtThirty());
 		L.ogSD("UN-PULL THE LEVER!!", new StopRumble(Robot.oi.driverWoodpecker));
 		
 		L.ogSD("Rotate 90 left", new RotateToADegreeCounterClockwiseOnly(90, 0.6));
@@ -117,6 +123,7 @@ public class Robot extends IterativeRobot {
 		L.ogSD("Drive 10 feet 0.6speed", new DriveForDistanceManual(10.0, 0.60, 0));
 		L.ogSD("Drive 10 feet 1speed", new DriveForDistanceManual(10.0, 1.0, 0));
 		L.ogSD("Spin Flys Auto", new SpinFlys((3125)));
+		L.ogSD("Spin Hopper Index (5' back)", new NEWSpinHopperIndex5InchesBack());
 //		L.ogSD("Drive -.5", new DriveForDistanceManual(0.5, -.4, 0));
 		
 		L.ogSD("Auto Drive Hopper Shoot Red", new AutoDraftHopperShootRed());	 
@@ -193,6 +200,8 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
+		Command rumbleAtThirty = new RumbleAtThirty();
+		rumbleAtThirty.start();
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove

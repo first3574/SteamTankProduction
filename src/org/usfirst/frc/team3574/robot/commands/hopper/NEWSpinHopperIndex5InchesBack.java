@@ -17,6 +17,7 @@ public class NEWSpinHopperIndex5InchesBack extends Command {
     public NEWSpinHopperIndex5InchesBack() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	requires(Robot.Intake);
     	requires(Robot.HopperIndex);
     }
 
@@ -33,6 +34,7 @@ public class NEWSpinHopperIndex5InchesBack extends Command {
     double loopLength = 0.08;
 	double timeToRunLength = 0.05;
     
+    int timeOffset = 0;
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 //    	if (Robot.Shooter.acceptableShooterRange()) {
@@ -40,6 +42,15 @@ public class NEWSpinHopperIndex5InchesBack extends Command {
 //    	} else {
 //    		Robot.HopperIndex.indexerStop();
 //    	}
+    	
+    	if (timeSinceInitialized() < timeOffset){
+    		Robot.Intake.intakeRun(-1);
+    	} else {
+    		Robot.Intake.intakeRun(1);
+    		if(timeSinceInitialized() > timeOffset + 1) {
+    			timeOffset += 1;
+    		}
+    	}
     	
     	if (!slowedDown && timeSinceInitialized() > 0.2) {
         	Robot.Shooter.setSetpoint(3025);

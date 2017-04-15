@@ -7,6 +7,8 @@ import org.usfirst.frc.team3574.robot.commands.drivetrain.AlternateShifter;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveOtherWay;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.ShiftHighGear;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.ShiftLowGear;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.TurnQuickClockwise;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.TurnQuickCounterClockwise;
 import org.usfirst.frc.team3574.robot.commands.gearmanipulator.DropGearHooks;
 import org.usfirst.frc.team3574.robot.commands.gearmanipulator.DropGearHooksRunIntakes;
 import org.usfirst.frc.team3574.robot.commands.gearmanipulator.GearFlapOut;
@@ -169,6 +171,12 @@ public class OI {
 		Button lowShiftWithPOV = new POVButtonForBottom(driverWoodpecker, POV);
 		lowShiftWithPOV.whenPressed(new ShiftLowGear());
 
+		Button turnQuickClockwise = new JoystickButton(driverWoodpecker, RIGHT_BUMPER);
+		turnQuickClockwise.whenPressed(new TurnQuickClockwise());
+
+		Button turnQuickCounterClockwise = new JoystickButton(driverWoodpecker, LEFT_BUMPER);
+		turnQuickCounterClockwise.whenPressed(new TurnQuickCounterClockwise());
+		
 //		Inverts drive controls [BACK BUTTON]
 //		JoystickButton invertDrive = new JoystickButton(driverWoodpecker, BACK);
 //		invertDrive.whenPressed(new DriveOtherWay());
@@ -182,11 +190,11 @@ public class OI {
 //		spinShooterSystem.whenPressed(new SpinShooterSystem());
 		spinShooterSystem.whenPressed(new SpinFlys());
 		
-		TriggerButton launchFuel = new TriggerButton(driverWoodpecker, LEFT_TRIGGER);
+		TriggerButton launchFuel = new TriggerButton(driverWoodpecker, RIGHT_TRIGGER);
 		launchFuel.whileHeld(new shoot());
 //		launchFuel.whenPressed(new SpinHopperIndex());		
 		
-		TriggerButton shootOverride = new TriggerButton(driverWoodpecker, RIGHT_TRIGGER);
+		TriggerButton shootOverride = new TriggerButton(driverWoodpecker, LEFT_TRIGGER);
 		shootOverride.whileHeld(new SpinHopperIndex());
 		
 		JoystickButton raiseShot = new JoystickButton(gunner, BACK);
