@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team3574.robot.commands.auto.AutoDraftHopperShootBlue;
 import org.usfirst.frc.team3574.robot.commands.auto.AutoDraftHopperShootRed;
 import org.usfirst.frc.team3574.robot.commands.auto.AutonomousSelector;
-import org.usfirst.frc.team3574.robot.commands.auto.SideGearShoot;
+import org.usfirst.frc.team3574.robot.commands.auto.SideGearShootRed;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveForDistanceManual;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithJoyArcade;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.NoDrive;
@@ -20,6 +20,7 @@ import org.usfirst.frc.team3574.robot.commands.drivetrain.ResetYaw;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.RotateToADegree;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.RotateToADegreeClockwiseOnly;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.RotateToADegreeCounterClockwiseOnly;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.RotateToADegreeCounterClockwiseThrough180;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.ShiftLowGear;
 import org.usfirst.frc.team3574.robot.commands.hopper.NEWSpinHopperIndex5InchesBack;
 import org.usfirst.frc.team3574.robot.commands.shooter.LowerShooterSpeed;
@@ -59,7 +60,7 @@ public class Robot extends IterativeRobot {
 	public static final Shooter Shooter = new Shooter();
 	public static OI oi;
 	Timer time = new Timer();
-	Timer autoTimer = new Timer();
+	public Timer autoTimer = new Timer();
 	double lastTime = 0.0;
 	int autoIteration = 0;
 	
@@ -86,11 +87,10 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("Cross Baseline get Hopper Red", 1);
 		chooser.addObject("Cross Baseline get hopper blue", 2);
 		chooser.addObject("OLD cross baseline", 3);
-		chooser.addObject("Hopper and Shoot", 4);
-		chooser.addObject("NewHopperShoot", 5);
-		chooser.addObject("NewFrontGear", 6);
-		chooser.addObject("NewSideGearShoot", 7);
-		
+		chooser.addObject("Hopper and Shoot", 8);
+		chooser.addObject("New Hopper & Boiler Shoot", 5);
+		chooser.addObject("Front Gear", 6);
+		chooser.addObject("Boiler Side Gear Shoot", 7);
 		
 		
 		alliance.addObject("Blue", 0);
@@ -129,9 +129,12 @@ public class Robot extends IterativeRobot {
 		L.ogSD("Auto Drive Hopper Shoot Red", new AutoDraftHopperShootRed());	 
 		L.ogSD("Auto Drive Hopper Shoot Blue", new AutoDraftHopperShootBlue());
 		
-		L.ogSD("SideGearShoot THing", new SideGearShoot());
+		L.ogSD("SideGearShoot THing", new SideGearShootRed());
 		
 //		L.ogSD("low gear", new ShiftLowGear());
+	
+//		L.ogSD("", new RotateToADegreeCounterClockwiseThrough180(angle, speed));
+	
 	}
 
 	/**
@@ -200,8 +203,8 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
-		Command rumbleAtThirty = new RumbleAtThirty();
-		rumbleAtThirty.start();
+//		Command rumbleAtThirty = new RumbleAtThirty();
+//		rumbleAtThirty.start();
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
@@ -228,7 +231,7 @@ public class Robot extends IterativeRobot {
 		DriveTrain.log();
 		Climber.log();
 		HopperIndex.log();
-		Shooter.log();
+//		Shooter.log();
 		Intake.log();
 		HopperBelt.log();
 		double t = time.get();

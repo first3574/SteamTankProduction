@@ -65,7 +65,7 @@ public class DriveForDistanceManual extends Command {
 	protected boolean isFinished() {
 
 		if (leftDistanceTravelled() < 1.0 /*&& rightDistanceTravelled() < 1.0*/) {
-			Robot.DriveTrain.driveTekerz(0.0, (speed / Math.abs(speed) * -0.6));			
+			Robot.DriveTrain.driveTekerz(0.0, (speed / Math.abs(speed) * -0.45));			
 		}
 		
 		if(timeSinceInitialized() > .12 && (targetTicks - TICKS_PER_FOOT * this.slowDownValue < Math.abs(Robot.DriveTrain.getLeftEnc()) 
@@ -98,12 +98,14 @@ public class DriveForDistanceManual extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
-		L.og("drive for distance " + this.timeSinceInitialized());
+//		L.og("drive for distance " + Robot);
+		L.ogCmdEnd(this);
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
+		L.ogCmdInterrupted(this);
 	}
 
 	/**

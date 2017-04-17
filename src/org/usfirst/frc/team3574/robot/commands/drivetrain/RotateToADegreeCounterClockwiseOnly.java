@@ -69,11 +69,13 @@ boolean runOnece = false;
 
 	// Called once after isFinished returns true
 	protected void end() {
-		L.og("Rotate Counter Clockwise " + this.timeSinceInitialized());
+//		L.og("Rotate Counter Clockwise " + this.timeSinceInitialized());
+		L.ogCmdEnd(this);
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
+		L.ogCmdInterrupted(this);
 	}
 }

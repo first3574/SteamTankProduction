@@ -47,17 +47,23 @@ public class AutonomousSelector extends Command {
 					command = (new AutoCrossBaselinePrepHopperBlue());
 				} else if(autoStart.equals(3)) {
 					command = (new OLDCrossBaseline());
-				} else if(autoStart.equals(4) && alliance.equals(0)) {
+					
+				} else if(autoStart.equals(8) && alliance.equals(0)) {
 					command = (new AutoDraftHopperShootBlue());
-				} else if(autoStart.equals(4) && alliance.equals(1)) {
+				} else if(autoStart.equals(8) && alliance.equals(1)) {
 					command = (new AutoDraftHopperShootRed());
-				} else if(autoStart.equals(5)) {
-					command = (new HopperShoot());
+					
+				} else if(autoStart.equals(5) && alliance.equals(0)) {
+					command = (new HopperShootBlue());
+				} else if(autoStart.equals(5) && alliance.equals(1)) {
+					command = (new HopperShootRed());
 				} else if(autoStart.equals(6)) {
 					command = (new FrontGear());
-				} else if(autoStart.equals(7)) {
-					command = (new SideGearShoot());
-				}
+				} else if(autoStart.equals(7) && alliance.equals(0)) {
+					command = (new SideGearShootBlue());
+				} else if(autoStart.equals(7) && alliance.equals(1)) {
+					command = (new SideGearShootRed());
+				} 
 				
 				command.start();
 				step++;

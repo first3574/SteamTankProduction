@@ -14,11 +14,10 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class FrontGear extends CommandGroup {
 
     public FrontGear() {
-    	addSequential(new DriveForDistanceDOESNOTSTOP(3.0, 0.75, 0.0));
-    	addSequential(new DriveForDistanceDOESNOTSTOP(0.0, 0.0, 0.0));
+    	addSequential(new DriveForDistanceManual(6.0, 0.6, 0.0, 0.0));
     	addSequential(new DropGearHooksRunIntakes());
     	addSequential(new NoDrive(), .5);
-    	addSequential(new DriveForDistanceDOESNOTSTOP(2.0, -1.0, 0.0));
+    	addSequential(new DriveForDistanceManual(2.0, -0.9, 0.0));
     	
     	
     	

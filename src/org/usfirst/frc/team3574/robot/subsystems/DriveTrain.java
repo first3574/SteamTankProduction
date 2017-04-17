@@ -338,9 +338,13 @@ public class DriveTrain extends Subsystem {
 //		L.ogSD("Drive Right Enc", getRightEnc());
 		
 //		L.ogSD("AHRS rate", ahrs.getRate());
-//		L.ogSD("Robot Velocity X", ahrs.);
-//		L.ogSD("Robot Velocity Y", ahrs.getVelocityY());
-//		L.ogSD("Robot Velocity Z", ahrs.getVelocityZ());
+		L.ogSD("Robot Velocity X", ahrs.getVelocityX());
+		L.ogSD("Robot Velocity Y", ahrs.getVelocityY());
+		L.ogSD("Robot Velocity Z", ahrs.getVelocityZ());
+		L.ogSD("Robot Acceleration X", ahrs.getRawAccelX());
+		L.ogSD("Robot Acceleration Y", ahrs.getRawAccelY());
+		L.ogSD("Robot Acceleration Z", ahrs.getRawAccelZ());
+//		L.ogSD("", ahrs.);
 		
 		
 		L.ogSD("Yaw", this.getYaw());

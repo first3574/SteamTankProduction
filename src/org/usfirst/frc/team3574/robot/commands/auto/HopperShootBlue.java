@@ -2,7 +2,11 @@ package org.usfirst.frc.team3574.robot.commands.auto;
 
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveForDistanceDOESNOTSTOP;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveForDistanceManual;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.NoDrive;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.ResetYaw;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.RotateToADegreeClockwiseOnly;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.RotateToADegreeCounterClockwiseOnly;
+import org.usfirst.frc.team3574.robot.commands.hopper.NEWSpinHopperIndex5InchesBack;
 import org.usfirst.frc.team3574.robot.commands.hopper.SpinHopperIndex;
 import org.usfirst.frc.team3574.robot.commands.intake.RunIntakes;
 import org.usfirst.frc.team3574.robot.commands.shooter.SpinFlys;
@@ -13,15 +17,19 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class HopperShoot extends CommandGroup {
+public class HopperShootBlue extends CommandGroup {
 
-    public HopperShoot() {
-    	addSequential(new DriveForDistanceDOESNOTSTOP(6.15, -1.0, 0.0));
-    	addSequential(new RotateToADegreeCounterClockwiseOnly(-45, 0.75));
-    	addParallel(new SpinFlys());
+    public HopperShootBlue() {
+    	addSequential(new ResetYaw());
+    	addSequential(new RotateToADegreeCounterClockwiseOnly(-17, 1.0, 0.225));
+    	addSequential(new DriveForDistanceManual(6.7, -.8, 0.0));
+    	addSequential(new RotateToADegreeClockwiseOnly(5, 0.75, 0.4));
+    	addSequential(new NoDrive(), 1.5);
     	addParallel(new RunIntakes());
-    	addSequential(new DriveForDistanceDOESNOTSTOP(4.3, 1.0, 0.0));
-    	addSequential(new RotateToADegreeCounterClockwiseOnly(-30, 0.75));
+    	addSequential(new DriveForDistanceManual(4.3, 1.0, 0.0));
+    	addSequential(new RotateToADegreeClockwiseOnly(26, 1.0, 1.0));
+    	addParallel(new SpinFlys(3125));
+    	addSequential(new NoDrive(), 2.0);
     	addSequential(new SpinHopperIndex());
     	
     	

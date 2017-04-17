@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class RotateToADegreeClockwiseOnly extends Command {
+public class RotateToADegreeCounterClockwiseThrough180 extends Command {
 	double yaw;
 	int reverse;
 	int targetYaw;
@@ -17,28 +17,25 @@ public class RotateToADegreeClockwiseOnly extends Command {
 	/**
 	 * 
 	 * @param angle
-	 * please use a positive number : )
+	 * please use a negative number : )
 	 * @param speed
 	 */
-	public RotateToADegreeClockwiseOnly(int angle, double speed) {
+	public RotateToADegreeCounterClockwiseThrough180(int angle, double speed) {
 		requires(Robot.DriveTrain);
 		this.targetYaw = angle;
 		this.speed = speed;
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 	}
-	public RotateToADegreeClockwiseOnly(int angle, double speed, double slowSpeed) {
+	public RotateToADegreeCounterClockwiseThrough180(int angle, double speed, double slowSpeed) {
 		this(angle, speed);
 		this.slowedSpeed = slowSpeed;
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		reverse = -1;
-	
-//		if(targetYaw < 0) {
-//			reverse *= -1;
-//		}
+		reverse = 1;
+		
 		Robot.DriveTrain.driveTekerz(speed * reverse, 0.0);
     	L.ogCmdInit(this);
 	}
@@ -49,20 +46,21 @@ public class RotateToADegreeClockwiseOnly extends Command {
 //		System.out.println(targetYaw);
 //		System.out.println(yaw);
 	}
-
-	boolean runOnce = false;
+boolean runOnece = false;
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-//		L.ogSD("Target Yaw", targetYaw);
-		if(yaw >= targetYaw - 22) {
-			if(!runOnce) {
-				L.og("Rotating Slowed " + this.timeSinceInitialized());
-				runOnce = true;
-			}
-			Robot.DriveTrain.driveTekerz(slowedSpeed * reverse, 0.0);
-		}
+//		L.ogSD("Yaw ",yaw);
+//		L.ogSD("Yaw Target", targetYaw);
+
+//		if(yaw <= targetYaw + 22) {
+//			if(!runOnece) {
+//				L.og("turning slowed down " + this.timeSinceInitialized());
+//				runOnece = true;
+//			}
+//			Robot.DriveTrain.driveTekerz(slowedSpeed * reverse, 0.0);
+//		}
 		
-		if(yaw > targetYaw) {
+		if(yaw < targetYaw + 20 && yaw > targetYaw - 20) {
 			Robot.DriveTrain.driveTekerz(0.0, 0.0);
 			return true;
 		} else {
@@ -72,7 +70,7 @@ public class RotateToADegreeClockwiseOnly extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
-//		L.og("Rotate Clockwise " + this.timeSinceInitialized());
+//		L.og("Rotate Counter Clockwise " + this.timeSinceInitialized());
 		L.ogCmdEnd(this);
 	}
 

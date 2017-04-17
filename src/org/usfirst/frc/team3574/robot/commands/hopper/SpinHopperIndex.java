@@ -52,12 +52,14 @@ public class SpinHopperIndex extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	L.ogCmdEnd(this);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
     	Robot.HopperIndex.indexerStop();
-    	L.og("Shoot Ended " + timeSinceInitialized());
+//    	L.og("Shoot Ended " + timeSinceInitialized());
+    	L.ogCmdInterrupted(this);
     }
 }

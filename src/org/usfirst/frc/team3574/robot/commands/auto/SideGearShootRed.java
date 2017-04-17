@@ -2,6 +2,7 @@ package org.usfirst.frc.team3574.robot.commands.auto;
 
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveForDistanceDOESNOTSTOP;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveForDistanceManual;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.NoDrive;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.RotateToADegreeClockwiseOnly;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.RotateToADegreeCounterClockwiseOnly;
 import org.usfirst.frc.team3574.robot.commands.gearmanipulator.DropGearHooks;
@@ -9,29 +10,40 @@ import org.usfirst.frc.team3574.robot.commands.gearmanipulator.DropGearHooksRunI
 import org.usfirst.frc.team3574.robot.commands.hopper.NEWSpinHopperIndex5InchesBack;
 import org.usfirst.frc.team3574.robot.commands.hopper.NEWSpinHopperIndexAgainstWall;
 import org.usfirst.frc.team3574.robot.commands.hopper.SpinHopperIndex;
+import org.usfirst.frc.team3574.robot.commands.shooter.AutoShoot;
 import org.usfirst.frc.team3574.robot.commands.shooter.SpinFlys;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.ResetYaw;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class SideGearShoot extends CommandGroup {
-
-    public SideGearShoot() {
-
-    	addSequential(new DriveForDistanceDOESNOTSTOP(1.0, 0.75, 0.0));
-    	addSequential(new DriveForDistanceDOESNOTSTOP(2.0, 0.75, -0.5));
-    	addSequential(new DriveForDistanceDOESNOTSTOP(1.0, 0.75, 0.5));
-    	addSequential(new DriveForDistanceDOESNOTSTOP(2.0, 1.0, 0.0));
-    	addSequential(new DriveForDistanceDOESNOTSTOP(0.0, 0.0, 0.0));
+public class SideGearShootRed extends CommandGroup {
+	static final int ROTATE_TOWARDS_AIRSHIP = -60;
+	static final int ROTATE_TOWARDS_BOILER = 139;
+	
+	
+    public SideGearShootRed() {
+    	addSequential(new ResetYaw());
+    	
+    	addSequential(new DriveForDistanceManual(7.5766, 0.6, 0.0, 1.5));
+    	addSequential(new RotateToADegreeCounterClockwiseOnly(ROTATE_TOWARDS_AIRSHIP, 0.6));
+    	addSequential(new DriveForDistanceManual(1.48, 0.2, 0.0));
     	addSequential(new DropGearHooksRunIntakes());
-    	addSequential(new SpinFlys());
-    	addSequential(new DriveForDistanceDOESNOTSTOP(5.0, -1.0, 0.0));
-    	addSequential(new RotateToADegreeClockwiseOnly(167, 0.75));
-    	addSequential(new DriveForDistanceDOESNOTSTOP(1.3, 1.0, 0.0));
+    	addSequential(new NoDrive(), 0.5);
+    	addSequential(new DriveForDistanceManual(2.0, -0.2, 0.0));
+    	
+    	/*
+    	 * Place for gear hopper shoot breakoff
+    	 */
+    	
+    	
+    	addSequential(new RotateToADegreeClockwiseOnly(ROTATE_TOWARDS_BOILER, 0.8));
+    	addParallel(new SpinFlys(3137));
+    	addSequential(new NoDrive(), 0.5);
+    	addSequential(new DriveForDistanceManual(8.0, 1.0, 0.0, 2.0), 3);
     	addSequential(new SpinHopperIndex());
-    	addSequential(new DriveForDistanceDOESNOTSTOP(0.0, 0.0, 0.0));
     	
     	
     	// Add Commands here:

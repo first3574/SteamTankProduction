@@ -71,7 +71,7 @@ public class NEWSpinHopperIndexAgainstWall extends Command {
     			Robot.HopperIndex.indexerStop();
     			isIndexing = false;
     		} else {
-    	    	L.og(time.get());
+//    	    	L.og(time.get());
     			Robot.HopperIndex.indexerRun();
     		}    			
     	}
@@ -84,12 +84,13 @@ public class NEWSpinHopperIndexAgainstWall extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	L.ogCmdEnd(this);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
     	Robot.HopperIndex.indexerStop();
-    	L.og("Shoot Ended " + timeSinceInitialized());
+    	L.ogCmdInterrupted(this);
     }
 }
