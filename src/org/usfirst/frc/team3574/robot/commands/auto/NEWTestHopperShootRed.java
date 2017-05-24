@@ -6,6 +6,7 @@ import org.usfirst.frc.team3574.robot.commands.drivetrain.NoDrive;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.ResetYaw;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.RotateToADegreeClockwiseOnly;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.RotateToADegreeCounterClockwiseOnly;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.ShiftLowGear;
 import org.usfirst.frc.team3574.robot.commands.hopper.NEWSpinHopperIndex5InchesBack;
 import org.usfirst.frc.team3574.robot.commands.hopper.SpinHopperIndex;
 import org.usfirst.frc.team3574.robot.commands.intake.RunIntakes;
@@ -17,16 +18,40 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class HopperShootRed extends CommandGroup {
+public class NEWTestHopperShootRed extends CommandGroup {
 
-    public HopperShootRed() {
+    public NEWTestHopperShootRed() {
     	addSequential(new ResetYaw());
-    	addSequential(new RotateToADegreeClockwiseOnly(17, 1.0, 0.225));
-    	addSequential(new DriveForDistanceManual(6.7, -.8, 0.0));
-    	addSequential(new RotateToADegreeCounterClockwiseOnly(-5, 0.75, 0.4));
+    	addSequential(new ShiftLowGear());
+    	//Angle towards wall
+    	addSequential(new RotateToADegreeClockwiseOnly(20, 0.8, 0.225));
+    	//drive into wall
+    	addSequential(new DriveForDistanceManual(5.5, -0.8, 0.0));
+    	
+    	/**
+    	 * Start of hit hopper
+    	 */
+    	addSequential(new RotateToADegreeCounterClockwiseOnly(15, 0.6, 0.4));
+    	addSequential(new DriveForDistanceManual(0.2, -0.6, 0.0), 1);
+    	addSequential(new RotateToADegreeCounterClockwiseOnly(10, 0.6, 0.4));
+    	addSequential(new DriveForDistanceManual(0.2, -0.6, 0.0), 1);
+    	addSequential(new RotateToADegreeCounterClockwiseOnly(6, 0.6, 0.4));
+    	addSequential(new DriveForDistanceManual(0.2, -0.6, 0.0), 1);
+    	addSequential(new RotateToADegreeCounterClockwiseOnly(4, 0.6, 0.4));
+    	addSequential(new DriveForDistanceManual(0.2, -0.6, 0.0), 1);
+    	addSequential(new RotateToADegreeCounterClockwiseOnly(2, 0.6, 0.4));
+    	addSequential(new DriveForDistanceManual(0.2, -0.6, 0.0), 1);
+
+    	addSequential(new RotateToADegreeClockwiseOnly(7, 1.0));
+    	addSequential(new RotateToADegreeCounterClockwiseOnly(2, 0.6));
+    	
+    	/**
+    	 * End of hit hopper
+    	 */
+    	
     	addSequential(new NoDrive(), 1.5);
     	addParallel(new RunIntakes());
-    	addSequential(new DriveForDistanceManual(4.3, 1.0, 0.0));
+    	addSequential(new DriveForDistanceManual(7.0, 1.0, 0.0));
     	addSequential(new RotateToADegreeCounterClockwiseOnly(-26, 1.0, 1.0));
     	addParallel(new SpinFlys(3125));
     	addSequential(new NoDrive(), 2.0);

@@ -31,8 +31,8 @@ public class Shooter extends Subsystem {
 	static final double INTEGRAL_GAIN = 0.01; //.0075
 	static final double D = 0.0;
 	
-	public static final double START_SPEED_AGAINST_WALL = 3012.0;
-	public static final double DROPPED_SPEED_AGAINST_WALL = 2837.0;
+	public static final double START_SPEED_AGAINST_WALL = 2988.0;
+	public static final double DROPPED_SPEED_AGAINST_WALL = 2813.0; //3025
 	public double shooterSpeed = 0.0; //RPM
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.

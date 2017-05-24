@@ -9,9 +9,13 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team3574.robot.commands.auto.AutoDraftHopperShootBlue;
-import org.usfirst.frc.team3574.robot.commands.auto.AutoDraftHopperShootRed;
 import org.usfirst.frc.team3574.robot.commands.auto.AutonomousSelector;
+import org.usfirst.frc.team3574.robot.commands.auto.AutoFrontGear;
+import org.usfirst.frc.team3574.robot.commands.auto.AutoHopperShootBlue;
+import org.usfirst.frc.team3574.robot.commands.auto.AutoHopperShootRed;
+import org.usfirst.frc.team3574.robot.commands.auto.NEWTestHopperShootBlue;
+import org.usfirst.frc.team3574.robot.commands.auto.NEWTestHopperShootRed;
+import org.usfirst.frc.team3574.robot.commands.auto.SideGearShootBlue;
 import org.usfirst.frc.team3574.robot.commands.auto.SideGearShootRed;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveForDistanceManual;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithJoyArcade;
@@ -84,10 +88,10 @@ public class Robot extends IterativeRobot {
 		time.start();
 		oi = new OI();
 		chooser.addDefault("Do Nothing", 0);
-		chooser.addObject("Cross Baseline get Hopper Red", 1);
-		chooser.addObject("Cross Baseline get hopper blue", 2);
+//		chooser.addObject("Cross Baseline get Hopper Red", 1);
+//		chooser.addObject("Cross Baseline get hopper blue", 2);
 		chooser.addObject("OLD cross baseline", 3);
-		chooser.addObject("Hopper and Shoot", 8);
+//		chooser.addObject("Hopper and Shoot", 8);
 		chooser.addObject("New Hopper & Boiler Shoot", 5);
 		chooser.addObject("Front Gear", 6);
 		chooser.addObject("Boiler Side Gear Shoot", 7);
@@ -104,37 +108,44 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData("Auto mode", chooser);
 		SmartDashboard.putData("Alliance", alliance);
 		SmartDashboard.putData("Scheduler (named = Bob)", Scheduler.getInstance());
-		SmartDashboard.putData("Auto Hopper-Shoot", new AutoDraftHopperShootRed());
-		L.ogSD("Shoot Lower", new LowerShooterSpeed());
-		L.ogSD("Shoot Higher", new RaiseShooterSpeed());
+//		L.ogSD("Shoot Lower", new LowerShooterSpeed());
+//		L.ogSD("Shoot Higher", new RaiseShooterSpeed());
 		
 		L.ogSD("Reset Yaw", new ResetYaw());
 		
-		L.ogSD("PULL THE LEVER!!", new StartRumble(Robot.oi.driverWoodpecker));
-		L.ogSD("UN-PULL THE LEVER!!", new StopRumble(Robot.oi.driverWoodpecker));
+//		L.ogSD("PULL THE LEVER!!", new StartRumble(Robot.oi.driverWoodpecker));
+//		L.ogSD("UN-PULL THE LEVER!!", new StopRumble(Robot.oi.driverWoodpecker));
 		
-		L.ogSD("Rotate 90 left", new RotateToADegreeCounterClockwiseOnly(90, 0.6));
+//		L.ogSD("Rotate 90 left", new RotateToADegreeCounterClockwiseOnly(90, 0.6));
 //		L.ogSD("Rotate 180 left", new RotateToADegree(180, 0.4));
 //		L.ogSD("Rotate 90 right", new RotateToADegree(-90, 0.4));
 //		L.ogSD("Rotate 180 right", new RotateToADegree(-180, 0.4));
 
 //		L.ogSD("hopper shoot first step", new DriveForDistanceManual(10.167, 1.0, 0.0));
 //		L.ogSD("Drive .5", new DriveForDistanceManual(0.5, .4, 0));
-		L.ogSD("Drive 10 feet 0.6speed", new DriveForDistanceManual(10.0, 0.60, 0));
-		L.ogSD("Drive 10 feet 1speed", new DriveForDistanceManual(10.0, 1.0, 0));
-		L.ogSD("Spin Flys Auto", new SpinFlys((3125)));
-		L.ogSD("Spin Hopper Index (5' back)", new NEWSpinHopperIndex5InchesBack());
+//		L.ogSD("Drive 10 feet 0.6speed", new DriveForDistanceManual(10.0, 0.60, 0));
+//		L.ogSD("Drive 10 feet 1speed", new DriveForDistanceManual(10.0, 1.0, 0));
+//		L.ogSD("Spin Flys Auto", new SpinFlys((3125)));
+//		L.ogSD("Spin Hopper Index (5' back)", new NEWSpinHopperIndex5InchesBack());
 //		L.ogSD("Drive -.5", new DriveForDistanceManual(0.5, -.4, 0));
-		
-		L.ogSD("Auto Drive Hopper Shoot Red", new AutoDraftHopperShootRed());	 
-		L.ogSD("Auto Drive Hopper Shoot Blue", new AutoDraftHopperShootBlue());
-		
-		L.ogSD("SideGearShoot THing", new SideGearShootRed());
-		
+				
 //		L.ogSD("low gear", new ShiftLowGear());
 	
 //		L.ogSD("", new RotateToADegreeCounterClockwiseThrough180(angle, speed));
 	
+		
+		
+		/***
+		 * AUTONOMOUSES
+		 */
+		L.ogSD("AUTO RED: Side Gear Shoot", new SideGearShootRed());
+		L.ogSD("AUTO BLUE: Side Gear Shoot", new SideGearShootBlue());
+		L.ogSD("AUTO RED: Hopper Shoot", new AutoHopperShootRed());
+		L.ogSD("AUTO BLUE: Hopper Shoot", new AutoHopperShootBlue());
+
+		L.ogSD("AUTO BLUE: NEW Hopper Shoot", new NEWTestHopperShootBlue());
+		L.ogSD("AUTO RED: NEW Hopper Shoot", new NEWTestHopperShootRed());
+		L.ogSD("AUTO: Front gear", new AutoFrontGear());
 	}
 
 	/**

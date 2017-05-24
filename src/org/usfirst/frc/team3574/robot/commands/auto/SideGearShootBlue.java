@@ -5,6 +5,7 @@ import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveForDistanceManual
 import org.usfirst.frc.team3574.robot.commands.drivetrain.NoDrive;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.RotateToADegreeClockwiseOnly;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.RotateToADegreeCounterClockwiseOnly;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.ShiftLowGear;
 import org.usfirst.frc.team3574.robot.commands.gearmanipulator.DropGearHooks;
 import org.usfirst.frc.team3574.robot.commands.gearmanipulator.DropGearHooksRunIntakes;
 import org.usfirst.frc.team3574.robot.commands.hopper.NEWSpinHopperIndex5InchesBack;
@@ -26,6 +27,7 @@ public class SideGearShootBlue extends CommandGroup {
 	
     public SideGearShootBlue() {
     	addSequential(new ResetYaw());
+    	addSequential(new ShiftLowGear());
     	
     	addSequential(new DriveForDistanceManual(7.5766, 0.6, 0.0, 1.5));
     	addSequential(new RotateToADegreeClockwiseOnly(ROTATE_TOWARDS_AIRSHIP, 0.6));

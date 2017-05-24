@@ -3,6 +3,7 @@ package org.usfirst.frc.team3574.robot.commands.auto;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveForDistanceDOESNOTSTOP;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveForDistanceManual;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.NoDrive;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.ShiftLowGear;
 import org.usfirst.frc.team3574.robot.commands.gearmanipulator.DropGearHooksRunIntakes;
 import org.usfirst.frc.team3574.robot.commands.intake.RunIntakes;
 
@@ -11,9 +12,10 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class FrontGear extends CommandGroup {
+public class AutoFrontGear extends CommandGroup {
 
-    public FrontGear() {
+    public AutoFrontGear() {
+    	addSequential(new ShiftLowGear());
     	addSequential(new DriveForDistanceManual(6.0, 0.6, 0.0, 0.0));
     	addSequential(new DropGearHooksRunIntakes());
     	addSequential(new NoDrive(), .5);
